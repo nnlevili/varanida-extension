@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
 
-    "name": "uBlock Origin",
-    "version": "1.15.5.0",
+    "name": "Varanida",
+    "version": "1.16",
 
     "commands": {
         "launch-element-zapper": {
@@ -27,11 +27,11 @@
             "19": "img/browsericons/icon19.png",
             "38": "img/browsericons/icon38.png"
         },
-        "default_title": "uBlock Origin",
+        "default_title": "Varanida",
         "default_popup": "popup.html"
     },
 
-    "author": "All uBlock Origin contributors",
+    "author": "silto & All uBlock Origin contributors",
     "background": {
         "page": "background.html"
     },
@@ -67,7 +67,7 @@
         "webRequestBlocking",
         "<all_urls>"
     ],
-    "short_name": "uBlock₀",
+    "short_name": "Varanida",
     "storage": {
         "managed_schema": "managed_storage.json"
     }
