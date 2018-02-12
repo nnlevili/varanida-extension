@@ -1,0 +1,37 @@
+{
+  "name": "varanida-extension-ublock",
+  "version": "1.16.0",
+  "engines": {
+    "npm": "3.6.x",
+    "node": ">=0.8.0"
+  },
+  "private": true,
+  "description": "Varanida ad blocker",
+  "author": "Silto",
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "presets": [
+            "es2015",
+            "stage-0"
+          ]
+        }
+      ],
+      "envify",
+      "brfs"
+    ]
+  },
+  "dependencies": {
+    "eth-keyring-controller": "^2.1.4",
+    "ethereumjs-util": "^5.1.2"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babelify": "^8.0.0",
+    "brfs": "^1.4.3",
+    "envify": "^4.0.0"
+  }
+}
