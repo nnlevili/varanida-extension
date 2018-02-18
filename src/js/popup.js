@@ -63,7 +63,7 @@ if (
 // - Its horizontal position depends on whether there is a vertical scrollbar.
 document.getElementById('rulesetTools').style.setProperty(
     'top',
-    (document.getElementById('appinfo').getBoundingClientRect().bottom + 3) + 'px'
+    (document.getElementById('firewallContainer').getBoundingClientRect().bottom + 3) + 'px'
 );
 
 var positionRulesetTools = function() {
@@ -443,14 +443,14 @@ var renderPopup = function() {
     // https://github.com/gorhill/uBlock/issues/507
     // Convenience: open the logger with current tab automatically selected
     if ( popupData.tabId ) {
-        uDom.nodeFromSelector('#basicTools > a[href^="logger-ui.html"]').setAttribute(
+        uDom.nodeFromSelector('#basicTools a[href^="logger-ui.html"]').setAttribute(
             'href',
             'logger-ui.html#tab_' + popupData.tabId
         );
     }
 
     // This will collate all domains, touched or not
-    renderPrivacyExposure();
+    // renderPrivacyExposure();
 
     // Extra tools
     uDom.nodeFromId('no-popups').classList.toggle('on', popupData.noPopups === true);
@@ -578,9 +578,9 @@ var renderOnce = function() {
             vAPI.localStorage.removeItem('popupFontSize');
         }
     }
-
-    uDom.nodeFromId('appname').textContent = popupData.appName;
-    uDom.nodeFromId('version').textContent = popupData.appVersion;
+    //
+    // uDom.nodeFromId('appname').textContent = popupData.appName;
+    // uDom.nodeFromId('version').textContent = popupData.appVersion;
 
     // For large displays: we do not want the left pane -- optional and
     // hidden by defaut -- to dictate the height of the popup. The right pane
@@ -594,7 +594,7 @@ var renderOnce = function() {
 
     var fillViewport = function() {
         var newHeight = Math.max(
-            window.innerHeight - uDom.nodeFromSelector('#appinfo').offsetHeight,
+            window.innerHeight,
             rpane.offsetHeight
         );
         if ( newHeight !== lpane.offsetHeight ) {

@@ -7,6 +7,7 @@ body {
     overflow: hidden;
     padding: 0;
     white-space: nowrap;
+    font-family: 'Avenir';
     }
 body.fullsize {
     overflow: auto;
@@ -23,14 +24,17 @@ body.portrait {
     }
 
 h2 {
-    background-color: #eee;
+    background: #EDEDF0;
+    background-image: linear-gradient(to top, #EDEDF0 0%, #FAFAFB 100%);
+    box-shadow: 0 1px 0px #d4d7d7;
     border: 0;
-    color: #666;
+    color: #6d6f74;
     cursor: pointer;
     font-size: 100%;
     font-weight: normal;
     padding: 0.2em;
     text-align: center;
+    margin-top: 1px;
     }
 a {
     color: inherit;
@@ -64,7 +68,67 @@ body[dir="rtl"] #panes {
 body, #panes {
     text-align: right; /* this helps the popup render better at "intermediate" widths */
     }
-
+.cornerContainer {
+  display: block;
+  position: absolute;
+  width: 40px;
+  height: 90px;
+  background-color: #444550;
+  border: 1px solid #2C2C2C;
+}
+.leftCornerContainer {
+  left: 0;
+  top: 0;
+  border-left-width: 0;
+  border-top-width: 0;
+  border-radius: 3px 5px 5px 0;
+}
+.logoContainer {
+  display: block;
+  height: 75px;
+  padding-top: 15px;
+  width: 100%;
+  background: #EDEDF0;
+  background-image: linear-gradient(to top, #EDEDF0 0%, #FAFAFB 100%);
+  box-shadow: 0 1px 0px #d4d7d7;
+}
+.rightCornerContainer {
+  right: 0;
+  top: 0;
+  border-right-width: 0;
+  border-top-width: 0;
+  border-radius: 5px 3px 0 5px;
+}
+i.varanida-logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 60px;
+    width: 60px;
+    background: url(/img/icon_128.png) no-repeat;
+    background-size: 60px;
+    }
+.cornerbutton {
+    width: 40px;
+    height: 34px;
+    padding-top: 11px;
+    color: #d1d1d4;
+}
+.cornerbutton.switchbutton {
+  padding-top: 8px;
+  padding-bottom: 6px;
+  height: 36px;
+}
+.cornerbutton.underswitch {
+  padding-top: 5px;
+  height: 35px;
+}
+.cornerbutton:hover {
+  background-image: linear-gradient(to top, rgba(67, 67, 67, 0.1), rgba(205, 205, 205, 0.2));
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+}
 #panes > div {
     display: inline-block;
     position: relative;
@@ -119,40 +183,43 @@ p {
     font-size: 120%;
     }
 #switch {
-    margin: 8px 0;
-    }
-#switch .fa {
-    color: #0046ff;
-    cursor: pointer;
-    font-size: 700%;
     margin: 0;
     }
-#switch .fa:hover {
-    opacity: 0.9;
+#switch .fa {
+    cursor: pointer;
+    font-size: 36px;
+    margin: 0;
     }
-body.off #switch .fa {
-    color: #ccc;
+body:not(.off) #switch .fa {
+    color: #19cc58;
     }
-#basicTools {
+body:not(.off) #switch .fa:hover {
+    color: #0bef5a;
+    }
+/* body.off #switch .fa {
+    color: #d1d1d4;
+    }
+body.off #switch .fa:hover {
+    color: #d1d1d4;
+    } */
+/* #basicTools {
     margin: 0.8em 0 0.4em 0;
-    }
+    } */
 .tool:first-child {
     margin-left: 0;
     }
 .tool {
-    color: #aaa;
+    font-size: 26px;
     cursor: pointer;
     visibility: hidden;
     margin-left: 0.4em;
     min-width: 1em;
-    padding: 0 0.2em;
     unicode-bidi: embed;
+    text-align: center;
+    width: inherit;
     }
 .tool.enabled {
     visibility: visible;
-    }
-.tool.enabled:hover {
-    color: #444;
     }
 #page-blocked {
     font-size: 1.25em;
@@ -168,12 +235,15 @@ body.off #switch .fa {
     text-align: center;
     }
 #extraTools {
-    background-color: #eee;
     border: 0;
-    color: #aaa;
     margin: 0.8em 0 0 0;
     padding: 4px 0;
     text-align: center;
+    background: #EDEDF0;
+    background-image: linear-gradient(to top, #EDEDF0 0%, #FAFAFB 100%);
+    box-shadow: 0 1px 0px #d4d7d7;
+    border-top: 1px solid #d4d7d7;
+    color: #6d6f74;
     }
 #extraTools > span {
     cursor: pointer;
@@ -236,15 +306,15 @@ body.dirty #refresh:hover {
     }
 
 #tooltip {
-    background-color: #ffffee;
-    border: 1px solid gray;
+    background-color: #ecfff3;
+    border: 1px solid #2C2C2C;
     border-radius: 3px;
     box-shadow: 1px 1px 3px gray;
     box-sizing: border-box;
-    color: black;
+    color: #3B3D40;
     cursor: pointer;
     direction: ltr;
-    font: 12px sans-serif;
+    font: 12px 'Avenir';
     left: 5%;
     line-height: 130%;
     margin: 0.5em 0;
