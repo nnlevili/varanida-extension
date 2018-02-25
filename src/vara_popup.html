@@ -15,20 +15,20 @@
 <div id="panes">
     <div class="tooltipContainer">
         <div class="cornerContainer leftCornerContainer">
-          <div class="cornerbutton switchbutton">
-            <p id="switch" role="button" aria-label data-tip-position="under" tabindex="0"><span class="fa">&#xf011;</span></p>
-          </div><div class="cornerbutton underswitch">
-            <span id="gotoPick" class="fa tool" data-i18n-tip="popupTipPicker" data-tip-position="under">&#xf1fb;</span>
+          <div id="switch" role="button" aria-label data-tip-position="under" tabindex="0" class="cornerbutton switchbutton enabled">
+            <p id="switchIcon"><span class="fa">&#xf011;</span></p>
+          </div><div id="gotoPick" class="cornerbutton underswitch" data-i18n-tip="popupTipPicker" data-tip-position="under">
+            <span id="gotoPickIcon" class="fa tool">&#xf1fb;</span>
           </div>
         </div>
         <div id="varanida-logo-container" class="logoContainer">
           <a id="varanida-main-logo" class="varanida-logo"></a>
         </div>
         <div id="basicTools" class="cornerContainer rightCornerContainer">
-          <div class="cornerbutton">
-            <a href="logger-ui.html" class="fa tool enabled" aria-label="data-tip" data-i18n-tip="popupTipLog" data-tip-position="under" target="uBOLogger" tabindex="0">&#xf022;</a>
-          </div><div class="cornerbutton">
-            <a href="dashboard.html" class="fa tool enabled" aria-label="data-tip" data-i18n-tip="popupTipDashboard" data-tip-position="under" target="uBODashboard" tabindex="0">&#xf1de;</a>
+          <div href="logger-ui.html" target="uBOLogger" class="cornerbutton enabled" aria-label="data-tip" data-i18n-tip="popupTipLog" data-tip-position="under">
+            <a class="fa tool enabled">&#xf022;</a>
+          </div><div href="dashboard.html" target="uBODashboard" class="cornerbutton enabled" aria-label="data-tip" data-i18n-tip="popupTipDashboard" data-tip-position="under">
+            <a class="fa tool enabled">&#xf1de;</a>
           </div>
         </div>
         <div id="infoGroup">
@@ -56,7 +56,7 @@
             </div>
             <div id="abscentWallet">
               <p><button class="action-button valid-button add" id="create-wallet-button" data-i18n="popupCreateWalletButton">&nbsp;</button></p>
-              <p><button class="action-button neutral-button import" id="create-wallet-button" data-i18n="popupImportWalletButton">&nbsp;</button></p>
+              <p><button class="action-button neutral-button import" id="import-wallet-button" data-i18n="popupImportWalletButton">&nbsp;</button></p>
             </div>
           </div>
         </div>

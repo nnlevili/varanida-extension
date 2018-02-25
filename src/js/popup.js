@@ -418,6 +418,7 @@ var renderPopup = function() {
 
     // If you think the `=== true` is pointless, you are mistaken
     uDom.nodeFromId('gotoPick').classList.toggle('enabled', popupData.canElementPicker === true);
+    uDom.nodeFromId('gotoPickIcon').classList.toggle('enabled', popupData.canElementPicker === true);
     uDom.nodeFromId('gotoZap').classList.toggle('enabled', popupData.canElementPicker === true);
 
     var blocked = popupData.pageBlockedRequestCount,
@@ -443,7 +444,7 @@ var renderPopup = function() {
     // https://github.com/gorhill/uBlock/issues/507
     // Convenience: open the logger with current tab automatically selected
     if ( popupData.tabId ) {
-        uDom.nodeFromSelector('#basicTools a[href^="logger-ui.html"]').setAttribute(
+        uDom.nodeFromSelector('#basicTools div[href^="logger-ui.html"]').setAttribute(
             'href',
             'logger-ui.html#tab_' + popupData.tabId
         );
@@ -1118,6 +1119,8 @@ var onHideTooltip = function() {
                 .on('mouseleave', '[data-tip]', onHideTooltip);
 
     uDom('a[href]').on('click', gotoURL);
+    uDom('.cornerbutton[href]').on('click', gotoURL);
+
 
 })();
 

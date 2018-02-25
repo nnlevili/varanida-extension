@@ -125,11 +125,15 @@ body, #panes {
   padding-top: 5px;
   height: 35px;
 }
-.cornerbutton:hover {
+.cornerbutton.enabled:hover {
   background-image: linear-gradient(to top, rgba(67, 67, 67, 0.1), rgba(205, 205, 205, 0.2));
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   color: #fff;
   cursor: pointer;
+}
+.cornerbutton.enabled:active {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.1) 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 0 2px 1px rgba(0, 0, 0, 0.1);
 }
 .infoColumn {
   display: inline-block;
@@ -148,7 +152,7 @@ body, #panes {
 } */
 .action-button {
   display: inline-block;
-  margin: 0 5px 0 5px;
+  margin: 5px 5px 0 5px;
   padding: 0 10px 0 14px;
   background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 100%);
   border: none;
@@ -251,29 +255,20 @@ p {
 .fa {
     font-size: 120%;
     }
-#switch {
+#switchIcon {
     margin: 0;
     }
-#switch .fa {
+#switchIcon .fa {
     cursor: pointer;
     font-size: 36px;
     margin: 0;
     }
-body:not(.off) #switch .fa {
+body:not(.off) #switchIcon .fa {
     color: #19cc58;
     }
-body:not(.off) #switch .fa:hover {
+body:not(.off) #switchIcon .fa:hover {
     color: #0bef5a;
     }
-/* body.off #switch .fa {
-    color: #d1d1d4;
-    }
-body.off #switch .fa:hover {
-    color: #d1d1d4;
-    } */
-/* #basicTools {
-    margin: 0.8em 0 0.4em 0;
-    } */
 .tool:first-child {
     margin-left: 0;
     }
