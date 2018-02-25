@@ -496,6 +496,11 @@ var renderPopup = function() {
     if ( dfPaneVisible ) {
         buildAllFirewallRows();
     }
+    //add varanida website linking
+    var varanidaMainLogo = uDom("#varanida-main-logo");
+    varanidaMainLogo.attr("href", µConfig.urls.front);
+    varanidaMainLogo.on("click", gotoURL);
+
 
     renderTooltips();
 };
@@ -665,6 +670,28 @@ var toggleNetFilteringSwitch = function(ev) {
     renderTooltips('#switch');
     hashFromPopupData();
 };
+/******************************************************************************/
+
+var copyAdressToClipboard = function() {
+  var addressInput = uDom.nodeFromId("addess-field");
+  var button = uDom.nodeFromId("address-clipboard-button");
+  var resetButton = function() {
+    if (button && button.innerHTML) {
+      button.innerHTML = "&#xf0c5;"
+      button.style.setProperty("color", "#71727B");
+    }
+  }
+  if (addressInput && addressInput.select){
+    addressInput.focus();
+    addressInput.select();
+    document.execCommand("copy");
+    addressInput.blur();
+    button.innerHTML = "&#xf00c;"
+    button.style.setProperty("color", "#19cc58");
+    vAPI.setTimeout(resetButton, 2000);
+  }
+
+}
 
 /******************************************************************************/
 
@@ -1084,12 +1111,14 @@ var onHideTooltip = function() {
     uDom('.hnSwitch').on('click', toggleHostnameSwitch);
     uDom('#saveRules').on('click', saveFirewallRules);
     uDom('#revertRules').on('click', revertFirewallRules);
+    uDom('#address-clipboard-button').on('click', copyAdressToClipboard);
     uDom('[data-i18n="popupAnyRulePrompt"]').on('click', toggleMinimize);
 
     uDom('body').on('mouseenter', '[data-tip]', onShowTooltip)
                 .on('mouseleave', '[data-tip]', onHideTooltip);
 
     uDom('a[href]').on('click', gotoURL);
+
 })();
 
 /******************************************************************************/

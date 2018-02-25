@@ -195,6 +195,26 @@
     "message": "{{count}} sur un total de {{total}}",
     "description": "appears in popup"
   },
+  "popupWalletPrompt":{
+    "message":"Portefeuille",
+    "description":"appears in popup"
+  },
+  "popupWalletAdressPrompt":{
+    "message":"adresse :",
+    "description":"appears in popup"
+  },
+  "popupWalletRewardPrompt":{
+    "message":"récompense :",
+    "description":"appears in popup"
+  },
+  "popupCreateWalletButton":{
+    "message":"Nouveau",
+    "description":"button in popup"
+  },
+  "popupImportWalletButton":{
+    "message":"Importer",
+    "description":"button in popup"
+  },
   "pickerCreate": {
     "message": "Créer",
     "description": "English: Create"

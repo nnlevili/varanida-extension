@@ -14,9 +14,12 @@ rm -rf src/browserify-js/dist
 mkdir src/browserify-js/dist
 browserify src/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
 
+echo "*** Varanida0.chromium: making assets"
 bash ./tools/make-assets.sh $DES
 
+echo "*** Varanida0.chromium: copying"
 cp -R src/css                    $DES/
+cp -R src/config                 $DES/
 cp -R src/img                    $DES/
 cp -R src/js                     $DES/
 cp -R src/lib                    $DES/

@@ -22,7 +22,7 @@
           </div>
         </div>
         <div id="varanida-logo-container" class="logoContainer">
-          <i class="varanida-logo"></i>
+          <a id="varanida-main-logo" class="varanida-logo"></a>
         </div>
         <div id="basicTools" class="cornerContainer rightCornerContainer">
           <div class="cornerbutton">
@@ -31,24 +31,36 @@
             <a href="dashboard.html" class="fa tool enabled" aria-label="data-tip" data-i18n-tip="popupTipDashboard" data-tip-position="under" target="uBODashboard" tabindex="0">&#xf1de;</a>
           </div>
         </div>
-        <!-- <p id="switch" role="button" aria-label data-tip-position="under" tabindex="0"><span class="fa">&#xf011;</span></p>
-        <p id="basicTools">
-            <span id="gotoPick" class="fa tool" data-i18n-tip="popupTipPicker" data-tip-position="under">&#xf1fb;</span>
-            <a href="logger-ui.html" class="fa tool enabled" aria-label="data-tip" data-i18n-tip="popupTipLog" data-tip-position="under" target="uBOLogger" tabindex="0">&#xf022;</a>
-            <a href="dashboard.html" class="fa tool enabled" aria-label="data-tip" data-i18n-tip="popupTipDashboard" data-tip-position="under" target="uBODashboard" tabindex="0">&#xf1de;</a>
-        </p> -->
-        <h2 id="dfToggler" data-i18n="popupBlockedRequestPrompt">&nbsp;</h2>
-        <p class="statName">
-            <span data-i18n="popupBlockedOnThisPagePrompt">&nbsp;</span>
-        </p>
-        <p class="statValue" id="page-blocked">?</p>
+        <div id="infoGroup">
+          <div class="infoColumn">
+            <h2 id="dfToggler" data-i18n="popupBlockedRequestPrompt">&nbsp;</h2>
+            <p class="statName">
+                <span data-i18n="popupBlockedOnThisPagePrompt">&nbsp;</span>
+            </p>
+            <p class="statValue" id="page-blocked">?</p>
+            <p class="statName">
+                <span data-i18n="popupBlockedSinceInstallPrompt">&nbsp;</span>
+            </p>
+            <p class="statValue" id="total-blocked">?</p>
+          </div><!-- DO NOT REMOVE --><div class="infoColumn">
+            <h2 id="walletTitle" data-i18n="popupWalletPrompt">&nbsp;</h2>
+            <div id="existingWallet">
+              <p class="statName">
+                  <span data-i18n="popupWalletAdressPrompt">&nbsp;</span>
+              </p>
+              <div class="copy-adress-group"><input id="addess-field" readonly="" placeholder="0x..." value="0x188782ebcEb28748fa1fcB99A7D92B758919c101" type="text"><button id="address-clipboard-button" class="fa clipboard-button">&#xf0c5;</button></div>
+              <p class="statName">
+                  <span data-i18n="popupWalletRewardPrompt">&nbsp;</span>
+              </p>
+              <p class="statValue" id="total-reward">409.28 VAD</p>
+            </div>
+            <div id="abscentWallet">
+              <p><button class="action-button valid-button add" id="create-wallet-button" data-i18n="popupCreateWalletButton">&nbsp;</button></p>
+              <p><button class="action-button neutral-button import" id="create-wallet-button" data-i18n="popupImportWalletButton">&nbsp;</button></p>
+            </div>
+          </div>
+        </div>
         <div id="refresh" class="fa">&#xf021;</div>
-        <p class="statName">
-            <span data-i18n="popupBlockedSinceInstallPrompt">&nbsp;</span>
-        </p>
-        <p class="statValue" id="total-blocked">?</p>
-        <!-- <h2 data-i18n="popupHitDomainCountPrompt">&nbsp;</h2>
-        <p class="statValue" id="popupHitDomainCount">&nbsp;</p> -->
         <div id="extraTools">
             <span id="gotoZap" class="hnSwitch fa" data-i18n-tip="popupTipZapper" >&#xf0e7;</span>
             <span id="no-popups" class="hnSwitch fa" role="button" aria-label tabindex="0">&#xf0c5;<span class="badge"></span><span><svg viewBox="0 0 20 20"><path d="M1,1 19,19M1,19 19,1" /></svg></span></span>
@@ -76,6 +88,7 @@
     <div id="tooltip"></div>
 </div>
 
+<script src="config/main-config.js"></script>
 <script src="lib/punycode.js"></script>
 <script src="js/vapi.js"></script>
 <script src="js/vapi-common.js"></script>
