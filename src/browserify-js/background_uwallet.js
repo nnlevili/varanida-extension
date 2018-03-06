@@ -25,38 +25,119 @@
 'use strict';
 
 /******************************************************************************/
-
+const log = require('loglevel');
+log.setDefaultLevel(5);
+global.log = log;
 const KeyringController = require('eth-keyring-controller');
 
 const µWallet = (function() { // jshint ignore:line
-    const hiddenSettingsDefault = {
-    };
-    const keyringController = new KeyringController({});
     return {
-        keyringController: keyringController,
-        hiddenSettingsDefault: hiddenSettingsDefault,
-        hiddenSettings: (function() {
-            var out = objectAssign({}, hiddenSettingsDefault),
-                json = vAPI.localStorage.getItem('hiddenSettings');
-            if ( typeof json === 'string' ) {
-                try {
-                    var o = JSON.parse(json);
-                    if ( o instanceof Object ) {
-                        for ( var k in o ) {
-                            if ( out.hasOwnProperty(k) ) {
-                                out[k] = o[k];
-                            }
-                        }
-                    }
-                }
-                catch(ex) {
-                }
-            }
-            return out;
-        })(),
-
+        keyringController: null,
+        walletSettings: {
+          hasKeyring: false,
+          keyringStore: null,
+          keyringAddress: null
+        }
     };
-
 })();
+
+µWallet.loadKeyringController = function(initState) {
+  const self = this;
+  this.keyringController = new KeyringController({
+      initState: initState || self.walletSettings.keyringStore || null
+  });
+  this.keyringController.store.subscribe((state) => {
+    if (state) {
+      this.walletSettings.keyringStore = state;
+      this.saveWalletSettings();
+    }
+  });
+}
+
+µWallet.createNewWallet = function(password, callback) {
+  let address = null;
+  this.keyringController &&
+  this.keyringController.createNewVaultAndKeychain(password)
+  .then((memStore) => {
+    if (memStore) {
+      address = memStore.keyrings[0].accounts[0];
+      this.walletSettings.keyringAddress = address;
+      this.walletSettings.hasKeyring = true;
+      this.saveWalletSettings();
+      return this.keyringController.getKeyringForAccount(address);
+    }
+    return null;
+  })
+  .then((keyring) => {
+    if (!keyring) {
+      return null;
+    }
+    return {
+      address: address,
+      seed: keyring.mnemonic,
+    }
+  })
+  .then(res => callback && callback(res));
+}
+
+µWallet.exportPrivKey = function(password, callback) {
+  const store = this.keyringController.memStore.getState();
+  if (store.isUnlocked) {
+    this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+    .then(res => callback && callback(res));
+  } else {
+    this.keyringController.submitPassword(password)
+    .then(() => {
+      return this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+    })
+    .then(res => callback && callback(res))
+  }
+}
+
+µWallet.loadWallet = function(password, callback) {
+  const store = this.keyringController.memStore.getState();
+  if (store.isUnlocked) {
+    callback && callback(store);
+  } else {
+    return this.keyringController.submitPassword(password)
+    .then(res => callback && callback(res));
+  }
+}
+
+µWallet.lockWallet = function(callback) {
+  const store = this.keyringController.memStore.getState();
+  if (store.isUnlocked) {
+    this.keyringController.setLocked()
+    .then(res => callback && callback(res));
+  } else {
+    callback && callback(store);
+  }
+}
+
+µWallet.importWallet = function(password, seed, callback) {
+  this.keyringController &&
+  this.keyringController.createNewVaultAndRestore(password, seed)
+  .then((memStore) => {
+    if (memStore) {
+      let address = memStore.keyrings[0].accounts[0];
+      this.walletSettings.keyringAddress = address;
+      this.walletSettings.hasKeyring = true;
+      this.saveWalletSettings();
+      return {
+        seed: seed,
+        address: address,
+      }
+    }
+    return null;
+  })
+  .then(res => callback && callback(res))
+}
+
+µWallet.saveWalletSettings = function() {
+    console.log("saving wallet settings");
+    console.log(this.walletSettings);
+    vAPI.storage.set(this.walletSettings);
+};
+
 window.µWallet = µWallet;
 /******************************************************************************/

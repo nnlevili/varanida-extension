@@ -628,6 +628,22 @@ var renderOnce = function() {
 };
 
 /******************************************************************************/
+var renderWallet = function(address) {
+  var walletAddress = address || popupData.walletAddress;
+  var abscentWalletPane = uDom.nodeFromId("abscentWallet");
+  var existingWalletPane = uDom.nodeFromId("existingWallet");
+  if (walletAddress) {
+    abscentWalletPane.style.setProperty("display", "none");
+    existingWalletPane.style.setProperty("display", "block");
+    var addressInput = uDom.nodeFromId("addess-field");
+    addressInput.textContent = walletAddress;
+  } else {
+    abscentWalletPane.style.setProperty("display", "block");
+    existingWalletPane.style.setProperty("display", "none");
+  }
+}
+
+/******************************************************************************/
 
 var renderPopupLazy = function() {
     messaging.send('popupPanel', { what: 'getPopupLazyData', tabId: popupData.tabId });
@@ -1034,6 +1050,7 @@ var getPopupData = function(tabId) {
         cachePopupData(response);
         renderOnce();
         renderPopup();
+        renderWallet():
         renderPopupLazy(); // low priority rendering
         hashFromPopupData(true);
         pollForContentChange();
@@ -1045,6 +1062,40 @@ var getPopupData = function(tabId) {
     );
 };
 
+/******************************************************************************/
+
+var onCreateWallet = function() {
+  //TODO show overlay to input password
+  //setNewWallet(password)
+}
+
+/******************************************************************************/
+
+var setNewWallet = function(password) {
+    var onWalletInfoReceived = function(response) {
+      // TODO renderSeedOverlay(response);
+      renderWallet(response.address);
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'setNewWallet', password: password },
+        onWalletInfoReceived
+    );
+};
+
+/******************************************************************************/
+
+var importWallet = function(password, seed) {
+    var onWalletInfoReceived = function(response) {
+      // TODO renderSeedOverlay(response);
+      renderWallet(response.address);
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'importWallet', password: password, seed: seed },
+        onWalletInfoReceived
+    );
+};
 /******************************************************************************/
 
 var onShowTooltip = function() {
@@ -1120,6 +1171,7 @@ var onHideTooltip = function() {
 
     uDom('a[href]').on('click', gotoURL);
     uDom('.cornerbutton[href]').on('click', gotoURL);
+    uDom('#create-wallet-button').on('click', onCreateWallet);
 
 
 })();
