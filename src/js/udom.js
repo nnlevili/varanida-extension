@@ -90,6 +90,10 @@ DOMListFactory.nodeFromSelector = function(selector) {
     return document.querySelector(selector);
 };
 
+DOMListFactory.nodesFromClass = function(className) {
+    return document.getElementsByClassName(className);
+};
+
 /******************************************************************************/
 
 var addNodeToList = function(list, node) {

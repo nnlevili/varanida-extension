@@ -204,6 +204,7 @@ vAPI.messaging.setup(onMessage);
 /******************************************************************************/
 
 var µb = µBlock;
+var µw = µWallet;
 
 /******************************************************************************/
 
@@ -306,7 +307,9 @@ var popupDataFromTabId = function(tabId, tabTitle) {
         popupBlockedCount: 0,
         tabId: tabId,
         tabTitle: tabTitle,
-        tooltipsDisabled: µb.userSettings.tooltipsDisabled
+        tooltipsDisabled: µb.userSettings.tooltipsDisabled,
+        hasWallet: µw.walletSettings.hasKeyring,
+        walletAddress: µw.walletSettings.keyringAddress,
     };
 
     var pageStore = µb.pageStoreFromTabId(tabId);
@@ -386,7 +389,12 @@ var onMessage = function(request, sender, callback) {
     case 'getPopupData':
         popupDataFromRequest(request, callback);
         return;
-
+    case 'setNewWallet':
+        µw.createNewWallet(request.password, callback);
+        return;
+    case 'importWallet':
+        µw.importWallet(request.password, request.seed, callback);
+        return;
     default:
         break;
     }

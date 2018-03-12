@@ -48,7 +48,7 @@
               <p class="statName">
                   <span data-i18n="popupWalletAdressPrompt">&nbsp;</span>
               </p>
-              <div class="copy-adress-group"><input id="addess-field" readonly="" placeholder="0x..." value="0x188782ebcEb28748fa1fcB99A7D92B758919c101" type="text"><button id="address-clipboard-button" class="fa clipboard-button">&#xf0c5;</button></div>
+              <div class="copy-address-group"><input id="address-field" readonly="" placeholder="0x..." value="0x188782ebcEb28748fa1fcB99A7D92B758919c101" type="text"><button id="address-clipboard-button" class="fa clipboard-button">&#xf0c5;</button></div>
               <p class="statName">
                   <span data-i18n="popupWalletRewardPrompt">&nbsp;</span>
               </p>
@@ -80,7 +80,32 @@
         </div><div id="rulesetTools"><span id="saveRules" class="fa" data-i18n-tip="popupTipSaveRules" data-tip-position="under">&#xf023;</span><span id="revertRules" class="fa" data-i18n-tip="popupTipRevertRules" data-tip-position="under">&#xf12d;</span></div>
     </div>
 </div>
-
+<div id="overlays">
+    <div class="overlayWindow" id="createWalletOverlay">
+        <div class="overlayClose"></div>
+        <div class="overlayTitle"><h1 data-i18n="popupOverlayCreateWalletTitle"></h1></div>
+        <div class="overlayText"><p data-i18n="popupOverlayPassword"></p></div>
+        <div class="text-input-group"><input type="password" id="create-wallet-password" placeholder=""></div>
+        <div class="text-input-group duplicate"><input type="password" id="create-wallet-password-duplicate" placeholder=""></div>
+        <button class="action-button valid-button overlay-validate" id="create-wallet-button-overlay" data-i18n="popupOverlayCreateWalletButton"></button>
+    </div>
+    <div class="overlayWindow" id="showSeedOverlay">
+        <div class="overlayTitle"><h1 data-i18n="popupOverlayShowSeedTitle"></h1></div>
+        <div class="overlayText"><p data-i18n="popupOverlaySaveSeed"></p></div>
+        <div class="text-input-group wide readonly"><input id="seed-field" readonly="" placeholder=""></div>
+        <button class="action-button valid-button overlay-validate large-text" id="show-seed-button-overlay" data-i18n="popupOverlayShowSeedButton"></button>
+    </div>
+    <div class="overlayWindow" id="importWalletOverlay">
+        <div class="overlayClose"></div>
+        <div class="overlayTitle cramped"><h1 data-i18n="popupOverlayImportWalletTitle"></h1></div>
+        <div class="overlayText small"><p data-i18n="popupOverlaySeed"></p></div>
+        <div class="text-input-group wide"><input id="import-wallet-seed" placeholder=""></div>
+        <div class="overlayText small"><p data-i18n="popupOverlayPassword"></p></div>
+        <div class="text-input-group"><input type="password" id="import-wallet-password" placeholder=""></div>
+        <div class="text-input-group duplicate"><input type="password" id="import-wallet-password-duplicate" placeholder=""></div>
+        <button class="action-button valid-button overlay-validate cramped" id="import-wallet-button-overlay" data-i18n="popupOverlayImportWalletButton"></button>
+    </div>
+</div>
 <div id="templates" style="display: none">
     <div><span><sup></sup><span></span></span><span data-src="/" data-des="" data-type="*"></span><span data-src="." data-des="" data-type="*"></span><span data-src="." data-des="" data-type="*"></span></div>
     <div id="actionSelector"><span id="dynaAllow"></span><span id="dynaNoop"></span><span id="dynaBlock"></span></div>

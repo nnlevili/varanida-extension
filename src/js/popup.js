@@ -628,6 +628,7 @@ var renderOnce = function() {
 };
 
 /******************************************************************************/
+
 var renderWallet = function(address) {
   var walletAddress = address || popupData.walletAddress;
   var abscentWalletPane = uDom.nodeFromId("abscentWallet");
@@ -635,13 +636,81 @@ var renderWallet = function(address) {
   if (walletAddress) {
     abscentWalletPane.style.setProperty("display", "none");
     existingWalletPane.style.setProperty("display", "block");
-    var addressInput = uDom.nodeFromId("addess-field");
-    addressInput.textContent = walletAddress;
+    var addressInput = uDom.nodeFromId("address-field");
+    addressInput.value = walletAddress;
   } else {
     abscentWalletPane.style.setProperty("display", "block");
     existingWalletPane.style.setProperty("display", "none");
   }
 }
+
+/******************************************************************************/
+
+var showOverlay = function(overlayId, params) {
+  var overlaysContainer = uDom.nodeFromId("overlays");
+  var overlay = uDom.nodeFromId(overlayId);
+  if (overlayId === "showSeedOverlay" && params) {
+    var seedContainer = uDom.nodeFromId("seed-field");
+    seedContainer.value = params.seed;
+  }
+  overlaysContainer.style.setProperty("display", "block");
+  overlay.style.setProperty("display", "block");
+}
+var hideOverlay = function(overlayId) {
+  var overlaysContainer = uDom.nodeFromId("overlays");
+  var overlaysList = uDom.nodesFromClass("overlayWindow");
+  if (overlayId === "createWalletOverlay" || overlayId === "all") {
+    var passwordField = uDom.nodeFromId("create-wallet-password");
+    var passwordFieldDuplicate = uDom.nodeFromId("create-wallet-password-duplicate");
+    passwordField.value = "";
+    passwordFieldDuplicate.value = "";
+  } else if (overlayId === "showSeedOverlay" || overlayId === "all") {
+    var seedContainer = uDom.nodeFromId("seed-field");
+    seedContainer.value = "";
+  } else if (overlayId === "importWalletOverlay" || overlayId === "all") {
+    var passwordFieldImport = uDom.nodeFromId("import-wallet-password");
+    var passwordFieldImportDuplicate = uDom.nodeFromId("import-wallet-password-duplicate");
+    passwordFieldImport.value = "";
+    passwordFieldImportDuplicate.value = "";
+    var seedField = uDom.nodeFromId("import-wallet-seed");
+    seedField.value = "";
+  }
+  for (var i = 0; i < overlaysList.length; i++) {
+    overlaysList[i].style.setProperty("display", "none");
+  }
+  overlaysContainer.style.setProperty("display", "none");
+}
+
+var createWalletFromOverlay = function() {
+  var passwordField = uDom.nodeFromId("create-wallet-password");
+  var passwordFieldDuplicate = uDom.nodeFromId("create-wallet-password-duplicate");
+  var pass1 = passwordField.value;
+  var pass2 = passwordFieldDuplicate.value;
+  if (pass1 !== pass2) {
+    return;
+  }
+  hideOverlay("createWalletOverlay");
+  setNewWallet(pass1);
+}
+
+var importWalletFromOverlay = function() {
+  var passwordField = uDom.nodeFromId("import-wallet-password");
+  var passwordFieldDuplicate = uDom.nodeFromId("import-wallet-password-duplicate");
+  var seedField = uDom.nodeFromId("import-wallet-seed");
+  var pass1 = passwordField.value;
+  var pass2 = passwordFieldDuplicate.value;
+  var seed = seedField.value;
+  if (pass1 !== pass2 || seed === "") {
+    return;
+  }
+  hideOverlay("importWalletOverlay");
+  importWallet(pass1, seed);
+}
+
+var closeSeedOverlay = function() {
+  hideOverlay("showSeedOverlay");
+}
+
 
 /******************************************************************************/
 
@@ -690,7 +759,7 @@ var toggleNetFilteringSwitch = function(ev) {
 /******************************************************************************/
 
 var copyAdressToClipboard = function() {
-  var addressInput = uDom.nodeFromId("addess-field");
+  var addressInput = uDom.nodeFromId("address-field");
   var button = uDom.nodeFromId("address-clipboard-button");
   var resetButton = function() {
     if (button && button.innerHTML) {
@@ -1050,7 +1119,7 @@ var getPopupData = function(tabId) {
         cachePopupData(response);
         renderOnce();
         renderPopup();
-        renderWallet():
+        renderWallet();
         renderPopupLazy(); // low priority rendering
         hashFromPopupData(true);
         pollForContentChange();
@@ -1065,16 +1134,21 @@ var getPopupData = function(tabId) {
 /******************************************************************************/
 
 var onCreateWallet = function() {
-  //TODO show overlay to input password
-  //setNewWallet(password)
+  showOverlay("createWalletOverlay");
+}
+
+/******************************************************************************/
+
+var onImportWallet = function() {
+  showOverlay("importWalletOverlay");
 }
 
 /******************************************************************************/
 
 var setNewWallet = function(password) {
     var onWalletInfoReceived = function(response) {
-      // TODO renderSeedOverlay(response);
       renderWallet(response.address);
+      showOverlay("showSeedOverlay", {seed: response.seed})
     };
     messaging.send(
         'popupPanel',
@@ -1087,8 +1161,8 @@ var setNewWallet = function(password) {
 
 var importWallet = function(password, seed) {
     var onWalletInfoReceived = function(response) {
-      // TODO renderSeedOverlay(response);
       renderWallet(response.address);
+      showOverlay("showSeedOverlay", {seed: response.seed})
     };
     messaging.send(
         'popupPanel',
@@ -1172,7 +1246,11 @@ var onHideTooltip = function() {
     uDom('a[href]').on('click', gotoURL);
     uDom('.cornerbutton[href]').on('click', gotoURL);
     uDom('#create-wallet-button').on('click', onCreateWallet);
-
+    uDom('#import-wallet-button').on('click', onImportWallet);
+    uDom('#create-wallet-button-overlay').on('click', createWalletFromOverlay);
+    uDom('#import-wallet-button-overlay').on('click', importWalletFromOverlay);
+    uDom('#show-seed-button-overlay').on('click', closeSeedOverlay);
+    uDom('.overlayClose').on('click', function(){hideOverlay("all");})
 
 })();
 

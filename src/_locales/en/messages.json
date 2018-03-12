@@ -215,6 +215,42 @@
     "message":"Import Wallet",
     "description":"button in popup"
   },
+  "popupOverlayCreateWalletTitle":{
+    "message":"Create New Wallet",
+    "description":"create wallet overlay title"
+  },
+  "popupOverlayPassword":{
+    "message":"Password :",
+    "description":"overlay password prompt"
+  },
+  "popupOverlayCreateWalletButton":{
+    "message":"Create",
+    "description":"create wallet overlay button"
+  },
+  "popupOverlayShowSeedTitle":{
+    "message":"Wallet Created!",
+    "description":"show seed overlay title"
+  },
+  "popupOverlaySaveSeed":{
+    "message":"Save this passphrase :",
+    "description":"overlay seed save reminder"
+  },
+  "popupOverlayShowSeedButton":{
+    "message":"I wrote/saved my passphrase",
+    "description":"show seed overlay button"
+  },
+  "popupOverlayImportWalletTitle":{
+    "message":"Import Wallet",
+    "description":"import wallet overlay title"
+  },
+  "popupOverlaySeed":{
+    "message":"Passphrase :",
+    "description":"overlay seed prompt"
+  },
+  "popupOverlayImportWalletButton":{
+    "message":"Import",
+    "description":"import overlay button"
+  },
   "pickerCreate":{
     "message":"Create",
     "description":"English: Create"

@@ -80,6 +80,25 @@ const µWallet = (function() { // jshint ignore:line
   .then(res => callback && callback(res));
 }
 
+µWallet.importWallet = function(password, seed, callback) {
+  this.keyringController &&
+  this.keyringController.createNewVaultAndRestore(password, seed)
+  .then((memStore) => {
+    if (memStore) {
+      let address = memStore.keyrings[0].accounts[0];
+      this.walletSettings.keyringAddress = address;
+      this.walletSettings.hasKeyring = true;
+      this.saveWalletSettings();
+      return {
+        seed: seed,
+        address: address,
+      }
+    }
+    return null;
+  })
+  .then(res => callback && callback(res))
+}
+
 µWallet.exportPrivKey = function(password, callback) {
   const store = this.keyringController.memStore.getState();
   if (store.isUnlocked) {
@@ -112,25 +131,6 @@ const µWallet = (function() { // jshint ignore:line
   } else {
     callback && callback(store);
   }
-}
-
-µWallet.importWallet = function(password, seed, callback) {
-  this.keyringController &&
-  this.keyringController.createNewVaultAndRestore(password, seed)
-  .then((memStore) => {
-    if (memStore) {
-      let address = memStore.keyrings[0].accounts[0];
-      this.walletSettings.keyringAddress = address;
-      this.walletSettings.hasKeyring = true;
-      this.saveWalletSettings();
-      return {
-        seed: seed,
-        address: address,
-      }
-    }
-    return null;
-  })
-  .then(res => callback && callback(res))
 }
 
 µWallet.saveWalletSettings = function() {
