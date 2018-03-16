@@ -85,6 +85,7 @@ if ( dfPaneVisibleStored ) {
 
 var messaging = vAPI.messaging;
 var popupData = {};
+var rewardCount = 0;
 var dfPaneBuilt = false;
 var reIP = /^\d+(?:\.\d+){1,3}$/;
 var scopeToSrcHostnameMap = {
@@ -124,6 +125,7 @@ var cachePopupData = function(data) {
         return popupData;
     }
     popupData = data;
+    console.log(popupData);
     scopeToSrcHostnameMap['.'] = popupData.pageHostname || '';
     var hostnameDict = popupData.hostnameDict;
     if ( typeof hostnameDict !== 'object' ) {
@@ -174,6 +176,18 @@ var hashFromPopupData = function(reset) {
         cachedPopupHash = hash;
     }
     uDom('body').toggleClass('dirty', hash !== cachedPopupHash);
+};
+
+var updatePopupData = function(newData) {
+  if ( typeof newData !== 'object' ) {
+      return popupData;
+  }
+  for ( var key in newData ) {
+      if (popupData[key] && newData[key]) {
+        popupData[key] = newData[key];
+      }
+  }
+  return popupData;
 };
 
 /******************************************************************************/
@@ -634,10 +648,12 @@ var renderWallet = function(address) {
   var abscentWalletPane = uDom.nodeFromId("abscentWallet");
   var existingWalletPane = uDom.nodeFromId("existingWallet");
   if (walletAddress) {
-    abscentWalletPane.style.setProperty("display", "none");
-    existingWalletPane.style.setProperty("display", "block");
     var addressInput = uDom.nodeFromId("address-field");
     addressInput.value = walletAddress;
+    var totalRewardCount = popupData.totalRewardCount;
+    uDom.nodeFromId('total-reward').textContent = totalRewardCount+" VAD";
+    abscentWalletPane.style.setProperty("display", "none");
+    existingWalletPane.style.setProperty("display", "block");
   } else {
     abscentWalletPane.style.setProperty("display", "block");
     existingWalletPane.style.setProperty("display", "none");
@@ -1123,10 +1139,26 @@ var getPopupData = function(tabId) {
         renderPopupLazy(); // low priority rendering
         hashFromPopupData(true);
         pollForContentChange();
+        getUpdatedRewardData();
     };
     messaging.send(
         'popupPanel',
         { what: 'getPopupData', tabId: tabId },
+        onDataReceived
+    );
+};
+
+/******************************************************************************/
+
+var getUpdatedRewardData = function() {
+    var onDataReceived = function(response) {
+      console.log("got updated reward", response);
+        updatePopupData({totalRewardCount: response});
+        renderWallet();
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'getUpdatedRewardCount'},
         onDataReceived
     );
 };

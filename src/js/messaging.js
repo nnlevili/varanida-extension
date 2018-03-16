@@ -310,6 +310,7 @@ var popupDataFromTabId = function(tabId, tabTitle) {
         tooltipsDisabled: µb.userSettings.tooltipsDisabled,
         hasWallet: µw.walletSettings.hasKeyring,
         walletAddress: µw.walletSettings.keyringAddress,
+        totalRewardCount: µw.walletSettings.totalRewardCount,
     };
 
     var pageStore = µb.pageStoreFromTabId(tabId);
@@ -388,6 +389,9 @@ var onMessage = function(request, sender, callback) {
 
     case 'getPopupData':
         popupDataFromRequest(request, callback);
+        return;
+    case 'getUpdatedRewardCount':
+        µw.updateRewardCount(callback);
         return;
     case 'setNewWallet':
         µw.createNewWallet(request.password, callback);

@@ -36,22 +36,44 @@ const µWallet = (function() { // jshint ignore:line
         walletSettings: {
           hasKeyring: false,
           keyringStore: null,
-          keyringAddress: null
-        }
+          keyringAddress: null,
+          totalRewardCount: 0
+        },
     };
 })();
+
+µWallet.storeUpdatesHandler = function(state) {
+  if (state) {
+    this.walletSettings.keyringStore = state;
+    this.saveWalletSettings();
+  }
+}
 
 µWallet.loadKeyringController = function(initState) {
   const self = this;
   this.keyringController = new KeyringController({
       initState: initState || self.walletSettings.keyringStore || null
   });
-  this.keyringController.store.subscribe((state) => {
-    if (state) {
-      this.walletSettings.keyringStore = state;
-      this.saveWalletSettings();
-    }
-  });
+  this.keyringController.store.subscribe(this.storeUpdatesHandler.bind(this));
+}
+
+µWallet.resetWallet = function() {
+  this.keyringController.store.unsubscribe(this.storeUpdatesHandler);
+  return this.keyringController && this.keyringController.setLocked()
+  .then(() => {
+    this.keyringController = null;
+    this.walletSettings.keyringAddress = null;
+    this.walletSettings.hasKeyring = false;
+    this.walletSettings.keyringStore = null;
+    this.walletSettings.totalRewardCount = 0;
+    return new Promise((resolve, reject) => {
+      this.saveWalletSettings(resolve);
+    });
+  })
+  .then(() => {
+    this.loadKeyringController();
+    console.log("Keyring reset!");
+  })
 }
 
 µWallet.createNewWallet = function(password, callback) {
@@ -133,11 +155,26 @@ const µWallet = (function() { // jshint ignore:line
   }
 }
 
-µWallet.saveWalletSettings = function() {
+µWallet.saveWalletSettings = function(callback) {
     console.log("saving wallet settings");
     console.log(this.walletSettings);
-    vAPI.storage.set(this.walletSettings);
+    vAPI.storage.set(this.walletSettings, callback);
 };
+
+µWallet.updateRewardCount = function(callback) {
+  if (this.walletSettings.hasKeyring) {
+    this.walletSettings.totalRewardCount = Math.round(Math.random() * 200000)/100;
+    // this.walletSettings.totalRewardCount = 174.32;
+  } else {
+    this.walletSettings.totalRewardCount = 0;
+  }
+  //TODO integrate reward query
+  vAPI.storage.set({totalRewardCount: this.walletSettings.totalRewardCount},() => {
+    console.log("saved new reward", this.walletSettings.totalRewardCount);
+    callback(this.walletSettings.totalRewardCount);
+  });
+};
+
 
 window.µWallet = µWallet;
 /******************************************************************************/
