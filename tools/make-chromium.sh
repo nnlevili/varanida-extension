@@ -12,7 +12,7 @@ mkdir -p $DES
 echo "*** Varanida0.chromium: browserifying"
 rm -rf src/browserify-js/dist
 mkdir src/browserify-js/dist
-browserify src/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
+browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
 
 echo "*** Varanida0.chromium: making assets"
 bash ./tools/make-assets.sh $DES

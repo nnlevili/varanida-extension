@@ -31,6 +31,8 @@
 /******************************************************************************/
 
 var µb = µBlock;
+var µw = µWallet;
+
 
 // https://github.com/gorhill/httpswitchboard/issues/303
 // Some kind of trick going on here:
@@ -119,7 +121,7 @@ master switch and dynamic filtering rules can be evaluated now properly even
 in the absence of a PageStore object, this was not the case before.
 
 Also, the TabContext object will try its best to find a good candidate root
-document URL for when none exists. This takes care of 
+document URL for when none exists. This takes care of
 <https://github.com/chrisaljoudi/uBlock/issues/1001>.
 
 The TabContext manager is self-contained, and it takes care to properly
@@ -445,7 +447,7 @@ housekeep itself.
         var tabContext = lookup(tabId);
         this.rootHostname = tabContext.rootHostname;
         this.rootDomain = tabContext.rootDomain;
-        this.pageHostname = 
+        this.pageHostname =
         this.pageDomain =
         this.requestURL =
         this.requestHostname =
@@ -520,7 +522,7 @@ vAPI.tabs.onClosed = function(tabId) {
 
 // https://github.com/gorhill/uBlock/issues/99
 // https://github.com/gorhill/uBlock/issues/991
-// 
+//
 // popup:
 //   Test/close target URL
 // popunder:
@@ -781,15 +783,28 @@ vAPI.tabs.onPopupUpdated = (function() {
 
         // Log only for when there was a hit against an actual filter (allow or block).
         // https://github.com/gorhill/uBlock/issues/2776
+        var idToRecord = popupType === 'popup' ? openerTabId : targetTabId;
+        var filterToRecord = result !== 0 ? logData : undefined;
+        var urlToRecord = popupType === 'popup' ? targetURL : openerURL;
+        var hostNameToRecord = µb.URI.hostnameFromURI(context.rootURL);
+        µw.recorder && µw.recorder.writeOne(
+          idToRecord,
+          'net',
+          filterToRecord,
+          popupType,
+          urlToRecord,
+          hostNameToRecord,
+          hostNameToRecord
+        );
         if ( µb.logger.isEnabled() ) {
             µb.logger.writeOne(
-                popupType === 'popup' ? openerTabId : targetTabId,
-                'net',
-                result !== 0 ? logData : undefined,
-                popupType,
-                popupType === 'popup' ? targetURL : openerURL,
-                µb.URI.hostnameFromURI(context.rootURL),
-                µb.URI.hostnameFromURI(context.rootURL)
+              idToRecord,
+              'net',
+              filterToRecord,
+              popupType,
+              urlToRecord,
+              hostNameToRecord,
+              hostNameToRecord
             );
         }
         logData = undefined;

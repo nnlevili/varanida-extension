@@ -194,6 +194,7 @@ var onWalletSettingReady = function(fetched) {
 
   fromFetch(walletSettings, fetched);
   µw.loadKeyringController(walletSettings.keyringStore);
+  µw.loadRecorder();
 }
 
 /******************************************************************************/

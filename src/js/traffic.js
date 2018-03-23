@@ -24,6 +24,7 @@
 /******************************************************************************/
 
 // Start isolation from global scope
+var µw = µWallet;
 
 µBlock.webRequest = (function() {
 
@@ -132,7 +133,15 @@ var onBeforeRequest = function(details) {
     var result = pageStore.filterRequest(requestContext);
 
     pageStore.journalAddRequest(requestContext.requestHostname, result);
-
+    µw.recorder && µw.recorder.writeOne(
+      tabId,
+      'net',
+      pageStore.logData,
+      requestType,
+      requestURL,
+      requestContext.rootHostname,
+      requestContext.pageHostname
+    );
     if ( µb.logger.isEnabled() ) {
         µb.logger.writeOne(
             tabId,
@@ -163,6 +172,15 @@ var onBeforeRequest = function(details) {
         var url = µb.redirectEngine.toURL(requestContext);
         if ( url !== undefined ) {
             pageStore.internalRedirectionCount += 1;
+            µw.recorder && µw.recorder.writeOne(
+              tabId,
+              'redirect',
+              { source: 'redirect', raw: µb.redirectEngine.resourceNameRegister },
+              requestType,
+              requestURL,
+              requestContext.rootHostname,
+              requestContext.pageHostname
+            );
             if ( µb.logger.isEnabled() ) {
                 µb.logger.writeOne(
                     tabId,
@@ -273,7 +291,15 @@ var onBeforeRootFrameRequest = function(details) {
         pageStore.journalAddRootFrame('uncommitted', requestURL);
         pageStore.journalAddRequest(requestHostname, result);
     }
-
+    µw.recorder && µw.recorder.writeOne(
+      tabId,
+      'net',
+      logData,
+      'main_frame',
+      requestURL,
+      requestHostname,
+      requestHostname
+    );
     if ( logEnabled ) {
         µb.logger.writeOne(
             tabId,
@@ -366,7 +392,15 @@ var onBeforeBehindTheSceneRequest = function(details) {
     }
 
     pageStore.journalAddRequest(context.requestHostname, result);
-
+    µw.recorder && µw.recorder.writeOne(
+      vAPI.noTabId,
+      'net',
+      pageStore.logData,
+      requestType,
+      requestURL,
+      context.rootHostname,
+      context.rootHostname
+    );
     if ( µb.logger.isEnabled() ) {
         µb.logger.writeOne(
             vAPI.noTabId,

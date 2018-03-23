@@ -38,6 +38,7 @@ To create a log of net requests
 /******************************************************************************/
 
 var µb = µBlock;
+var µw = µWallet;
 
 /******************************************************************************/
 /******************************************************************************/
@@ -557,7 +558,6 @@ PageStore.prototype.journalProcess = function(fromTimer) {
         aggregateCounts = 0,
         now = Date.now(),
         pivot = this.journalLastCommitted || 0;
-
     // Everything after pivot originates from current page.
     for ( i = pivot; i < n; i += 2 ) {
         hostname = journal[i];
@@ -624,14 +624,14 @@ PageStore.prototype.filterRequest = function(context) {
 
     // Dynamic URL filtering.
     var result = µb.sessionURLFiltering.evaluateZ(context.rootHostname, context.requestURL, requestType);
-    if ( result !== 0 && µb.logger.isEnabled() ) {
+    if ( result !== 0 && (µw.recorder || µb.logger.isEnabled()) ) {
         this.logData = µb.sessionURLFiltering.toLogData();
     }
 
     // Dynamic hostname/type filtering.
     if ( result === 0 && µb.userSettings.advancedUserEnabled ) {
         result = µb.sessionFirewall.evaluateCellZY(context.rootHostname, context.requestHostname, requestType);
-        if ( result !== 0 && result !== 3 && µb.logger.isEnabled() ) {
+        if ( result !== 0 && result !== 3 && (µw.recorder || µb.logger.isEnabled()) ) {
             this.logData = µb.sessionFirewall.toLogData();
         }
     }
@@ -639,7 +639,7 @@ PageStore.prototype.filterRequest = function(context) {
     // Static filtering has lowest precedence.
     if ( result === 0 || result === 3 ) {
         result = µb.staticNetFilteringEngine.matchString(context);
-        if ( result !== 0 && µb.logger.isEnabled() ) {
+        if ( result !== 0 && (µw.recorder || µb.logger.isEnabled()) ) {
             this.logData = µb.staticNetFilteringEngine.toLogData();
         }
     }

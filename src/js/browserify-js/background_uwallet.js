@@ -29,6 +29,7 @@ const log = require('loglevel');
 log.setDefaultLevel(5);
 global.log = log;
 const KeyringController = require('eth-keyring-controller');
+const Recorder = require("./recorder.js")
 
 const µWallet = (function() { // jshint ignore:line
     return {
@@ -39,8 +40,11 @@ const µWallet = (function() { // jshint ignore:line
           keyringAddress: null,
           totalRewardCount: 0
         },
+        recorder: null,
     };
 })();
+
+/*–––––Wallet handling–––––*/
 
 µWallet.storeUpdatesHandler = function(state) {
   if (state) {
@@ -175,6 +179,19 @@ const µWallet = (function() { // jshint ignore:line
   });
 };
 
+/*–––––Recording handling–––––*/
+µWallet.loadRecorder = function(initState) {
+  this.recorder = new Recorder(initState);
+  this.recorder.subscribe(this.recorderUpdatesHandler.bind(this));
+  this.recorder.start();
+}
+
+µWallet.recorderUpdatesHandler = function(updateType) {
+  console.log("record update", updateType);
+  const record = this.recorder.readAll();
+  console.log(record);
+  //send record to API
+}
 
 window.µWallet = µWallet;
 /******************************************************************************/
