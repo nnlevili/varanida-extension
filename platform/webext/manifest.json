@@ -1,11 +1,11 @@
 {
    "applications":{
       "gecko":{
-         "id":"uBlock0@raymondhill.net",
+         "id":"firefox.ext@varanida.com",
          "strict_min_version":"52.0"
       }
    },
-   "author":"All uBlock Origin contributors",
+   "author":"silto & All uBlock Origin contributors",
    "background":{
       "page":"background.html"
    },
@@ -15,8 +15,8 @@
          "19":"img/browsericons/icon19.png",
          "38":"img/browsericons/icon38.png"
       },
-      "default_title":"uBlock Origin",
-      "default_popup":"popup.html"
+      "default_title":"Varanida",
+      "default_popup":"vara_popup.html"
    },
    "commands":{
       "launch-element-zapper":{
@@ -59,12 +59,12 @@
    "default_locale":"en",
    "description":"__MSG_extShortDesc__",
    "icons":{
-      "16":"img/ublock.svg",
-      "48":"img/ublock.svg",
-      "96":"img/ublock.svg"
+      "16":"img/varanida.svg",
+      "48":"img/varanida.svg",
+      "96":"img/varanida.svg"
    },
    "manifest_version":2,
-   "name":"uBlock Origin",
+   "name":"Varanida",
    "options_ui":{
       "page":"dashboard.html",
       "open_in_tab": true
@@ -79,13 +79,13 @@
       "webRequestBlocking",
       "<all_urls>"
    ],
-   "short_name":"uBlock₀",
+   "short_name":"Varanida",
    "sidebar_action":{
       "default_title":"__MSG_statsPageName__",
       "default_panel":"logger-ui.html",
       "default_icon":{
-         "16":"img/ublock.svg",
-         "48":"img/ublock.svg"
+         "16":"img/varanida.svg",
+         "48":"img/varanida.svg"
       }
    },
    "version":"1.9.15.101"
