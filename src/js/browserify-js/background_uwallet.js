@@ -28,6 +28,7 @@
 const log = require('loglevel');
 log.setDefaultLevel(5);
 global.log = log;
+const AWS = require('aws-sdk');
 const KeyringController = require('eth-keyring-controller');
 const Recorder = require("./recorder.js")
 
@@ -41,6 +42,7 @@ const µWallet = (function() { // jshint ignore:line
           totalRewardCount: 0
         },
         recorder: null,
+        kinesis: null,
     };
 })();
 
@@ -166,6 +168,12 @@ const µWallet = (function() { // jshint ignore:line
 };
 
 µWallet.updateRewardCount = function(callback) {
+  // https://api.varanida.com/balance/<adress>
+  /*
+  {
+    balance: INT
+  }
+  */
   if (this.walletSettings.hasKeyring) {
     this.walletSettings.totalRewardCount = Math.round(Math.random() * 200000)/100;
     // this.walletSettings.totalRewardCount = 174.32;
@@ -181,16 +189,71 @@ const µWallet = (function() { // jshint ignore:line
 
 /*–––––Recording handling–––––*/
 µWallet.loadRecorder = function(initState) {
+
+  // Configure Credentials to use Cognito
+  AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: µConfig.aws.identityPoolId
+  });
+
+
+  AWS.config.region = µConfig.aws.region;
+
+  // We're going to partition Amazon Kinesis records based on an identity.
+  // We need to get credentials first, then attach our event listeners.
+  AWS.config.credentials.get((err) => {
+    // attach event listener
+    if (err) {
+        alert('Error retrieving credentials.');
+        console.error(err);
+        return;
+    }
+    // create kinesis service object
+    this.kinesis = new AWS.Kinesis({
+        apiVersion: µConfig.aws.kinesis.apiVersion
+    });
+  });
   this.recorder = new Recorder(initState);
   this.recorder.subscribe(this.recorderUpdatesHandler.bind(this));
   this.recorder.start();
 }
 
 µWallet.recorderUpdatesHandler = function(updateType) {
+  const pubAddress = this.walletSettings.keyringAddress;
+  const partitionKey = this.kinesis.config &&
+    this.kinesis.config.credentials &&
+    this.kinesis.config.credentials.identityId;
+
+  if (!pubAddress || !partitionKey) {
+    console.log("key missing");
+    return;
+  }
   console.log("record update", updateType);
-  const record = this.recorder.readAll();
-  console.log(record);
-  //send record to API
+  const recordOut = this.recorder.readAll();
+  const browserInfo = navigator.userAgent;
+  console.log(recordOut);
+  const recordData = recordOut.map((rec) => {
+    const kinesisRec = {
+      publicAddress: pubAddress,
+      createdOn: rec.timestamp,
+      partitionKey: partitionKey,
+      filter: rec.filter
+    };
+    return {
+      Data: JSON.stringify(kinesisRec),
+      PartitionKey: partitionKey
+    };
+  })
+// upload data to Amazon Kinesis
+this.kinesis.putRecords({
+    Records: recordData,
+    StreamName: 'Varanida-flux'
+}, function(err, data) {
+  console.log("success from kinesis");
+  console.log(data);
+  if (err) {
+      console.error(err);
+  }
+});
 }
 
 window.µWallet = µWallet;
