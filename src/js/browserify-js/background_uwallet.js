@@ -1,7 +1,8 @@
 /*******************************************************************************
 
-    uBlock Origin - a browser extension to block requests.
-    Copyright (C) 2014-2017 Raymond Hill
+    Varanida - a browser extension to block requests.
+    –– wallet component ––
+    Silto (2018)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -16,23 +17,23 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see {http://www.gnu.org/licenses/}.
 
-    Home: https://github.com/gorhill/uBlock
+    Home: https://github.com/Varanida/varanida-extension
 */
-
-
-/* global objectAssign */
 
 'use strict';
 
 /******************************************************************************/
+//(to avoid bugs with included libs)
 const log = require('loglevel');
 log.setDefaultLevel(5);
 global.log = log;
+//npm dependencies
 const AWS = require('aws-sdk');
 const KeyringController = require('eth-keyring-controller');
+//internal dependencies
 const Recorder = require("./recorder.js")
 
-const µWallet = (function() { // jshint ignore:line
+const µWallet = (function() {
     return {
         keyringController: null,
         walletSettings: {
@@ -63,6 +64,7 @@ const µWallet = (function() { // jshint ignore:line
   this.keyringController.store.subscribe(this.storeUpdatesHandler.bind(this));
 }
 
+// not supposed to be used, here for debugging purposes
 µWallet.resetWallet = function() {
   this.keyringController.store.unsubscribe(this.storeUpdatesHandler);
   return this.keyringController && this.keyringController.setLocked()
@@ -162,29 +164,43 @@ const µWallet = (function() { // jshint ignore:line
 }
 
 µWallet.saveWalletSettings = function(callback) {
-    console.log("saving wallet settings");
-    console.log(this.walletSettings);
     vAPI.storage.set(this.walletSettings, callback);
 };
 
+µWallet.saveRewardCount = function(rewardCount, callback) {
+  vAPI.storage.set({totalRewardCount: rewardCount},() => {
+    callback && callback(rewardCount);
+  });
+}
+
 µWallet.updateRewardCount = function(callback) {
-  // https://api.varanida.com/balance/<adress>
+  // http://api.varanida.com/api/Ads/balance/<adress>
   /*
-  {
-    balance: INT
-  }
+  {"blockedAds":X,"earnings":X}
   */
-  if (this.walletSettings.hasKeyring) {
-    this.walletSettings.totalRewardCount = Math.round(Math.random() * 200000)/100;
-    // this.walletSettings.totalRewardCount = 174.32;
+  const walletContext = this;
+  if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {
+    const xmlhttp = new XMLHttpRequest();
+    const url = `${µConfig.urls.api}api/Ads/balance/${this.walletSettings.keyringAddress}`;
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200 || this.status === 304) {
+          const data = JSON.parse(this.responseText);
+          if (data.earnings || data.earnings === 0) {
+            walletContext.walletSettings.totalRewardCount = data.earnings;
+            walletContext.saveRewardCount(data.earnings);
+          }
+        }
+        callback(walletContext.walletSettings.totalRewardCount);
+      }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
   } else {
     this.walletSettings.totalRewardCount = 0;
+    this.saveRewardCount(0);
+    callback(0);
   }
-  //TODO integrate reward query
-  vAPI.storage.set({totalRewardCount: this.walletSettings.totalRewardCount},() => {
-    console.log("saved new reward", this.walletSettings.totalRewardCount);
-    callback(this.walletSettings.totalRewardCount);
-  });
 };
 
 /*–––––Recording handling–––––*/
@@ -232,6 +248,15 @@ const µWallet = (function() { // jshint ignore:line
   const browserInfo = navigator.userAgent;
   console.log(recordOut);
   const recordData = recordOut.map((rec) => {
+    /*
+    the record sent to kinesis to signal ads that have been blocked.
+    we provide minimal information to help detect fraud
+    without giving away valuable information about the user's browsing
+    the timestamp and filter (which ad filter (regular expression) triggered the request blocking)
+    are the only usage relative informations,
+    but we think they are not really sensitive
+    and can't be used for any targeting whatsoever.
+    */
     const kinesisRec = {
       publicAddress: pubAddress,
       createdOn: rec.timestamp,
@@ -248,8 +273,6 @@ this.kinesis.putRecords({
     Records: recordData,
     StreamName: 'Varanida-flux'
 }, function(err, data) {
-  console.log("success from kinesis");
-  console.log(data);
   if (err) {
       console.error(err);
   }

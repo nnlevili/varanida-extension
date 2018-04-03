@@ -125,7 +125,6 @@ var cachePopupData = function(data) {
         return popupData;
     }
     popupData = data;
-    console.log(popupData);
     scopeToSrcHostnameMap['.'] = popupData.pageHostname || '';
     var hostnameDict = popupData.hostnameDict;
     if ( typeof hostnameDict !== 'object' ) {
@@ -183,7 +182,7 @@ var updatePopupData = function(newData) {
       return popupData;
   }
   for ( var key in newData ) {
-      if (popupData[key] && newData[key]) {
+      if (newData[key] != null) {
         popupData[key] = newData[key];
       }
   }
@@ -851,6 +850,27 @@ var gotoURL = function(ev) {
 
 /******************************************************************************/
 
+var gotoEtherscan = function(ev) {
+    ev.preventDefault();
+    if (!popupData.walletAddress) {
+      return;
+    }
+    messaging.send(
+        'popupPanel',
+        {
+            what: 'gotoURL',
+            details: {
+                url: 'https://etherscan.io/address/'+popupData.walletAddress,
+                select: true,
+                index: -1,
+                shiftKey: ev.shiftKey
+            }
+        }
+    );
+    vAPI.closePopup();
+};
+/******************************************************************************/
+
 var toggleFirewallPane = function() {
     popupData.dfEnabled = !popupData.dfEnabled;
 
@@ -1152,7 +1172,6 @@ var getPopupData = function(tabId) {
 
 var getUpdatedRewardData = function() {
     var onDataReceived = function(response) {
-      console.log("got updated reward", response);
         updatePopupData({totalRewardCount: response});
         renderWallet();
     };
@@ -1264,7 +1283,8 @@ var onHideTooltip = function() {
     uDom('#switch').on('click', toggleNetFilteringSwitch);
     uDom('#gotoZap').on('click', gotoZap);
     uDom('#gotoPick').on('click', gotoPick);
-    uDom('h2').on('click', toggleFirewallPane);
+    // uDom('h2').on('click', toggleFirewallPane);
+    uDom('#walletTitle').on('click', gotoEtherscan);
     uDom('#refresh').on('click', reloadTab);
     uDom('.hnSwitch').on('click', toggleHostnameSwitch);
     uDom('#saveRules').on('click', saveFirewallRules);

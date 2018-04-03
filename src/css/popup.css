@@ -29,7 +29,7 @@ h2 {
     box-shadow: 0 1px 0px #d4d7d7;
     border: 0;
     color: #6d6f74;
-    cursor: pointer;
+    /* cursor: pointer; */
     font-size: 100%;
     font-weight: normal;
     padding: 0.2em;
@@ -143,6 +143,7 @@ body, #panes {
 }
 #walletTitle {
   box-shadow: -1px 1px 0px #d4d7d7;
+  cursor: pointer;
 }
 #existingWallet {
   display: none;
