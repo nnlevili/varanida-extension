@@ -1,6 +1,6 @@
 {
   "extName":{
-    "message":"uBlock₀",
+    "message":"Varanida",
     "description":"extension name."
   },
   "extShortDesc":{
@@ -8,8 +8,8 @@
     "description":"this will be in the chrome web store: must be 132 characters or less"
   },
   "dashboardName":{
-    "message":"uBlock₀ — Dashboard",
-    "description":"English: uBlock₀ — Dashboard"
+    "message":"Varanida — Dashboard",
+    "description":"English: Varanida — Dashboard"
   },
   "settingsPageName":{
     "message":"Settings",
@@ -32,7 +32,7 @@
     "description":"appears as tab name in dashboard"
   },
   "statsPageName":{
-    "message":"uBlock₀ — Logger",
+    "message":"Varanida — Logger",
     "description":"Title for the logger window"
   },
   "aboutPageName":{
@@ -44,15 +44,15 @@
     "description":"Title for the advanced settings page"
   },
   "popupPowerSwitchInfo":{
-    "message":"Click: disable\/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page.",
-    "description":"English: Click: disable\/enable uBlock₀ for this site.\n\nCtrl+click: disable uBlock₀ only on this page."
+    "message":"Click: disable\/enable Varanida for this site.\n\nCtrl+click: disable Varanida only on this page.",
+    "description":"English: Click: disable\/enable Varanida for this site.\n\nCtrl+click: disable Varanida only on this page."
   },
   "popupPowerSwitchInfo1":{
-    "message":"Click to disable uBlock₀ for this site.\n\nCtrl+click to disable uBlock₀ only on this page.",
+    "message":"Click to disable Varanida for this site.\n\nCtrl+click to disable Varanida only on this page.",
     "description":"Message to be read by screen readers"
   },
   "popupPowerSwitchInfo2":{
-    "message":"Click to enable uBlock₀ for this site.",
+    "message":"Click to enable Varanida for this site.",
     "description":"Message to be read by screen readers"
   },
   "popupBlockedRequestPrompt":{
@@ -388,7 +388,7 @@
     "description":"English: Parse and enforce Adblock+ element hiding filters."
   },
   "3pParseAllABPHideFiltersInfo":{
-    "message":"<p>This option enables the parsing and enforcing of <a href=\"https:\/\/adblockplus.org\/en\/faq_internal#elemhide\">Adblock Plus-compatible &ldquo;element hiding&rdquo; filters<\/a>. These filters are essentially cosmetic, they serve to hide elements in a web page which are deemed to be a visual nuisance, and which can't be blocked by the net request-based filtering engine.<\/p><p>Enabling this feature increases uBlock₀'s memory footprint.<\/p>",
+    "message":"<p>This option enables the parsing and enforcing of <a href=\"https:\/\/adblockplus.org\/en\/faq_internal#elemhide\">Adblock Plus-compatible &ldquo;element hiding&rdquo; filters<\/a>. These filters are essentially cosmetic, they serve to hide elements in a web page which are deemed to be a visual nuisance, and which can't be blocked by the net request-based filtering engine.<\/p><p>Enabling this feature increases Varanida's memory footprint.<\/p>",
     "description":"Describes the purpose of the 'Parse and enforce cosmetic filters' feature."
   },
   "3pIgnoreGenericCosmeticFilters":{
@@ -396,7 +396,7 @@
     "description":"This will cause uBO to ignore all generic cosmetic filters."
   },
   "3pIgnoreGenericCosmeticFiltersInfo":{
-    "message":"<p>Generic cosmetic filters are those cosmetic filters which are meant to apply on all web sites.<p>Though handled efficiently by uBlock₀, generic cosmetic filters may still contribute measurable memory and CPU overhead on some web pages, especially for large and long-lived ones.<p>Enabling this option will eliminate the memory and CPU overhead added to web pages as a result of handling generic cosmetic filters, and also lower the memory footprint of uBlock₀ itself.<p>It is recommended to enable this option on less powerful devices.",
+    "message":"<p>Generic cosmetic filters are those cosmetic filters which are meant to apply on all web sites.<p>Though handled efficiently by Varanida, generic cosmetic filters may still contribute measurable memory and CPU overhead on some web pages, especially for large and long-lived ones.<p>Enabling this option will eliminate the memory and CPU overhead added to web pages as a result of handling generic cosmetic filters, and also lower the memory footprint of Varanida itself.<p>It is recommended to enable this option on less powerful devices.",
     "description":"Describes the purpose of the 'Ignore generic cosmetic filters' feature."
   },
   "3pListsOfBlockedHostsHeader":{
@@ -468,8 +468,8 @@
     "description":"English: Export"
   },
   "1pExportFilename" : {
-    "message": "my-ublock-static-filters_{{datetime}}.txt",
-    "description": "English: my-ublock-static-filters_{{datetime}}.txt"
+    "message": "my-varanida-static-filters_{{datetime}}.txt",
+    "description": "English: my-varanida-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges":{
     "message":"Apply changes",
@@ -512,7 +512,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "my-ublock-dynamic-rules_{{datetime}}.txt",
+    "message": "my-varanida-dynamic-rules_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -524,7 +524,7 @@
     "description": "English: dynamic rule syntax and full documentation."
   },
   "whitelistPrompt":{
-    "message":"The whitelist directives dictate on which web pages uBlock Origin should be disabled. One entry per line. Invalid directives will be silently ignored and commented out.",
+    "message":"The whitelist directives dictate on which web pages Varanida should be disabled. One entry per line. Invalid directives will be silently ignored and commented out.",
     "description":"English: An overview of the content of the dashboard's Whitelist pane."
   },
   "whitelistImport":{
@@ -536,8 +536,8 @@
     "description":"English: Export"
   },
   "whitelistExportFilename" : {
-    "message": "my-ublock-whitelist_{{datetime}}.txt",
-    "description": "English: my-ublock-whitelist_{{datetime}}.txt"
+    "message": "my-varanida-whitelist_{{datetime}}.txt",
+    "description": "English: my-varanida-whitelist_{{datetime}}.txt"
   },
   "whitelistApply":{
     "message":"Apply changes",
@@ -660,8 +660,8 @@
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename" : {
-    "message": "my-ublock-backup_{{datetime}}.txt",
-    "description": "English: my-ublock-backup_{{datetime}}.txt"
+    "message": "my-varanida-backup_{{datetime}}.txt",
+    "description": "English: my-varanida-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton" : {
     "message": "Restore from file...",
@@ -672,7 +672,7 @@
     "description": "English: Reset to default settings..."
   },
   "aboutRestoreDataConfirm" : {
-    "message": "All your settings will be overwritten using data backed up on {{time}}, and uBlock₀ will restart.\n\nOverwrite all existing settings using backed up data?",
+    "message": "All your settings will be overwritten using data backed up on {{time}}, and Varanida will restart.\n\nOverwrite all existing settings using backed up data?",
     "description": "Message asking user to confirm restore"
   },
   "aboutRestoreDataError" : {
@@ -680,7 +680,7 @@
     "description": "Message to display when an error occurred during restore"
   },
   "aboutResetDataConfirm" : {
-    "message": "All your settings will be removed, and uBlock₀ will restart.\n\nReset uBlock₀ to factory settings?",
+    "message": "All your settings will be removed, and Varanida will restart.\n\nReset Varanida to factory settings?",
     "description": "Message asking user to confirm reset"
   },
   "errorCantConnectTo":{
@@ -688,7 +688,7 @@
     "description":"English: Network error: {{msg}}"
   },
   "subscriberConfirm":{
-    "message":"uBlock₀: Add the following URL to your custom filter lists?\n\nTitle: \"{{title}}\"\nURL: {{url}}",
+    "message":"Varanida: Add the following URL to your custom filter lists?\n\nTitle: \"{{title}}\"\nURL: {{url}}",
     "description":"English: The message seen by the user to confirm subscription to a ABP filter list"
   },
   "elapsedOneMinuteAgo":{
@@ -725,11 +725,11 @@
   },
   "fennecMenuItemBlockingOff": {
     "message": "off",
-    "description": "Firefox-specific: appears as 'uBlock₀ (off)'"
+    "description": "Firefox-specific: appears as 'Varanida (off)'"
   },
   "docblockedPrompt1": {
-    "message": "uBlock Origin has prevented the following page from loading:",
-    "description": "English: uBlock₀ has prevented the following page from loading:"
+    "message": "Varanida has prevented the following page from loading:",
+    "description": "English: Varanida has prevented the following page from loading:"
   },
   "docblockedPrompt2": {
     "message": "Because of the following filter",
