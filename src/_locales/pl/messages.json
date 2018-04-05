@@ -412,8 +412,8 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "ublock-statyczne-filtry_{{datetime}}.txt",
-    "description": "English: my-ublock-static-filters_{{datetime}}.txt"
+    "message": "varanida-statyczne-filtry_{{datetime}}.txt",
+    "description": "English: my-varanida-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
     "message": "Zastosuj zmiany",
@@ -456,7 +456,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "ublock-dynamiczne-reguly_{{datetime}}.txt",
+    "message": "varanida-dynamiczne-reguly_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -480,8 +480,8 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "ublock-lista-wyjatkow_{{datetime}}.txt",
-    "description": "English: my-ublock-whitelist_{{datetime}}.txt"
+    "message": "varanida-lista-wyjatkow_{{datetime}}.txt",
+    "description": "English: my-varanida-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
     "message": "Zastosuj zmiany",
@@ -604,8 +604,8 @@
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "ublock-kopia-zapasowa_{{datetime}}.txt",
-    "description": "English: my-ublock-backup_{{datetime}}.txt"
+    "message": "varanida-kopia-zapasowa_{{datetime}}.txt",
+    "description": "English: my-varanida-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
     "message": "Przywróć z kopii…",

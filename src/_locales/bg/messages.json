@@ -412,8 +412,8 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "моите-ublock-статични-филтри_{{datetime}}.txt",
-    "description": "English: my-ublock-static-filters_{{datetime}}.txt"
+    "message": "моите-varanida-статични-филтри_{{datetime}}.txt",
+    "description": "English: my-varanida-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
     "message": "Прилагане на промените",
@@ -456,7 +456,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "моите-ublock-динамични-правила_{{datetime}}.txt",
+    "message": "моите-varanida-динамични-правила_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -480,8 +480,8 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "моите-ublock-изключения_{{datetime}}.txt",
-    "description": "English: my-ublock-whitelist_{{datetime}}.txt"
+    "message": "моите-varanida-изключения_{{datetime}}.txt",
+    "description": "English: my-varanida-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
     "message": "Прилагане на промените",
@@ -604,8 +604,8 @@
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "моето-ublock-резервно-копие_{{datetime}}.txt",
-    "description": "English: my-ublock-backup_{{datetime}}.txt"
+    "message": "моето-varanida-резервно-копие_{{datetime}}.txt",
+    "description": "English: my-varanida-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
     "message": "Внасяне от файл...",

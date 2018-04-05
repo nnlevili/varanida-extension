@@ -412,8 +412,8 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "myn-ublock-statyske-filters_{{datetime}}.txt",
-    "description": "English: my-ublock-static-filters_{{datetime}}.txt"
+    "message": "myn-varanida-statyske-filters_{{datetime}}.txt",
+    "description": "English: my-varanida-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
     "message": "Wizigingen tapasse",
@@ -456,7 +456,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "myn-ublock-dynamyske-rigels_{{datetime}}.txt",
+    "message": "myn-varanida-dynamyske-rigels_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -480,8 +480,8 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "myn-ublock-whitelist_{{datetime}}.txt",
-    "description": "English: my-ublock-whitelist_{{datetime}}.txt"
+    "message": "myn-varanida-whitelist_{{datetime}}.txt",
+    "description": "English: my-varanida-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
     "message": "Wizigingen tapasse",
@@ -604,8 +604,8 @@
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "myn-ublock-reservekopy_{{datetime}}.txt",
-    "description": "English: my-ublock-backup_{{datetime}}.txt"
+    "message": "myn-varanida-reservekopy_{{datetime}}.txt",
+    "description": "English: my-varanida-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
     "message": "Ut bestân werstelle…",

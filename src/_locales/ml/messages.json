@@ -413,7 +413,7 @@
   },
   "1pExportFilename": {
     "message": "എന്‍റെ-യുബ്ലോക്ക്-സ്റ്റാറ്റിക്ക്-ഫില്‍ട്ടറുകള്‍_{{datetime}}.txt",
-    "description": "English: my-ublock-static-filters_{{datetime}}.txt"
+    "description": "English: my-varanida-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
     "message": "മാറ്റങ്ങള്‍ അപ്ലേ ചെയ്യുക",
@@ -481,7 +481,7 @@
   },
   "whitelistExportFilename": {
     "message": "എന്‍റെ-യുബ്ലോക്ക്-വൈറ്റ്ലിസ്റ്റ്_{{datetime}}.txt",
-    "description": "English: my-ublock-whitelist_{{datetime}}.txt"
+    "description": "English: my-varanida-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
     "message": "മാറ്റങ്ങള്‍ അപ്ലേ ചെയ്യുക",
@@ -605,7 +605,7 @@
   },
   "aboutBackupFilename": {
     "message": "എന്‍റെ-യുബ്ലോക്ക്-ബാക്ക്അപ്_{{datetime}}.txt",
-    "description": "English: my-ublock-backup_{{datetime}}.txt"
+    "description": "English: my-varanida-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
     "message": "ഫയലില്‍ നിന്നും റീസ്റ്റോര്‍ ചെയ്യുക...",

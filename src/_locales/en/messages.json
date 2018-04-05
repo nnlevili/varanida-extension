@@ -15,6 +15,10 @@
     "message":"Settings",
     "description":"appears as tab name in dashboard"
   },
+  "walletPageName":{
+    "message":"Wallet",
+    "description":"appears as tab name in dashboard"
+  },
   "3pPageName":{
     "message":"3rd-party filters",
     "description":"appears as tab name in dashboard"
@@ -362,6 +366,26 @@
   "settingsLastBackupPrompt":{
     "message":"Last backup:",
     "description":"English: Last backup:"
+  },
+  "walletPrivKeyExport":{
+    "message":"Export passphrase and private key",
+    "description":"wallet export title"
+  },
+  "noWalletText":{
+    "message":"You have not created a wallet yet.",
+    "description":"wallet address default"
+  },
+  "exportSeed":{
+    "message":"Passphrase",
+    "description":"wallet exported seed"
+  },
+  "exportPrivKey":{
+    "message":"Private Key",
+    "description":"wallet exported private key"
+  },
+  "hideExport":{
+    "message":"Hide",
+    "description":"hide private key"
   },
   "3pListsOfBlockedHostsPrompt":{
     "message":"{{netFilterCount}} network filters ＋ {{cosmeticFilterCount}} cosmetic filters from:",

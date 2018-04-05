@@ -412,8 +412,8 @@
     "description": "English: Export"
   },
   "1pExportFilename": {
-    "message": "ublock-statik-süzgeçlerim_{{datetime}}.txt",
-    "description": "English: my-ublock-static-filters_{{datetime}}.txt"
+    "message": "varanida-statik-süzgeçlerim_{{datetime}}.txt",
+    "description": "English: my-varanida-static-filters_{{datetime}}.txt"
   },
   "1pApplyChanges": {
     "message": "Değişiklikleri uygula",
@@ -456,7 +456,7 @@
     "description": ""
   },
   "rulesDefaultFileName": {
-    "message": "ublock-dinamik-kurallarım_{{datetime}}.txt",
+    "message": "varanida-dinamik-kurallarım_{{datetime}}.txt",
     "description": "default file name to use"
   },
   "rulesHint": {
@@ -480,8 +480,8 @@
     "description": "English: Export"
   },
   "whitelistExportFilename": {
-    "message": "ublock-beyazlistem_{{datetime}}.txt",
-    "description": "English: my-ublock-whitelist_{{datetime}}.txt"
+    "message": "varanida-beyazlistem_{{datetime}}.txt",
+    "description": "English: my-varanida-whitelist_{{datetime}}.txt"
   },
   "whitelistApply": {
     "message": "Değişiklikleri uygula",
@@ -604,8 +604,8 @@
     "description": "Text for button to create a backup of all settings"
   },
   "aboutBackupFilename": {
-    "message": "ublock-yedeğim_{{datetime}}.txt",
-    "description": "English: my-ublock-backup_{{datetime}}.txt"
+    "message": "varanida-yedeğim_{{datetime}}.txt",
+    "description": "English: my-varanida-backup_{{datetime}}.txt"
   },
   "aboutRestoreDataButton": {
     "message": "Dosyadan geri yükle...",

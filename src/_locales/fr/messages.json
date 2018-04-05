@@ -15,6 +15,10 @@
     "message": "Paramètres",
     "description": "appears as tab name in dashboard"
   },
+  "walletPageName":{
+    "message":"Portefeuille",
+    "description":"appears as tab name in dashboard"
+  },
   "3pPageName": {
     "message": "Listes de filtres",
     "description": "appears as tab name in dashboard"
@@ -362,6 +366,26 @@
   "settingsLastBackupPrompt": {
     "message": "Date de la dernière sauvegarde :",
     "description": "English: Last backup:"
+  },
+  "walletPrivKeyExport":{
+    "message":"Exporter passphrase et clé privée",
+    "description":"wallet export title"
+  },
+  "noWalletText":{
+    "message":"Vous n'avez pas encore créé de portefeuille.",
+    "description":"wallet address default"
+  },
+  "exportSeed":{
+    "message":"Passphrase",
+    "description":"wallet exported seed"
+  },
+  "exportPrivKey":{
+    "message":"Clé privée",
+    "description":"wallet exported private key"
+  },
+  "hideExport":{
+    "message":"Cacher",
+    "description":"hide private key"
   },
   "3pListsOfBlockedHostsPrompt": {
     "message": "{{netFilterCount}} filtre(s) réseau et {{cosmeticFilterCount}} filtre(s) esthétique(s) sont actuellement en vigueur :",
