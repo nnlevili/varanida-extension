@@ -129,18 +129,49 @@ const µWallet = (function() {
   .then(res => callback && callback(res))
 }
 
-µWallet.exportPrivKey = function(password, callback) {
-  const store = this.keyringController.memStore.getState();
-  if (store.isUnlocked) {
-    this.keyringController.exportAccount(this.walletSettings.keyringAddress)
-    .then(res => callback && callback(res));
-  } else {
-    this.keyringController.submitPassword(password)
-    .then(() => {
-      return this.keyringController.exportAccount(this.walletSettings.keyringAddress)
-    })
-    .then(res => callback && callback(res))
+µWallet.exportWalletInfo = function(password, callback) {
+  const store = this.keyringController && this.keyringController.memStore.getState();
+  if (!password || password === "") {
+    return callback && callback(new Error("password not provided"));
   }
+  if (!this.walletSettings.keyringAddress || !store) {
+    return callback && callback(null);
+  }
+  console.log("exporting for address", this.walletSettings.keyringAddress);
+  let privKeyProm;
+  const self = this;
+  if (store.isUnlocked) {
+    privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+  } else {
+    privKeyProm = this.keyringController.submitPassword(password)
+    .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
+
+
+    // privKeyProm =  new Promise((resolve) => {
+    //   this.keyringController.once('update', () => {
+    //     setTimeout(() => resolve(self.keyringController.exportAccount(self.walletSettings.keyringAddress)), 1000);
+    //   });
+    //   this.keyringController.submitPassword(password)
+    // });
+  }
+  return privKeyProm
+  .then(privKey => {
+    console.log("exporting keyring for address", self.walletSettings.keyringAddress);
+    return self.keyringController.getKeyringForAccount(self.walletSettings.keyringAddress)
+    .then(keyring => {
+      if (!keyring) {
+        return null;
+      }
+      self.keyringController.setLocked();
+      return {
+        address: self.walletSettings.keyringAddress,
+        privKey: privKey,
+        seed: keyring.mnemonic
+      };
+    })
+  })
+  .then(res => callback && callback(res),(err) => callback && callback(err))
+
 }
 
 µWallet.loadWallet = function(password, callback) {

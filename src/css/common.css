@@ -40,6 +40,7 @@ button.custom {
     background-repeat: repeat-x;
     color: #000;
     opacity: 0.8;
+    cursor: pointer;
     }
 button.custom.disabled,
 button.custom[disabled] {
@@ -49,6 +50,7 @@ button.custom[disabled] {
     color: #666;
     opacity: 0.6;
     pointer-events: none;
+    cursor: default;
     }
 button.custom:hover {
     opacity: 1.0;

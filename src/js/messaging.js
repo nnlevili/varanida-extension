@@ -133,7 +133,13 @@ var onMessage = function(request, sender, callback) {
     case 'getDomainNames':
         response = getDomainNames(request.targets);
         break;
-
+    case 'getWalletInfo':
+        response = {
+          hasWallet: µw.walletSettings.hasKeyring,
+          walletAddress: µw.walletSettings.keyringAddress,
+          totalRewardCount: µw.walletSettings.totalRewardCount
+        };
+        break;
     case 'getWhitelist':
         response = µb.stringFromWhitelist(µb.netWhitelist);
         break;
@@ -713,7 +719,7 @@ vAPI.messaging.listen('cloudWidget', onMessage);
 /******************************************************************************/
 
 var µb = µBlock;
-
+var µw = µWallet;
 /******************************************************************************/
 
 // Settings
@@ -929,6 +935,8 @@ var onMessage = function(request, sender, callback) {
     case 'writeUserFilters':
         return µb.saveUserFilters(request.content, callback);
 
+    case 'exportWalletInfo':
+        return µw.exportWalletInfo(request.password, callback);
     default:
         break;
     }
