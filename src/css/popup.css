@@ -463,6 +463,15 @@ body.dirty #refresh:hover {
 #importWalletOverlay {
   display: none;
 }
+#importMethodOverlayPanel {
+  display: block;
+}
+#walletOverlayPanel {
+  display: none;
+}
+#addressOverlayPanel {
+  display: none;
+}
 #overlays .overlayTitle {
   padding-top: 1em;
   margin-bottom: 0.4em;

@@ -679,21 +679,44 @@ var hideOverlay = function(overlayId) {
     var passwordFieldDuplicate = uDom.nodeFromId("create-wallet-password-duplicate");
     passwordField.value = "";
     passwordFieldDuplicate.value = "";
-  } else if (overlayId === "showSeedOverlay" || overlayId === "all") {
+  }
+  if (overlayId === "showSeedOverlay" || overlayId === "all") {
     var seedContainer = uDom.nodeFromId("seed-field");
     seedContainer.value = "";
-  } else if (overlayId === "importWalletOverlay" || overlayId === "all") {
+  }
+  if (overlayId === "importWalletOverlay" || overlayId === "all") {
     var passwordFieldImport = uDom.nodeFromId("import-wallet-password");
     var passwordFieldImportDuplicate = uDom.nodeFromId("import-wallet-password-duplicate");
     passwordFieldImport.value = "";
     passwordFieldImportDuplicate.value = "";
     var seedField = uDom.nodeFromId("import-wallet-seed");
     seedField.value = "";
+    var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
+    var walletImportPanel = uDom.nodeFromId("walletOverlayPanel");
+    var addressImportPanel = uDom.nodeFromId("addressOverlayPanel");
+    importMethodPanel.style.setProperty("display", "block");
+    walletImportPanel.style.setProperty("display", "none");
+    addressImportPanel.style.setProperty("display", "none");
+
   }
   for (var i = 0; i < overlaysList.length; i++) {
     overlaysList[i].style.setProperty("display", "none");
   }
   overlaysContainer.style.setProperty("display", "none");
+}
+
+var showWalletImport = function() {
+  var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
+  var walletImportPanel = uDom.nodeFromId("walletOverlayPanel");
+  importMethodPanel.style.setProperty("display", "none");
+  walletImportPanel.style.setProperty("display", "block");
+}
+
+var showAddressImport = function() {
+  var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
+  var addressImportPanel = uDom.nodeFromId("addressOverlayPanel");
+  importMethodPanel.style.setProperty("display", "none");
+  addressImportPanel.style.setProperty("display", "block");
 }
 
 var createWalletFromOverlay = function() {
@@ -718,8 +741,16 @@ var importWalletFromOverlay = function() {
   if (pass1 !== pass2 || seed === "") {
     return;
   }
-  hideOverlay("importWalletOverlay");
   importWallet(pass1, seed);
+}
+
+var importAddressFromOverlay = function() {
+  var addressField = uDom.nodeFromId("import-wallet-address");
+  var address = addressField.value;
+  if (address === "") {
+    return;
+  }
+  importAddress(address);
 }
 
 var closeSeedOverlay = function() {
@@ -1213,6 +1244,7 @@ var setNewWallet = function(password) {
 var importWallet = function(password, seed) {
     var onWalletInfoReceived = function(response) {
       renderWallet(response.address);
+      hideOverlay("importWalletOverlay");
       showOverlay("showSeedOverlay", {seed: response.seed})
     };
     messaging.send(
@@ -1221,6 +1253,24 @@ var importWallet = function(password, seed) {
         onWalletInfoReceived
     );
 };
+
+/******************************************************************************/
+
+  var importAddress = function(address) {
+    var onWalletInfoReceived = function(response) {
+      if (!response || !response.address) {
+        return console.log("address invalid");
+      }
+      renderWallet(response.address);
+      hideOverlay("importWalletOverlay");
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'importAddress', address: address },
+        onWalletInfoReceived
+    );
+};
+
 /******************************************************************************/
 
 var onShowTooltip = function() {
@@ -1299,8 +1349,11 @@ var onHideTooltip = function() {
     uDom('.cornerbutton[href]').on('click', gotoURL);
     uDom('#create-wallet-button').on('click', onCreateWallet);
     uDom('#import-wallet-button').on('click', onImportWallet);
+    uDom('#import-wallet-method-button-overlay').on('click', showWalletImport);
+    uDom('#import-address-method-button-overlay').on('click', showAddressImport);
     uDom('#create-wallet-button-overlay').on('click', createWalletFromOverlay);
     uDom('#import-wallet-button-overlay').on('click', importWalletFromOverlay);
+    uDom('#import-address-button-overlay').on('click', importAddressFromOverlay);//TODO
     uDom('#show-seed-button-overlay').on('click', closeSeedOverlay);
     uDom('.overlayClose').on('click', function(){hideOverlay("all");})
 

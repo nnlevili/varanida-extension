@@ -247,6 +247,22 @@
     "message":"Importer le Portefeuille",
     "description":"import wallet overlay title"
   },
+  "popupOverlayImportChoice":{
+    "message":"Que voulez-vous importer?",
+    "description":"overlay import choice text"
+  },
+  "popupOverlayImportWalletMethodButton":{
+    "message":"Portefeuille",
+    "description":"overlay wallet method button"
+  },
+  "popupOverlayImportAddressMethodButton":{
+    "message":"Adresse seule",
+    "description":"overlay address method button"
+  },
+  "popupOverlayAddress":{
+    "message":"Adresse :",
+    "description":"overlay address prompt"
+  },
   "popupOverlaySeed":{
     "message":"Passphrase :",
     "description":"overlay seed prompt"

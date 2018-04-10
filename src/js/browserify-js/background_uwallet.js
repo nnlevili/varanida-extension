@@ -40,12 +40,21 @@ const µWallet = (function() {
           hasKeyring: false,
           keyringStore: null,
           keyringAddress: null,
+          onlyAddress: false,
           totalRewardCount: 0
         },
         recorder: null,
         kinesis: null,
     };
 })();
+
+const checkEthereumAddress = function(address) {
+  if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) {
+    // If it's all small caps or all all caps, return true
+    return true;
+  }
+  return false;
+}
 
 /*–––––Wallet handling–––––*/
 
@@ -73,6 +82,7 @@ const µWallet = (function() {
     this.walletSettings.keyringAddress = null;
     this.walletSettings.hasKeyring = false;
     this.walletSettings.keyringStore = null;
+    this.walletSettings.onlyAddress = false;
     this.walletSettings.totalRewardCount = 0;
     return new Promise((resolve, reject) => {
       this.saveWalletSettings(resolve);
@@ -129,10 +139,26 @@ const µWallet = (function() {
   .then(res => callback && callback(res))
 }
 
+µWallet.importAddress = function(address, callback) {
+  if (!checkEthereumAddress(address)) {
+    return callback && callback(null);
+  }
+  this.walletSettings.keyringAddress = address;
+  this.walletSettings.hasKeyring = true;
+  this.walletSettings.onlyAddress = true;
+  this.saveWalletSettings();
+  callback && callback({
+    address: address
+  });
+}
+
 µWallet.exportWalletInfo = function(password, callback) {
+  if (this.walletSettings.keyringAddress && this.walletSettings.onlyAddress) {
+    return callback && callback("this is an address only account");
+  }
   const store = this.keyringController && this.keyringController.memStore.getState();
   if (!password || password === "") {
-    return callback && callback(new Error("password not provided"));
+    return callback && callback("password not provided");
   }
   if (!this.walletSettings.keyringAddress || !store) {
     return callback && callback(null);
@@ -170,7 +196,7 @@ const µWallet = (function() {
       };
     })
   })
-  .then(res => callback && callback(res),(err) => callback && callback(err))
+  .then(res => callback && callback(res),(err) => callback && callback(err.message))
 
 }
 
@@ -218,8 +244,9 @@ const µWallet = (function() {
         if (this.status === 200 || this.status === 304) {
           const data = JSON.parse(this.responseText);
           if (data.earnings || data.earnings === 0) {
-            walletContext.walletSettings.totalRewardCount = data.earnings;
-            walletContext.saveRewardCount(data.earnings);
+            const roundedReward = Math.floor(data.earnings*100)/100;
+            walletContext.walletSettings.totalRewardCount = roundedReward;
+            walletContext.saveRewardCount(roundedReward);
           }
         }
         callback(walletContext.walletSettings.totalRewardCount);

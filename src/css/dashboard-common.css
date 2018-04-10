@@ -20,6 +20,13 @@ h3 {
 a {
     text-decoration: none;
     }
+a.textUrl {
+    color: #737373;
+    font-style: italic;
+    }
+a.textUrl:hover {
+    color: #4c4c4c;
+    }
 a.info {
     color: black;
     opacity: 0.3;

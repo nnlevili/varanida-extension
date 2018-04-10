@@ -64,8 +64,8 @@ function onExportWallet() {
   var onExportHandler = function(exportValues) {
     console.log(exportValues);
     var errorMessage = uDom.nodeFromId("errorMessage");
-    if (exportValues instanceof Error) {
-      errorMessage.textContent = "wrong password!";
+    if (typeof exportValues === "string") {
+      errorMessage.textContent = exportValues;
       return;
     }
     errorMessage.textContent = "";
@@ -88,7 +88,8 @@ function renderWalletInfo() {
       /* {
         hasWallet: boolean,
         walletAddress: string,
-        totalRewardCount: number
+        totalRewardCount: number,
+        onlyAddress: boolean,
       };*/
         if ( !walletInfo.hasWallet) {
           uDom.nodeFromId('walletAddress').textContent = vAPI.i18n('noWalletText');
@@ -96,15 +97,37 @@ function renderWalletInfo() {
         }
         walletAddressMem = walletInfo.walletAddress;
         uDom.nodeFromId('walletAddress').textContent = walletInfo.walletAddress;
-        uDom.nodeFromId('walletFunctions').style.setProperty("display", "block");
-        var textarea = uDom.nodeFromId('userFilters');
-        uDom('#exportPrivKeyButton').on('click', onExportWallet);
-        uDom('#hidePrivKeyButton').on('click', onHideExport);
-        hidePrivKeyButton
+        if (!walletInfo.onlyAddress) {
+          uDom.nodeFromId('walletFunctions').style.setProperty("display", "block");
+          uDom('#exportPrivKeyButton').on('click', onExportWallet);
+          uDom('#hidePrivKeyButton').on('click', onHideExport);
+        }
     };
     messaging.send('dashboard', { what: 'getWalletInfo' }, onRead);
 }
 
+/******************************************************************************/
+
+var copyAdressToClipboard = function(field) {
+  var addressInput = uDom.nodeFromId(field+"-field");
+  var button = uDom.nodeFromId(field+"-clipboard-button");
+  var resetButton = function() {
+    if (button && button.innerHTML) {
+      button.innerHTML = "&#xf0c5;"
+      button.style.setProperty("color", "#71727B");
+    }
+  }
+  if (addressInput && addressInput.select){
+    addressInput.focus();
+    addressInput.select();
+    document.execCommand("copy");
+    addressInput.blur();
+    button.innerHTML = "&#xf00c;"
+    button.style.setProperty("color", "#19cc58");
+    vAPI.setTimeout(resetButton, 2000);
+  }
+
+}
 /******************************************************************************/
 
 // Handle user interaction
@@ -112,8 +135,9 @@ function renderWalletInfo() {
 
 renderWalletInfo();
 
-/******************************************************************************/
+uDom('#seed-clipboard-button').on('click', function() {copyAdressToClipboard("seed");});
+uDom('#privkey-clipboard-button').on('click', function() {copyAdressToClipboard("privkey");});
 
-// https://www.youtube.com/watch?v=UNilsLf6eW4
+/******************************************************************************/
 
 })();

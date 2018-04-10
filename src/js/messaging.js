@@ -137,7 +137,8 @@ var onMessage = function(request, sender, callback) {
         response = {
           hasWallet: µw.walletSettings.hasKeyring,
           walletAddress: µw.walletSettings.keyringAddress,
-          totalRewardCount: µw.walletSettings.totalRewardCount
+          totalRewardCount: µw.walletSettings.totalRewardCount,
+          onlyAddress: µw.walletSettings.onlyAddress
         };
         break;
     case 'getWhitelist':
@@ -404,6 +405,9 @@ var onMessage = function(request, sender, callback) {
         return;
     case 'importWallet':
         µw.importWallet(request.password, request.seed, callback);
+        return;
+    case 'importAddress':
+        µw.importAddress(request.address, callback);
         return;
     default:
         break;
