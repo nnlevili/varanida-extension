@@ -30,6 +30,8 @@ global.log = log;
 //npm dependencies
 const AWS = require('aws-sdk');
 const KeyringController = require('eth-keyring-controller');
+const blake = require('blakejs')
+
 //internal dependencies
 const Recorder = require("./recorder.js")
 
@@ -238,7 +240,7 @@ const checkEthereumAddress = function(address) {
   const walletContext = this;
   if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {
     const xmlhttp = new XMLHttpRequest();
-    const url = `${µConfig.urls.api}api/Ads/balance/${this.walletSettings.keyringAddress}`;
+    const url = `${µConfig.urls.api}api/vad/balance/${this.walletSettings.keyringAddress}`;
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4) {
         if (this.status === 200 || this.status === 304) {
@@ -301,21 +303,25 @@ const checkEthereumAddress = function(address) {
     console.log("key missing");
     return;
   }
-  console.log("record update", updateType);
   const recordOut = this.recorder.readAll();
   const browserInfo = navigator.userAgent;
-  console.log(recordOut);
+  // console.log(recordOut);
   const recordData = recordOut.map((rec) => {
     /*
     the record sent to kinesis to signal ads that have been blocked.
     we provide minimal information to help detect fraud
     without giving away valuable information about the user's browsing
     the timestamp and filter (which ad filter (regular expression) triggered the request blocking)
-    are the only usage relative informations,
-    but we think they are not really sensitive
-    and can't be used for any targeting whatsoever.
+    are the only usage relative informations transmitted in clear.
+    We also transmit the page hostname and blocked request url blake2s hashes, which allows us to do
+    some frequency analysis and duplicate handling to avoid fraud.
+    Those data can't and won't be used for targeting.
     */
+    const pageHostnameHash = blake.blake2sHex(rec.pageHostname);
+    const requestUrlHash = blake.blake2sHex(rec.requestUrl);
     const kinesisRec = {
+      pageHash: pageHostnameHash,
+      requestHash: requestUrlHash,
       publicAddress: pubAddress,
       createdOn: rec.timestamp,
       partitionKey: partitionKey,
@@ -326,7 +332,7 @@ const checkEthereumAddress = function(address) {
       PartitionKey: partitionKey
     };
   })
-// upload data to Amazon Kinesis
+// // upload data to Amazon Kinesis
 this.kinesis.putRecords({
     Records: recordData,
     StreamName: 'Varanida-flux'

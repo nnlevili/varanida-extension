@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "aws-sdk": "^2.213.1",
+    "blakejs": "1.1.0",
     "eth-keyring-controller": "^2.1.4",
     "ethereumjs-util": "^5.1.2",
     "loglevel": "^1.5.0"

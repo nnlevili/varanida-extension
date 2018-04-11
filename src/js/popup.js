@@ -1246,6 +1246,7 @@ var importWallet = function(password, seed) {
       renderWallet(response.address);
       hideOverlay("importWalletOverlay");
       showOverlay("showSeedOverlay", {seed: response.seed})
+      getUpdatedRewardData();
     };
     messaging.send(
         'popupPanel',
@@ -1263,6 +1264,7 @@ var importWallet = function(password, seed) {
       }
       renderWallet(response.address);
       hideOverlay("importWalletOverlay");
+      getUpdatedRewardData();
     };
     messaging.send(
         'popupPanel',
