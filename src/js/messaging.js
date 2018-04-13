@@ -318,6 +318,7 @@ var popupDataFromTabId = function(tabId, tabTitle) {
         hasWallet: µw.walletSettings.hasKeyring,
         walletAddress: µw.walletSettings.keyringAddress,
         totalRewardCount: µw.walletSettings.totalRewardCount,
+        referralWindowShown: µw.walletSettings.referralWindowShown
     };
 
     var pageStore = µb.pageStoreFromTabId(tabId);
@@ -409,6 +410,9 @@ var onMessage = function(request, sender, callback) {
     case 'importAddress':
         µw.importAddress(request.address, callback);
         return;
+    case 'importReferrer':
+        µw.importReferrer(request.address, callback);
+        return;
     default:
         break;
     }
@@ -455,7 +459,9 @@ var onMessage = function(request, sender, callback) {
             µb.updateBadgeAsync(request.tabId);
         }
         break;
-
+    case 'setReferralWindowShown':
+        µw.setReferralWindowShown(request.shown);
+        break;
     default:
         return vAPI.messaging.UNHANDLED;
     }

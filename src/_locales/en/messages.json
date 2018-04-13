@@ -271,6 +271,26 @@
     "message":"Import",
     "description":"import overlay button"
   },
+  "popupOverlayReferralInputTitle":{
+    "message":"Referral",
+    "description":"import referral overlay title"
+  },
+  "popupOverlayReferralInputSubTitle":{
+    "message":"Did someone invite you to use this extension?",
+    "description":"import referral overlay subtitle"
+  },
+  "popupOverlayReferrerAddress":{
+    "message":"Referrer's address :",
+    "description":"import referral overlay prompt"
+  },
+  "popupOverlayImportReferralButton":{
+    "message":"Validate",
+    "description":"use referral overlay button"
+  },
+  "popupOverlayNoReferralButton":{
+    "message":"No Referral",
+    "description":"no referral overlay button"
+  },
   "pickerCreate":{
     "message":"Create",
     "description":"English: Create"

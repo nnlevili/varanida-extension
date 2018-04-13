@@ -668,8 +668,14 @@ var showOverlay = function(overlayId, params) {
     var seedContainer = uDom.nodeFromId("seed-field");
     seedContainer.value = params.seed;
   }
-  overlaysContainer.style.setProperty("display", "block");
-  overlay.style.setProperty("display", "block");
+  if (overlay) {
+    overlaysContainer.style.setProperty("display", "block");
+    overlay.style.setProperty("display", "block");
+    return true;
+  } else {
+    console.log("overlay not found");
+    return false;
+  }
 }
 var hideOverlay = function(overlayId) {
   var overlaysContainer = uDom.nodeFromId("overlays");
@@ -697,7 +703,9 @@ var hideOverlay = function(overlayId) {
     importMethodPanel.style.setProperty("display", "block");
     walletImportPanel.style.setProperty("display", "none");
     addressImportPanel.style.setProperty("display", "none");
-
+  }
+  if (overlayId === "referralInputOverlay") {
+    messaging.send('popupPanel', { what: 'setReferralWindowShown', shown: true });
   }
   for (var i = 0; i < overlaysList.length; i++) {
     overlaysList[i].style.setProperty("display", "none");
@@ -753,10 +761,21 @@ var importAddressFromOverlay = function() {
   importAddress(address);
 }
 
-var closeSeedOverlay = function() {
-  hideOverlay("showSeedOverlay");
+var showReferralWindow = function() {
+  if (popupData.referralWindowShown) {
+    return; // the referral window has already been shown
+  }
+  showOverlay("referralInputOverlay");
 }
 
+var importReferralFromOverlay = function() {
+  var addressField = uDom.nodeFromId("import-referral-address");
+  var address = addressField.value;
+  if (address === "") {
+    return;
+  }
+  importReferrer(address);
+}
 
 /******************************************************************************/
 
@@ -1191,6 +1210,7 @@ var getPopupData = function(tabId) {
         hashFromPopupData(true);
         pollForContentChange();
         getUpdatedRewardData();
+        showReferralWindow(); // will only be executed if it hasn't already
     };
     messaging.send(
         'popupPanel',
@@ -1270,6 +1290,22 @@ var importWallet = function(password, seed) {
         'popupPanel',
         { what: 'importAddress', address: address },
         onWalletInfoReceived
+    );
+};
+
+/******************************************************************************/
+
+  var importReferrer = function(address) {
+    var onReferralInfoReceived = function(response) {
+      if (!response) {
+        return console.log("address invalid");
+      }
+      hideOverlay("referralInputOverlay");
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'importReferrer', address: address },
+        onReferralInfoReceived
     );
 };
 
@@ -1355,8 +1391,10 @@ var onHideTooltip = function() {
     uDom('#import-address-method-button-overlay').on('click', showAddressImport);
     uDom('#create-wallet-button-overlay').on('click', createWalletFromOverlay);
     uDom('#import-wallet-button-overlay').on('click', importWalletFromOverlay);
-    uDom('#import-address-button-overlay').on('click', importAddressFromOverlay);//TODO
-    uDom('#show-seed-button-overlay').on('click', closeSeedOverlay);
+    uDom('#import-address-button-overlay').on('click', importAddressFromOverlay);
+    uDom('#show-seed-button-overlay').on('click', function(){hideOverlay("showSeedOverlay");});
+    uDom('#import-referral-button-overlay').on('click', importReferralFromOverlay);
+    uDom('#no-referral-button-overlay').on('click', function(){hideOverlay("referralInputOverlay");});
     uDom('.overlayClose').on('click', function(){hideOverlay("all");})
 
 })();
