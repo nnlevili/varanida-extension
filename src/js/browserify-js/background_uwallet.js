@@ -47,6 +47,7 @@ const µWallet = (function() {
           referralWindowShown: false,
           referrerAddress: null,
           referrerSignaled: false,
+          installationSignaled: false,
         },
         recorder: null,
         kinesis: null,
@@ -62,10 +63,28 @@ const checkEthereumAddress = function(address) {
 
 /*–––––Wallet handling–––––*/
 
+µWallet.updateWalletSettings = function(updates, callback) {
+  if (!updates) {
+    return;
+  }
+  const updateKeys = Object.keys(updates);
+  let hasUpdates = false;
+  updateKeys.forEach(key => {
+    this.walletSettings[key] = updates[key];
+    hasUpdates = true;
+  });
+  if (hasUpdates) {
+    this.saveWalletSettings(callback);
+  } else {
+    callback && callback();
+  }
+}
+
 µWallet.storeUpdatesHandler = function(state) {
   if (state) {
-    this.walletSettings.keyringStore = state;
-    this.saveWalletSettings();
+    this.updateWalletSettings({
+      keyringStore: state
+    });
   }
 }
 
@@ -83,16 +102,18 @@ const checkEthereumAddress = function(address) {
   return this.keyringController && this.keyringController.setLocked()
   .then(() => {
     this.keyringController = null;
-    this.walletSettings.keyringAddress = null;
-    this.walletSettings.hasKeyring = false;
-    this.walletSettings.keyringStore = null;
-    this.walletSettings.onlyAddress = false;
-    this.walletSettings.totalRewardCount = 0;
-    this.walletSettings.referrerAddress = null;
-    this.walletSettings.referrerSignaled = false;
-    this.walletSettings.referralWindowShown = false;
     return new Promise((resolve, reject) => {
-      this.saveWalletSettings(resolve);
+      this.updateWalletSettings({
+        hasKeyring: false,
+        keyringStore: null,
+        keyringAddress: null,
+        onlyAddress: false,
+        totalRewardCount: 0,
+        referralWindowShown: false,
+        referrerAddress: null,
+        referrerSignaled: false,
+        installationSignaled: false,
+      }, resolve);
     });
   })
   .then(() => {
@@ -108,9 +129,10 @@ const checkEthereumAddress = function(address) {
   .then((memStore) => {
     if (memStore) {
       address = memStore.keyrings[0].accounts[0];
-      this.walletSettings.keyringAddress = address;
-      this.walletSettings.hasKeyring = true;
-      this.saveWalletSettings();
+      this.updateWalletSettings({
+        keyringAddress: address,
+        hasKeyring: true
+      });
       return this.keyringController.getKeyringForAccount(address);
     }
     return null;
@@ -119,6 +141,7 @@ const checkEthereumAddress = function(address) {
     if (!keyring) {
       return null;
     }
+    this.signalInstallation();
     return {
       address: address,
       seed: keyring.mnemonic,
@@ -133,9 +156,11 @@ const checkEthereumAddress = function(address) {
   .then((memStore) => {
     if (memStore) {
       let address = memStore.keyrings[0].accounts[0];
-      this.walletSettings.keyringAddress = address;
-      this.walletSettings.hasKeyring = true;
-      this.saveWalletSettings();
+      this.updateWalletSettings({
+        keyringAddress: address,
+        hasKeyring: true
+      });
+      this.signalInstallation();
       return {
         seed: seed,
         address: address,
@@ -150,13 +175,51 @@ const checkEthereumAddress = function(address) {
   if (!checkEthereumAddress(address)) {
     return callback && callback(null);
   }
-  this.walletSettings.keyringAddress = address.toLowerCase();
-  this.walletSettings.hasKeyring = true;
-  this.walletSettings.onlyAddress = true;
-  this.saveWalletSettings();
+  this.updateWalletSettings({
+    keyringAddress: address.toLowerCase(),
+    hasKeyring: true,
+    onlyAddress: true
+  });
+  this.signalInstallation();
   callback && callback({
     address: address
   });
+}
+
+µWallet.signalInstallation = function(callback) {
+  if (
+    this.walletSettings.installationSignaled ||
+    !this.walletSettings.keyringAddress
+  ) {
+    return;
+  }
+
+  const walletContext = this;
+  const xmlhttp = new XMLHttpRequest();
+  const url = `${µConfig.urls.api}api/Rewards/installation`;
+  const params =
+    `publicAddress=${this.walletSettings.keyringAddress}`
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4) {
+      walletContext.updateWalletSettings({
+        installationSignaled: true
+      });
+      if (this.status === 401) {
+        console.log("installation already signaled for this address");
+      }
+      if (this.status === 200) {
+        const data = JSON.parse(this.responseText);
+        if (data.status && data.status === "success") {
+          console.log("installation signaling successful");
+          return callback && callback(true);
+        }
+      }
+      callback && callback(false);
+    }
+  };
+  xmlhttp.open("POST", url, true);
+  xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+  xmlhttp.send(params);
 }
 
 µWallet.sendReferrerInfo = function(callback) {
@@ -175,7 +238,9 @@ const checkEthereumAddress = function(address) {
     `referrerAddress=${this.walletSettings.referrerAddress}&referredAddress=${this.walletSettings.keyringAddress}`
   xmlhttp.onreadystatechange = function() {
     if (this.readyState === 4) {
-      walletContext.walletSettings.referrerSignaled = true;
+      walletContext.updateWalletSettings({
+        referrerSignaled: true
+      });
       if (this.status === 411) {
         console.log("already referred");
       }
@@ -195,15 +260,18 @@ const checkEthereumAddress = function(address) {
 }
 
 µWallet.setReferralWindowShown = function(shown) {
-  this.walletSettings.referralWindowShown = shown;
+  this.updateWalletSettings({
+    referralWindowShown: shown
+  });
 }
 
 µWallet.importReferrer = function(address, callback) {
   if (!checkEthereumAddress(address)) {
     return callback && callback(false);
   }
-  this.walletSettings.referrerAddress = address.toLowerCase();
-  this.saveWalletSettings();
+  this.updateWalletSettings({
+    referrerAddress: address.toLowerCase()
+  });
   console.log("referrer successfully imported");
   if (this.walletSettings.keyringAddress) {
     this.sendReferrerInfo();
@@ -401,6 +469,8 @@ this.kinesis.putRecords({
 });
 // send referrer info (is not executed if it's already done or no referrer)
 this.sendReferrerInfo();
+// signal the extension has been installed (is not executed if it's already done)
+this.signalInstallation();
 }
 
 window.µWallet = µWallet;

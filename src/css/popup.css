@@ -148,9 +148,9 @@ body, #panes {
 #existingWallet {
   display: none;
 }
-/* #abscentWallet {
-
-} */
+#abscentWallet {
+  display: none;
+}
 .action-button {
   display: inline-block;
   margin: 5px 5px 0 5px;

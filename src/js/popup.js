@@ -1249,7 +1249,13 @@ var onImportWallet = function() {
 
 var setNewWallet = function(password) {
     var onWalletInfoReceived = function(response) {
-      renderWallet(response.address);
+      if (response.address) {
+        updatePopupData({
+          hasWallet: true,
+          walletAddress: response.address,
+        });
+        renderWallet();
+      }
       showOverlay("showSeedOverlay", {seed: response.seed})
     };
     messaging.send(
@@ -1263,7 +1269,13 @@ var setNewWallet = function(password) {
 
 var importWallet = function(password, seed) {
     var onWalletInfoReceived = function(response) {
-      renderWallet(response.address);
+      if (response.address) {
+        updatePopupData({
+          hasWallet: true,
+          walletAddress: response.address,
+        });
+        renderWallet();
+      }
       hideOverlay("importWalletOverlay");
       showOverlay("showSeedOverlay", {seed: response.seed})
       getUpdatedRewardData();
@@ -1282,7 +1294,11 @@ var importWallet = function(password, seed) {
       if (!response || !response.address) {
         return console.log("address invalid");
       }
-      renderWallet(response.address);
+      updatePopupData({
+        hasWallet: true,
+        walletAddress: response.address,
+      });
+      renderWallet();
       hideOverlay("importWalletOverlay");
       getUpdatedRewardData();
     };
