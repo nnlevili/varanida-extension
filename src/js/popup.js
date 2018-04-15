@@ -101,7 +101,7 @@ var touchedDomainCount = 0;
 var rowsToRecycle = uDom();
 var cachedPopupHash = '';
 var statsStr = vAPI.i18n('popupBlockedStats');
-var domainsHitStr = vAPI.i18n('popupHitDomainCount');
+// var domainsHitStr = vAPI.i18n('popupHitDomainCount');
 
 // https://github.com/gorhill/uBlock/issues/2550
 // Solution inspired from
@@ -404,9 +404,9 @@ var renderPrivacyExposure = function() {
         desHostnameDone[des] = true;
     }
 
-    var summary = domainsHitStr.replace('{{count}}', touchedDomainCount.toLocaleString())
-                               .replace('{{total}}', allDomainCount.toLocaleString());
-    uDom.nodeFromId('popupHitDomainCount').textContent = summary;
+    // var summary = domainsHitStr.replace('{{count}}', touchedDomainCount.toLocaleString())
+    //                            .replace('{{total}}', allDomainCount.toLocaleString());
+    // uDom.nodeFromId('popupHitDomainCount').textContent = summary;
 };
 
 /******************************************************************************/
@@ -464,7 +464,7 @@ var renderPopup = function() {
     }
 
     // This will collate all domains, touched or not
-    // renderPrivacyExposure();
+    renderPrivacyExposure();
 
     // Extra tools
     uDom.nodeFromId('no-popups').classList.toggle('on', popupData.noPopups === true);
@@ -667,6 +667,10 @@ var showOverlay = function(overlayId, params) {
   if (overlayId === "showSeedOverlay" && params) {
     var seedContainer = uDom.nodeFromId("seed-field");
     seedContainer.value = params.seed;
+  } else if (overlayId === "infoOverlay" && params) {
+    uDom.nodeFromId("info-overlay-title").textContent = params.title || vAPI.i18n('popupInfoOverlayDefaultTitle');
+    uDom.nodeFromId("info-overlay-text").textContent = params.text || "";
+    uDom.nodeFromId("info-validate-button-overlay").textContent = params.button || vAPI.i18n('popupInfoOverlayDefaultButton');
   }
   if (overlay) {
     overlaysContainer.style.setProperty("display", "block");
@@ -1317,6 +1321,11 @@ var importWallet = function(password, seed) {
         return console.log("address invalid");
       }
       hideOverlay("referralInputOverlay");
+      showOverlay("infoOverlay", {
+        title: vAPI.i18n('popupInfoOverlayReferralTitle'),
+        text: vAPI.i18n('popupInfoOverlayReferralText').replace("{{referralReward}}", µConfig.rewards.referral)
+      });
+
     };
     messaging.send(
         'popupPanel',
@@ -1387,7 +1396,7 @@ var onHideTooltip = function() {
     uDom('#switch').on('click', toggleNetFilteringSwitch);
     uDom('#gotoZap').on('click', gotoZap);
     uDom('#gotoPick').on('click', gotoPick);
-    // uDom('h2').on('click', toggleFirewallPane);
+    uDom('#dfToggler').on('click', toggleFirewallPane);
     uDom('#walletTitle').on('click', gotoEtherscan);
     uDom('#refresh').on('click', reloadTab);
     uDom('.hnSwitch').on('click', toggleHostnameSwitch);
@@ -1411,6 +1420,7 @@ var onHideTooltip = function() {
     uDom('#show-seed-button-overlay').on('click', function(){hideOverlay("showSeedOverlay");});
     uDom('#import-referral-button-overlay').on('click', importReferralFromOverlay);
     uDom('#no-referral-button-overlay').on('click', function(){hideOverlay("referralInputOverlay");});
+    uDom('#info-validate-button-overlay').on('click', function(){hideOverlay("infoOverlay");});
     uDom('.overlayClose').on('click', function(){hideOverlay("all");})
 
 })();

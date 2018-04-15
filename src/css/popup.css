@@ -145,6 +145,9 @@ body, #panes {
   box-shadow: -1px 1px 0px #d4d7d7;
   cursor: pointer;
 }
+#dfToggler {
+  cursor: pointer;
+}
 #existingWallet {
   display: none;
 }
@@ -233,7 +236,7 @@ body[dir="rtl"] #panes > div {
     direction: rtl;
     }
 #panes > div:nth-of-type(2) {
-    font-family: "Noto Sans", sans-serif;
+    /* font-family: "Noto Sans", sans-serif; */
     overflow-y: auto;
     overflow-x: hidden;
     width: 24em;
@@ -473,6 +476,9 @@ body.dirty #refresh:hover {
   display: none;
 }
 #referralInputOverlay {
+  display: none;
+}
+#infoOverlay {
   display: none;
 }
 #overlays .overlayTitle {

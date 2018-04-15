@@ -291,6 +291,22 @@
     "message":"No Referral",
     "description":"no referral overlay button"
   },
+  "popupInfoOverlayDefaultTitle":{
+    "message":"Information",
+    "description":"default title for the info overlay"
+  },
+  "popupInfoOverlayDefaultButton":{
+    "message":"Got it!",
+    "description":"default text for the info overlay button"
+  },
+  "popupInfoOverlayReferralTitle":{
+    "message":"Referral Saved",
+    "description":"referral title for the info overlay"
+  },
+  "popupInfoOverlayReferralText":{
+    "message":"Your referrer was saved, and a {{referralReward}} VAD reward will be distributed to you once you have created/imported a wallet.",
+    "description":"referral text for the info overlay"
+  },
   "pickerCreate":{
     "message":"Create",
     "description":"English: Create"

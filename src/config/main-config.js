@@ -11,5 +11,9 @@ window.µConfig = {
     kinesis: {
       apiVersion: '2013-12-02'
     }
+  },
+  rewards: {
+    install: 50,
+    referral: 20
   }
 };

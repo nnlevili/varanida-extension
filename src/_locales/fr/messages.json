@@ -291,6 +291,22 @@
     "message":"Pas de parrain",
     "description":"no referral overlay button"
   },
+  "popupInfoOverlayDefaultTitle":{
+    "message":"Information",
+    "description":"default title for the info overlay"
+  },
+  "popupInfoOverlayDefaultButton":{
+    "message":"J'ai compris!",
+    "description":"default text for the info overlay button"
+  },
+  "popupInfoOverlayReferralTitle":{
+    "message":"Parrain enregistré",
+    "description":"referral title for the info overlay"
+  },
+  "popupInfoOverlayReferralText":{
+    "message":"Votre parrain a été enregistré, et une récompense de {{referralReward}} VAD vous sera attribuée une fois que vous aurez créé/importé un portefeuille.",
+    "description":"referral text for the info overlay"
+  },
   "pickerCreate": {
     "message": "Créer",
     "description": "English: Create"
