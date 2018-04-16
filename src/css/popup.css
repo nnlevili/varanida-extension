@@ -190,7 +190,7 @@ body, #panes {
   font-size: 14px;
 }
 .action-button.overlay-validate.cramped {
-  margin: 10px 0px;
+  margin: 16px 0px;
 }
 .action-button.valid-button.add:before {
   content: "\f067";
@@ -505,7 +505,9 @@ body.dirty #refresh:hover {
   margin-bottom: 0.5em;
   font-weight: bold;
 }
-
+#overlays .overlayTitle.cramped h1 {
+  margin-bottom: 0em;
+}
 #overlays .overlayText p {
   margin: 0.5em;
   font-size: 1.2em;
@@ -521,6 +523,20 @@ body.dirty #refresh:hover {
 #overlays .overlayText.small p {
   margin: 0.3em;
   font-size: 1em;
+}
+#overlays .overlayError {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  position: absolute;
+  font-size: 0.9em;
+  color: #ff2700;
+}
+#overlays .overlayError p {
+  margin:0;
 }
 #overlays .text-input-group {
   position: relative;

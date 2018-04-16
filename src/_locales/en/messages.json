@@ -307,6 +307,34 @@
     "message":"Your referrer was saved, and a {{referralReward}} VAD reward will be distributed to you once you have created/imported a wallet.",
     "description":"referral text for the info overlay"
   },
+  "passwordMismatchError":{
+    "message":"password mismatch",
+    "description": "password mismatch error message"
+  },
+  "noSeedError":{
+    "message":"no passphrase provided",
+    "description": "no seed error message"
+  },
+  "noAddressError":{
+    "message":"no address provided",
+    "description": "no address error message"
+  },
+  "createWalletError":{
+    "message":"error creating wallet",
+    "description": "error creating wallet message"
+  },
+  "importWalletError":{
+    "message":"error importing wallet",
+    "description": "error importing wallet message"
+  },
+  "importAddressError":{
+    "message":"error: invalid address",
+    "description": "invalid address error message"
+  },
+  "importReferralError":{
+    "message":"error: invalid referral address",
+    "description": "invalid referral error message"
+  },
   "pickerCreate":{
     "message":"Create",
     "description":"English: Create"

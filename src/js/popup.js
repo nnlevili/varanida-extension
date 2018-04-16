@@ -734,12 +734,15 @@ var showAddressImport = function() {
 var createWalletFromOverlay = function() {
   var passwordField = uDom.nodeFromId("create-wallet-password");
   var passwordFieldDuplicate = uDom.nodeFromId("create-wallet-password-duplicate");
+  var errorField = uDom.nodeFromId("create-wallet-overlay-error");
   var pass1 = passwordField.value;
   var pass2 = passwordFieldDuplicate.value;
   if (pass1 !== pass2) {
+    errorField.textContent = vAPI.i18n('passwordMismatchError');
     return;
+  } else {
+    errorField.textContent = "";
   }
-  hideOverlay("createWalletOverlay");
   setNewWallet(pass1);
 }
 
@@ -747,20 +750,31 @@ var importWalletFromOverlay = function() {
   var passwordField = uDom.nodeFromId("import-wallet-password");
   var passwordFieldDuplicate = uDom.nodeFromId("import-wallet-password-duplicate");
   var seedField = uDom.nodeFromId("import-wallet-seed");
+  var errorField = uDom.nodeFromId("import-wallet-overlay-error");
   var pass1 = passwordField.value;
   var pass2 = passwordFieldDuplicate.value;
   var seed = seedField.value;
-  if (pass1 !== pass2 || seed === "") {
+  if (pass1 !== pass2) {
+    errorField.textContent = vAPI.i18n('passwordMismatchError');
     return;
+  } else if (seed === "") {
+    errorField.textContent = vAPI.i18n('noSeedError');
+    return;
+  } else {
+    errorField.textContent = "";
   }
   importWallet(pass1, seed);
 }
 
 var importAddressFromOverlay = function() {
   var addressField = uDom.nodeFromId("import-wallet-address");
+  var errorField = uDom.nodeFromId("import-address-overlay-error");
   var address = addressField.value;
   if (address === "") {
+    errorField.textContent = vAPI.i18n('noAddressError');
     return;
+  } else {
+    errorField.textContent = "";
   }
   importAddress(address);
 }
@@ -774,9 +788,13 @@ var showReferralWindow = function() {
 
 var importReferralFromOverlay = function() {
   var addressField = uDom.nodeFromId("import-referral-address");
+  var errorField = uDom.nodeFromId("import-address-overlay-error");
   var address = addressField.value;
   if (address === "") {
+    errorField.textContent = vAPI.i18n('noAddressError');
     return;
+  } else {
+    errorField.textContent = "";
   }
   importReferrer(address);
 }
@@ -1253,13 +1271,17 @@ var onImportWallet = function() {
 
 var setNewWallet = function(password) {
     var onWalletInfoReceived = function(response) {
-      if (response.address) {
-        updatePopupData({
-          hasWallet: true,
-          walletAddress: response.address,
-        });
-        renderWallet();
+      if (!response || !response.address) {
+        var errorField = uDom.nodeFromId("create-wallet-overlay-error");
+        errorField.textContent = vAPI.i18n('createWalletError');
+        return console.log("error creating wallet");
       }
+      hideOverlay("createWalletOverlay");
+      updatePopupData({
+        hasWallet: true,
+        walletAddress: response.address,
+      });
+      renderWallet();
       showOverlay("showSeedOverlay", {seed: response.seed})
     };
     messaging.send(
@@ -1273,13 +1295,16 @@ var setNewWallet = function(password) {
 
 var importWallet = function(password, seed) {
     var onWalletInfoReceived = function(response) {
-      if (response.address) {
-        updatePopupData({
-          hasWallet: true,
-          walletAddress: response.address,
-        });
-        renderWallet();
+      if (!response || !response.address) {
+        var errorField = uDom.nodeFromId("import-wallet-overlay-error");
+        errorField.textContent = vAPI.i18n('importWalletError');
+        return console.log("error importing wallet");
       }
+      updatePopupData({
+        hasWallet: true,
+        walletAddress: response.address,
+      });
+      renderWallet();
       hideOverlay("importWalletOverlay");
       showOverlay("showSeedOverlay", {seed: response.seed})
       getUpdatedRewardData();
@@ -1296,7 +1321,9 @@ var importWallet = function(password, seed) {
   var importAddress = function(address) {
     var onWalletInfoReceived = function(response) {
       if (!response || !response.address) {
-        return console.log("address invalid");
+        var errorField = uDom.nodeFromId("import-address-overlay-error");
+        errorField.textContent = vAPI.i18n('importAddressError');
+        return console.log("error importing wallet");
       }
       updatePopupData({
         hasWallet: true,
@@ -1318,7 +1345,9 @@ var importWallet = function(password, seed) {
   var importReferrer = function(address) {
     var onReferralInfoReceived = function(response) {
       if (!response) {
-        return console.log("address invalid");
+        var errorField = uDom.nodeFromId("import-referral-overlay-error");
+        errorField.textContent = vAPI.i18n('importReferralError');
+        return console.log("error importing referral");
       }
       hideOverlay("referralInputOverlay");
       showOverlay("infoOverlay", {

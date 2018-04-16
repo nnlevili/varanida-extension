@@ -307,6 +307,34 @@
     "message":"Votre parrain a été enregistré, et une récompense de {{referralReward}} VAD vous sera attribuée une fois que vous aurez créé/importé un portefeuille.",
     "description":"referral text for the info overlay"
   },
+  "passwordMismatchError":{
+    "message":"mots de passe différents",
+    "description": "password mismatch error message"
+  },
+  "noSeedError":{
+    "message": "passphrase manquante",
+    "description": "no seed error message"
+  },
+  "noAddressError":{
+    "message":"adresse manquante",
+    "description": "no address error message"
+  },
+  "createWalletError":{
+    "message":"erreur à la création du portefeuille",
+    "description": "error creating wallet message"
+  },
+  "importWalletError":{
+    "message":"erreur à l'import du portefeuille",
+    "description": "error importing wallet message"
+  },
+  "importAddressError":{
+    "message":"erreur: adresse invalide",
+    "description": "invalid address error message"
+  },
+  "importReferralError":{
+    "message":"erreur: adresse de parrain invalide",
+    "description": "invalid referral error message"
+  },
   "pickerCreate": {
     "message": "Créer",
     "description": "English: Create"
