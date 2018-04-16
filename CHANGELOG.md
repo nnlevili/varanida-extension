@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.20 Apr 17 2018
+
+- added a generic info overlay. Used it to display referral success
+- fixed advanced settings/firewall view that was deactivated previously
+- updated description files
+- added error handling in overlays
+
 ## 1.19 Apr 14 2018
 
 - Added referral system
