@@ -4,7 +4,7 @@ Kecekapan yang digambarkan:
 https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-efficiency-compared
 (Bahasa English)
 
-Cara menguna: Butang besar di dalam popup adalah untuk mengaktifkan/menyahaktifkan uBlock bagi laman web yang terkini. Ini hanya boleh diggunakan dalam laman web ini sahaja, ini bukan satu butang kuasa global.
+Cara menguna: Butang besar di dalam popup adalah untuk mengaktifkan/menyahaktifkan Varanida bagi laman web yang terkini. Ini hanya boleh diggunakan dalam laman web ini sahaja, ini bukan satu butang kuasa global.
 
 ***
 
@@ -26,7 +26,7 @@ Banyak lagi senarai penapis yang boleh anda pilih jika anda ingin seperti:
 - Spam404
 - dan banyak lagi
 
-Sudah tentu, dengan lebih banyak penapis yang diaktifkan, jejakan memori lebih tinggi. Lagi, walaupun sudah menambah dua senarai tambahan Fanboy, hpHosts's Ad and tracking servers, uBlock masih kekal mempunyai jejakan memori yang rendah berbanding dengan penghalang yang terkenal di luar sana.
+Sudah tentu, dengan lebih banyak penapis yang diaktifkan, jejakan memori lebih tinggi. Lagi, walaupun sudah menambah dua senarai tambahan Fanboy, hpHosts's Ad and tracking servers, Varanida masih kekal mempunyai jejakan memori yang rendah berbanding dengan penghalang yang terkenal di luar sana.
 
 Juga, berhati-hati memilih sesetengah senarai tambahan yang kemungkinan besar membawa kepada kerosakan laman web -- terutamanya senarai yang biasanya digunakan sebagai fail hosts.
 
@@ -40,7 +40,7 @@ Percuma.
 Sumber terbuka dengan lesen awam (GPLv3)
 Bagi pengguna oleh pengguna.
 
-Penyumbang @ Github: https://github.com/gorhill/uBlock/graphs/contributors
+Penyumbang @ Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Penyumbang @ Crowdin: https://crowdin.net/project/ublock
 
 ***
@@ -48,4 +48,4 @@ Penyumbang @ Crowdin: https://crowdin.net/project/ublock
 Ia versi yang agak awal, ingat apabila anda mengulas.
 
 Log perubahan projek:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

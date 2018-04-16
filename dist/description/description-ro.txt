@@ -3,7 +3,7 @@ Un blocant (paravan) eficient: folosește foarte puțin procesorul și memoria �
 O ilustrare a eficienței poate fi observată la:
 https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-efficiency-compared
 
-Utilizare: Butonul mare de pornire/oprire în fereastra paravanului este pentru a activa/dezactiva uBlock pentru saitul curent. Funcția este valabilă doar pentru saitul curent, nu la nivel global.
+Utilizare: Butonul mare de pornire/oprire în fereastra paravanului este pentru a activa/dezactiva Varanida pentru saitul curent. Funcția este valabilă doar pentru saitul curent, nu la nivel global.
 
 ***
 
@@ -25,7 +25,7 @@ De asemenea, mai sunt disponibile și alte liste precum:
 - Spam404
 - Și multe altele
 
-Desigur, cu cât sunt mai multe filtre active cu atât mai mult este utilizată memoria.  Totuși, chiar și după adăugarea în plus a două liste Fanboy și lista de reclame și urmărire hPhosts, uBlock₀ tot folosește mai puțină memorie decât restul paravanelor.
+Desigur, cu cât sunt mai multe filtre active cu atât mai mult este utilizată memoria.  Totuși, chiar și după adăugarea în plus a două liste Fanboy și lista de reclame și urmărire hPhosts, Varanida tot folosește mai puțină memorie decât restul paravanelor.
 
 De ținut minte, că odată cu selectarea în plus a unora dintre liste se poate ajunge la afectarea aspectului saiturilor -- în special listele care sunt în mod normal liste de gazde.
 
@@ -39,7 +39,7 @@ Gratuit.
 Cu sursă liberă și licență publică (GPLv3)
 Pentru utilizatori de la utilizatori.
 
-Contribuitori pe Github: https://github.com/gorhill/uBlock/graphs/contributors
+Contribuitori pe Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Contribuitori pe Crowdin: https://crowdin.net/project/ublock
 
 ***
@@ -47,4 +47,4 @@ Contribuitori pe Crowdin: https://crowdin.net/project/ublock
 Este încă o aplicație recentă, gândiți-vă la acest lucru când scrieți o recenzie.
 
 Lista de schimbări a proiectului:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

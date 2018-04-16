@@ -3,11 +3,11 @@ En effektiv blockerare: lätt på minne och CPU-fotavtryck, som ändå kan ladda
 Illustrerad översikt av dess effektivitet:
 https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-efficiency-compared
 
-Användning: Den stora strömbrytarikonen i poppupprutan är till för att avaktivera/aktivera uBlock₀ på den aktuella webbplatsen permanent. Detta gäller enbart för den aktuella webbplatsen, det är inte en global strömbrytare.
+Användning: Den stora strömbrytarikonen i poppupprutan är till för att avaktivera/aktivera Varanida på den aktuella webbplatsen permanent. Detta gäller enbart för den aktuella webbplatsen, det är inte en global strömbrytare.
 
 ***
 
-Flexibel, uBlock₀ är inte enbart en "reklamblockerare": den kan också läsa och skapa filter från hosts-filer.
+Flexibel, Varanida är inte enbart en "reklamblockerare": den kan också läsa och skapa filter från hosts-filer.
 
 Som standard är följande filterlistor laddade och tillämpade:
 
@@ -25,7 +25,7 @@ Fler filterlistor finns tillgängliga att använda om du vill:
 - Spam404
 - med flera
 
-Ju fler aktiverade filter, desto högre minnesfotavtryck. Men även efter att ha lagt till Fanboys två extra filterlistor och hpHosts reklam- och språrarservrar, använder uBlock₀ mindre minnesfotavtryck än andra populära blockare.
+Ju fler aktiverade filter, desto högre minnesfotavtryck. Men även efter att ha lagt till Fanboys två extra filterlistor och hpHosts reklam- och språrarservrar, använder Varanida mindre minnesfotavtryck än andra populära blockare.
 
 Tänk på att genom att aktivera vissa av dessa extra filterlistor finns det större risk att webbplatser går sönder - särskilt de listor som i normala fall används som hosts-filer.
 
@@ -39,7 +39,7 @@ Gratis.
 Öppen källkod med offentlig licens (GPLv3)
 För användare, av användare.
 
-Bidragsgivare @ Github: https://github.com/gorhill/uBlock/graphs/contributors
+Bidragsgivare @ Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Bidragsgivare @ Crowdin: https://crowdin.net/project/ublock
 
 ***
@@ -47,4 +47,4 @@ Bidragsgivare @ Crowdin: https://crowdin.net/project/ublock
 Detta är en ganska tidig version, tänk på detta när du skriver en recension.
 
 Projektets ändringslogg:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

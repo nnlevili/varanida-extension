@@ -24,7 +24,7 @@
 -സ്പാം404
 -കൂടാതെ മറ്റ് അനവധി
 
-തീര്‍ച്ചയായും, കൂടുതല്‍ ഫില്‍ട്ടറുകള്‍ എനേബിള്‍ ചെയ്യുംതോറും മെമ്മറി ഉപഭോഗം കൂടുന്നതാണ്. Yet, even after adding Fanboy's two extra lists, hpHosts’s Ad and tracking servers, uBlock still has a lower memory footprint than other very popular blockers out there.
+തീര്‍ച്ചയായും, കൂടുതല്‍ ഫില്‍ട്ടറുകള്‍ എനേബിള്‍ ചെയ്യുംതോറും മെമ്മറി ഉപഭോഗം കൂടുന്നതാണ്. Yet, even after adding Fanboy's two extra lists, hpHosts’s Ad and tracking servers, Varanida still has a lower memory footprint than other very popular blockers out there.
 
 Also, be aware that selecting some of these extra lists may lead to higher likelihood of web site breakage -- especially those lists which are normally used as hosts file.
 
@@ -38,7 +38,7 @@ Free.
 ഓപ്പണ്‍‌സോഴ്സ് പബ്ലിക്‌ ലൈസന്‍സ് (ജിപിഎല്‍വി3)
 ഉഭയോക്താക്കള്‍ക്ക്‌ ഉഭയോക്താക്കളില്‍ നിന്നും.
 
-കോണ്‍ട്രിബ്യൂട്ടര്‍മാര്‍ @ ഗിറ്റ്ഹബ്: https://github.com/gorhill/uBlock/graphs/contributors
+കോണ്‍ട്രിബ്യൂട്ടര്‍മാര്‍ @ ഗിറ്റ്ഹബ്: https://github.com/Varanida/varanida-extension/graphs/contributors
 കോണ്‍ട്രിബ്യൂട്ടര്‍മാര്‍ @ ക്രൌവ്ഡിന്‍: https://crowdin.net/project/ublock
 
 ***
@@ -46,4 +46,4 @@ Free.
 ഇത് സാമാന്യം ശൈശവ വേര്‍ഷന്‍ ആണ്, റിവ്യൂ ചെയ്യുമ്പോള്‍ ഇക്കാര്യം മനസ്സില്‍ വയ്ക്കൂ.
 
 പ്രൊജെക്റ്റ് മാറ്റങ്ങളുടെ ലോഗ്:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

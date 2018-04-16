@@ -1,12 +1,12 @@
-uBlock₀ est un bloqueur efficace de publicités et de pisteurs; utilisant peu de mémoire vive & de ressources du processeur, il est pourtant capable de charger & d'appliquer des milliers de filtres de plus que d'autres bloqueurs populaires.
+Varanida est un bloqueur efficace de publicités et de pisteurs; utilisant peu de mémoire vive & de ressources du processeur, il est pourtant capable de charger & d'appliquer des milliers de filtres de plus que d'autres bloqueurs populaires.
 
 Consultez cette page en Anglais pour avoir une vue d'ensemble illustrée de son efficacité : https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-efficiency-compared
 
-Utilisation : Le gros bouton "Power" dans la fenêtre pop-up permet de désactiver/activer en permanence uBlock₀ pour le site Web en cours de consultation. Cela s'applique uniquement au site Web actuel, ce n'est pas un bouton "Power" global.
+Utilisation : Le gros bouton "Power" dans la fenêtre pop-up permet de désactiver/activer en permanence Varanida pour le site Web en cours de consultation. Cela s'applique uniquement au site Web actuel, ce n'est pas un bouton "Power" global.
 
 ***
 
-Flexible, uBlock₀ n'est pas qu'un simple bloqueur de publicités, il peut également lire et créer des filtres depuis des fichiers hosts.
+Flexible, Varanida n'est pas qu'un simple bloqueur de publicités, il peut également lire et créer des filtres depuis des fichiers hosts.
 
 Par défaut, ces listes de filtrage sont chargées et appliquées :
 
@@ -24,7 +24,7 @@ Davantage de listes sont disponibles si vous souhaitez renforcer le blocage :
 - Spam404 (Liste de protection contre les spams, maintenue fréquemment à jour par la communauté)
 - Et de nombreuses autres
 
-Bien évidemment, plus vous activez de filtres, plus l'empreinte mémoire augmentera. Pourtant, même après avoir ajouté deux listes supplémentaires crées par Fanboy et le fichier hosts d'hpHosts, uBlock₀ utilise moins de mémoire vive que tous les autres bloqueurs populaires.
+Bien évidemment, plus vous activez de filtres, plus l'empreinte mémoire augmentera. Pourtant, même après avoir ajouté deux listes supplémentaires crées par Fanboy et le fichier hosts d'hpHosts, Varanida utilise moins de mémoire vive que tous les autres bloqueurs populaires.
 
 Veuillez tout de même prendre en compte qu'utiliser certaines listes supplémentaires peut conduire à quelques incompatibilités sur les sites Web que vous visitez - en particulier les fichiers hosts.
 
@@ -38,10 +38,10 @@ Gratuit.
 Source libre sous licence publique GPLv3
 Conçu par des utilisateurs pour des utilisateurs.
 
-Contributeurs sur Github: https://github.com/gorhill/uBlock/graphs/contributors
+Contributeurs sur Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Contributeurs sur Crowdin: https://crowdin.net/project/ublock
 
 ***
 
 Consultez ici en Anglais le Journal des changements concernant le projet :
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

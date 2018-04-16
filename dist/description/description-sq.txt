@@ -2,7 +2,7 @@ Një bllokues efikas: me impakt të vogël te memorja dhe procesori, por mund t�
 
 Përmbledhje e ilustruar e efikasitetit të tij: https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-efficiency-compared
 
-Përdorimi: Çelësi i komandimit te dritarja e vogël e bën uBlock përherë joaktiv/aktiv për uebsajtin aktual. Ai vlen vetëm për uebsajtin aktual, nuk është një çelës i përgjithshëm.
+Përdorimi: Çelësi i komandimit te dritarja e vogël e bën Varanida përherë joaktiv/aktiv për uebsajtin aktual. Ai vlen vetëm për uebsajtin aktual, nuk është një çelës i përgjithshëm.
 
 ***
 
@@ -24,7 +24,7 @@ Po të doni, ka edhe shumë lista të tjera të gatshme:
 - Spam404
 - Dhe shumë të tjera
 
-Sigurisht që sa më shumë filtra të aktivizoni, aq më i madh do të jetë impakti te memorja. Edhe sikur të shtoni dy listat e tjera të Fanboy, hpHosts’s Ad and tracking servers, uBlock përsëri ka impakt më të ulët te memorja sesa bllokuesit e tjerë shumë të njohur.
+Sigurisht që sa më shumë filtra të aktivizoni, aq më i madh do të jetë impakti te memorja. Edhe sikur të shtoni dy listat e tjera të Fanboy, hpHosts’s Ad and tracking servers, Varanida përsëri ka impakt më të ulët te memorja sesa bllokuesit e tjerë shumë të njohur.
 
 Por, kujdes, sepse duke përzgjedhur disa prej këtyre listave, gjasat që faqet të shfaqin probleme do të jenë më të mëdha -- sidomos listat që normalisht përdoren si skeda "hosts".
 
@@ -38,7 +38,7 @@ Falas.
 Material i hapur me licencë publike (GPLv3)
 Krijuar nga përdoruesit për përdoruesit.
 
-Kontributorët @ Github: https://github.com/gorhill/uBlock/graphs/contributors
+Kontributorët @ Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Kontributorët @ Crowdin: https://crowdin.net/project/ublock
 
 ***
@@ -46,4 +46,4 @@ Kontributorët @ Crowdin: https://crowdin.net/project/ublock
 Kur bëni vlerësimin e programit, mos harroni se ky është një version paraprak.
 
 Ditari i projektit:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

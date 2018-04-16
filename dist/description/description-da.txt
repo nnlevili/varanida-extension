@@ -2,7 +2,7 @@ En effektiv blocker: let på hukommelse og CPU forbrug,. Kan indlæse og anvende
 
 Illustreret oversigt over effektiviteten: https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-Efficiency-compared
 
-Anvendelse: Den store tænd-sluk-knap i pop op-vinduet bruges til permanent at deaktivere/aktivere uBlock på det aktuelle websted. Dette gælder kun for det aktuelle websted, det er ikke en global afbryderknap.
+Anvendelse: Den store tænd-sluk-knap i pop op-vinduet bruges til permanent at deaktivere/aktivere Varanida på det aktuelle websted. Dette gælder kun for det aktuelle websted, det er ikke en global afbryderknap.
 
 ***
 
@@ -24,7 +24,7 @@ Flere lister er tilgængelige hvis du ønsker det:
 - Spam404
 - Osv.
 
-Selvfølgelig vil flere aktive filtre betyde højere hukommelsesforbrug. Men selv efter tilføjelse af Fanboys to ekstra lister, samt hpHosts’s Ad and tracking servers, har uBlock stadig et lavere hukommelsesforbrug end andre meget populære blockere derude.
+Selvfølgelig vil flere aktive filtre betyde højere hukommelsesforbrug. Men selv efter tilføjelse af Fanboys to ekstra lister, samt hpHosts’s Ad and tracking servers, har Varanida stadig et lavere hukommelsesforbrug end andre meget populære blockere derude.
 
 Vær desuden opmærksom på, at hvis du vælger nogle af disse ekstra lister kan det føre til højere sandsynlighed for, at webstedet bliver vist forkert - især de lister der normalt anvendes som hosts-fil.
 
@@ -38,7 +38,7 @@ Gratis.
 Open source med offentlig licens (GPLv3)
 For brugere, af brugere.
 
-Bidragydere @ Github: https://github.com/gorhill/uBlock/graphs/contributors
+Bidragydere @ Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Bidragydere @ Crowdin: https://crowdin.net/project/ublock
 
 ***
@@ -46,4 +46,4 @@ Bidragydere @ Crowdin: https://crowdin.net/project/ublock
 Dette er en tidlig version. Hav dette i tankerne når du skriver en anmeldelse.
 
 Projekt changelog:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

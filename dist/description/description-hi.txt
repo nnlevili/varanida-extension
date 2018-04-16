@@ -2,7 +2,7 @@
 
 अपनी क्षमता का सचित्र अवलोकन: https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-efficiency-compared
 
-उपयोग: पॉपअप में बड़ी शक्ति बटन स्थायी रूप से अक्षम / वर्तमान वेब साइट uBlock लिए सक्षम है। यह केवल मौजूदा वेब साइट पर लागू होता है, यह एक वैश्विक शक्ति बटन नहीं है।
+उपयोग: पॉपअप में बड़ी शक्ति बटन स्थायी रूप से अक्षम / वर्तमान वेब साइट Varanida लिए सक्षम है। यह केवल मौजूदा वेब साइट पर लागू होता है, यह एक वैश्विक शक्ति बटन नहीं है।
 
 ***
 
@@ -24,7 +24,7 @@ Out of the box, these lists of filters are loaded and enforced:
 -स्पैम404
 - और बहुत सारे
 
-Of course, the more filters enabled, the higher the memory footprint. Yet, even after adding Fanboy's two extra lists, hpHosts’s Ad and tracking servers, uBlock still has a lower memory footprint than other very popular blockers out there.
+Of course, the more filters enabled, the higher the memory footprint. Yet, even after adding Fanboy's two extra lists, hpHosts’s Ad and tracking servers, Varanida still has a lower memory footprint than other very popular blockers out there.
 
 Also, be aware that selecting some of these extra lists may lead to higher likelihood of web site breakage -- especially those lists which are normally used as hosts file.
 
@@ -38,7 +38,7 @@ Without the preset lists of filters, this extension is nothing. So if ever you r
 Open source with public license (GPLv3)
 उपयोगकर्ताओं द्वारा उपयोगकर्ताओं के लिए।
 
-योगदानकर्ताओं @ Github: https://github.com/gorhill/uBlock/graphs/contributors
+योगदानकर्ताओं @ Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 योगदानकर्ताओं @ Crowdin: https://crowdin.net/project/ublock
 
 ***
@@ -46,4 +46,4 @@ Open source with public license (GPLv3)
 It's quite an early version, keep this in mind when you review.
 
 Project change log:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

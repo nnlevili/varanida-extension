@@ -2,7 +2,7 @@ Skuteczny bloker, który używa mało pamięci RAM i zasobów procesora, a przy 
 
 Ilustrowany przegląd jego skuteczności: https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-Efficiency-Compared
 
-Sposób użycia: Wyświetlany w panelu duży przycisk oznaczony symbolem zasilania służy do trwałego włączenia/wyłączenia uBlocka na bieżącej stronie internetowej. Działanie przycisku ma zastosowanie tylko na bieżącej witrynie – nie działa globalnie.
+Sposób użycia: Wyświetlany w panelu duży przycisk oznaczony symbolem zasilania służy do trwałego włączenia/wyłączenia Varanidaa na bieżącej stronie internetowej. Działanie przycisku ma zastosowanie tylko na bieżącej witrynie – nie działa globalnie.
 
 ***
 
@@ -24,7 +24,7 @@ Można wybrać więcej list filtrów:
 – Spam404
 – i wiele innych.
 
-Oczywiście, im więcej filtrów jest włączonych, tym wyższe jest zużycie pamięci. Jednak nawet po dodaniu dwóch dodatkowych list filtrów Fanboya, oraz listy hpHosts’ Ad and tracking servers, uBlock ma nadal niższe zużycie pamięci niż inne bardzo popularne blokery.
+Oczywiście, im więcej filtrów jest włączonych, tym wyższe jest zużycie pamięci. Jednak nawet po dodaniu dwóch dodatkowych list filtrów Fanboya, oraz listy hpHosts’ Ad and tracking servers, Varanida ma nadal niższe zużycie pamięci niż inne bardzo popularne blokery.
 
 Należy pamiętać, że wybranie niektórych dodatkowych list może prowadzić do wzrostu prawdopodobieństwa uszkodzenia witryny internetowej – zwłaszcza tych list, które są zwykle używane jako plik hostów.
 
@@ -38,7 +38,7 @@ To jest darmowe rozszerzenie.
 Kod źródłowy udostępniany na otwartej licencji (GPLv3)
 Dla użytkowników przez użytkowników.
 
-Autorzy @ Github: https://github.com/gorhill/uBlock/graphs/contributors
+Autorzy @ Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Autorzy tłumaczeń: https://crowdin.com/project/ublock/translators
 
 ***
@@ -46,4 +46,4 @@ Autorzy tłumaczeń: https://crowdin.com/project/ublock/translators
 Jest to dość wczesna wersja, pamiętaj o tym podczas oceniania.
 
 Dziennik zmian:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md

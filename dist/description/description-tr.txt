@@ -3,7 +3,7 @@ Etkili bir engelleyici: Belleği ve işlemciyi yormaz, yine de diğer popüler e
 Verimliliğine örneklendirilmiş genel bakış:
 https://github.com/gorhill/uBlock/wiki/uBlock-vs.-ABP:-efficiency-compared
 
-Kullanımı: Arayüzdeki büyük güç düğmesi o anki web sitesinde, uBlock'u kalıcı olarak devre dışı bırakmak/etkinleştirmek içindir. Bu yalnızca o anki web sitesine uygulanır, evrensel bir güç düğmesi değildir.
+Kullanımı: Arayüzdeki büyük güç düğmesi o anki web sitesinde, Varanida'u kalıcı olarak devre dışı bırakmak/etkinleştirmek içindir. Bu yalnızca o anki web sitesine uygulanır, evrensel bir güç düğmesi değildir.
 
 ***
 
@@ -25,7 +25,7 @@ Hazır olarak şu süzgeç listeleri yüklüdür ve uygulanır:
 - Spam404
 - Ve daha başkaları
 
-Elbette, daha çok süzgeç etkinleştirildikçe, bellek kullanımı da artar. Yine de, Fanboy'un iki ekstra listesi, hpHosts'un reklam ve izleyici sunucuları ekledikten sonra bile uBlock diğer oldukça popüler engelleyicilere göre daha az bellek kullanır.
+Elbette, daha çok süzgeç etkinleştirildikçe, bellek kullanımı da artar. Yine de, Fanboy'un iki ekstra listesi, hpHosts'un reklam ve izleyici sunucuları ekledikten sonra bile Varanida diğer oldukça popüler engelleyicilere göre daha az bellek kullanır.
 
 Ayrıca, bazı ekstra listelerin seçilmesinin web sitelerinin bozulması olasılığını artırabileceğini unutmayın -- özellikle normalde alan adları dosyası olarak kullanılan listelerin.
 
@@ -39,7 +39,7 @@ Ayrıca, bazı ekstra listelerin seçilmesinin web sitelerinin bozulması olası
 Açık kaynak kamu lisanslı (GPLv3)
 Kullanıcılardan kullanıcılara.
 
-Katkıda bulunanlar @ Github: https://github.com/gorhill/uBlock/graphs/contributors
+Katkıda bulunanlar @ Github: https://github.com/Varanida/varanida-extension/graphs/contributors
 Katkıda bulunanlar @ Crowdin: https://crowdin.net/project/ublock
 
 ***
@@ -47,4 +47,4 @@ Katkıda bulunanlar @ Crowdin: https://crowdin.net/project/ublock
 Bu çok erken bir sürüm, gözden geçirirken bunu göz önünde bulundurun.
 
 Proje değişiklik günlüğü:
-https://github.com/gorhill/uBlock/releases
+https://github.com/Varanida/varanida-extension/blob/master/CHANGELOG.md
