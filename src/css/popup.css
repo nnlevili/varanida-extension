@@ -105,9 +105,8 @@ body, #panes {
     margin-right: auto;
     height: 60px;
     width: 60px;
-    background: url(/img/icon_128.png) no-repeat;
+    background: url(/img/icon_popup_128.png) no-repeat;
     background-size: 60px;
-    border-radius: 30px;
     cursor: pointer;
     }
 .cornerbutton {

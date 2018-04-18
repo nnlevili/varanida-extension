@@ -43,6 +43,10 @@
     "message": "À propos",
     "description": "appears as tab name in dashboard"
   },
+  "disclaimerPageName":{
+    "message":"Avertissements",
+    "description":"appears as tab name in dashboard"
+  },
   "advancedSettingsPageName": {
     "message": "Paramètres avancés",
     "description": "Title for the advanced settings page"
