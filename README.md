@@ -4,9 +4,6 @@
 
 * [Manifesto](#manifesto)
 * [Installation](#installation)
-* [Documentation](#documentation)
- - [First Time User](#first-time-user)
- - [Interface](#interface)
 * [Support](#support)
 * [About](#about)
 * [License](#license)
@@ -23,21 +20,6 @@ Varanida is just a simple web extension and can be installed directly through th
 >To get started, visit [the download page](http://www.varanida.com/download/)
 
 *Note: For the initial BETA release, we only support Google Chrome*
-
-## Documentation
-
-#### First time user
-
-// waiting for new design
-
-
-#### Interface
-
-// waiting for new design
-
-#### Air Drop
-
-// PA to add details
 
 
 ## Changelog
