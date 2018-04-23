@@ -30,11 +30,11 @@
 /******************************************************************************/
 
 var messaging = vAPI.messaging;
-var walletAddressMem = null;
+var walletInfoStore = null;
 /******************************************************************************/
 
 function renderExportField(exportValues) {
-  if (!exportValues || exportValues.address !== walletAddressMem) {
+  if (!exportValues || exportValues.address !== walletInfoStore.walletAddress) {
     return;
   }
   var passwordField = uDom.nodeFromId("export-privkey-password");
@@ -83,6 +83,26 @@ function onExportWallet() {
 
 /******************************************************************************/
 
+function onDeleteWallet() {
+  var onDeleteHandler = function(success) {
+    if (!success) {
+      var errorField = uDom.nodeFromId("delete-wallet-overlay-error");
+      errorField.textContent = vAPI.i18n('deleteWalletError');
+      return console.log("error deleting wallet");
+    }
+    hideOverlay("delete-modal");
+    renderWalletInfo();
+  }
+  var pass1 = null;
+  if (walletInfoStore && !walletInfoStore.onlyAddress) {
+    var passwordField = uDom.nodeFromId("delete-wallet-password");
+    pass1 = passwordField.value;
+  }
+  messaging.send('dashboard', { what: 'deleteWallet', password: pass1}, onDeleteHandler);
+}
+
+/******************************************************************************/
+
 function renderWalletInfo() {
     var onRead = function(walletInfo) {
       /* {
@@ -95,7 +115,7 @@ function renderWalletInfo() {
           uDom.nodeFromId('walletAddress').textContent = vAPI.i18n('noWalletText');
           return;
         }
-        walletAddressMem = walletInfo.walletAddress;
+        walletInfoStore = walletInfo;
         uDom.nodeFromId('walletAddress').textContent = walletInfo.walletAddress;
         if (!walletInfo.onlyAddress) {
           uDom.nodeFromId('walletFunctions').style.setProperty("display", "block");
@@ -128,7 +148,29 @@ var copyAdressToClipboard = function(field) {
   }
 
 }
+
+var hideOverlay = function(overlayId) {
+  var overlaysContainer = uDom.nodeFromId("modal-overlay");
+  var overlaysList = uDom.nodesFromClass("modal-window");
+  if (overlayId === "delete-modal" || overlayId === "all") {
+    uDom.nodeFromId('delete-overlay-password-div').style.setProperty("display", "none");
+    var passwordField = uDom.nodeFromId("delete-wallet-password");
+    passwordField.value = "";
+  }
+  for (var i = 0; i < overlaysList.length; i++) {
+    overlaysList[i].style.setProperty("display", "none");
+  }
+  overlaysContainer.style.setProperty("display", "none");
+}
 /******************************************************************************/
+
+var openDeleteModal = function() {
+  uDom.nodeFromId('modal-overlay').style.setProperty("display", "block");
+  uDom.nodeFromId('delete-modal').style.setProperty("display", "block");
+  if (walletInfoStore && !walletInfoStore.onlyAddress) {
+    uDom.nodeFromId('delete-overlay-password-div').style.setProperty("display", "block");
+  }
+}
 
 // Handle user interaction
 // uDom('#userFiltersRevert').on('click', revertChanges);
@@ -137,6 +179,11 @@ renderWalletInfo();
 
 uDom('#seed-clipboard-button').on('click', function() {copyAdressToClipboard("seed");});
 uDom('#privkey-clipboard-button').on('click', function() {copyAdressToClipboard("privkey");});
+uDom('#delete-wallet-button').on('click', openDeleteModal);
+uDom('#delete-wallet-button-overlay').on('click', onDeleteWallet);
+uDom('#cancel-delete-wallet-button-overlay').on('click', function() {hideOverlay("delete-modal");});
+
+uDom('.overlayClose').on('click', function(){hideOverlay("all");})
 
 /******************************************************************************/
 

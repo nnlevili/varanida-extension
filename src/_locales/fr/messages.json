@@ -456,7 +456,7 @@
     "description":"wallet export title"
   },
   "noWalletText":{
-    "message":"Vous n'avez pas encore créé de portefeuille.",
+    "message":"Vous n'avez pas encore créé de portefeuille. Créez ou importez en un depuis la popup pour recevoir des tokens VAD.",
     "description":"wallet address default"
   },
   "exportSeed":{
@@ -470,6 +470,26 @@
   "hideExport":{
     "message":"Cacher",
     "description":"hide private key"
+  },
+  "deleteWallet":{
+    "message":"Supprimer le portefeuille",
+    "description":"delete wallet button"
+  },
+  "deleteWalletText":{
+    "message":"Etes-vous sûr de vouloir supprimer votre portefeuille?",
+    "description":"delete wallet button"
+  },
+  "deleteConfirm":{
+    "message":"Oui, le supprimer",
+    "description":"delete wallet button"
+  },
+  "deleteCancel":{
+    "message":"Annuler",
+    "description":"delete wallet button"
+  },
+  "deleteWalletError":{
+    "message":"Mot de passe erroné",
+    "description":"delete wallet error"
   },
   "3pListsOfBlockedHostsPrompt": {
     "message": "{{netFilterCount}} filtre(s) réseau et {{cosmeticFilterCount}} filtre(s) esthétique(s) sont actuellement en vigueur :",

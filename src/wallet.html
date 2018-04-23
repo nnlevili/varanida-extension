@@ -12,8 +12,11 @@
 <body>
 <h2 data-i18n="popupWalletAdressPrompt"></h2>
 <p><span id="walletAddress"></span></p>
-<br>
 <div id="walletFunctions">
+  <p>
+    <button id="delete-wallet-button" class="action-button danger-button" type="button" data-i18n="deleteWallet"></button>
+  </p>
+  <br>
   <h2 data-i18n="walletPrivKeyExport"></h2>
   <p><span data-i18n="popupOverlayPassword"></span></p>
   <p><div class="text-input-group"><input type="password" id="export-privkey-password" placeholder=""></div><p>
@@ -29,7 +32,23 @@
     <p><div class="copy-address-group"><input id="privkey-field" readonly="" placeholder="" type="text"><button id="privkey-clipboard-button" class="fa clipboard-button">&#xf0c5;</button></div></p>
   </div>
 </div>
-
+<div id="modal-overlay">
+  <div class="modal-background">
+  </div>
+  <div class="modal-window" id="delete-modal">
+    <div class="overlayClose"></div>
+    <div class="overlayTitle"><h1 data-i18n="deleteWallet"></h1></div>
+    <div class="overlayText"><p data-i18n="deleteWalletText"></p></div>
+    <div class="overlayText small"><p data-i18n="popupOverlayPassword"></p></div>
+    <div id="delete-overlay-password-div">
+      <div class="overlayText"><p data-i18n="deleteOverlayPassword"></p></div>
+      <div class="text-input-group"><input type="password" id="delete-wallet-password" placeholder=""></div>
+      <div class="overlayError"><p id="delete-wallet-overlay-error"></p></div>
+    </div>
+    <button class="action-button danger-button overlay-validate" id="delete-wallet-button-overlay" data-i18n="deleteConfirm"></button>
+    <button class="action-button neutral-button overlay-validate" id="cancel-delete-wallet-button-overlay" data-i18n="deleteCancel"></button>
+  </div>
+</div>
 
 <script src="js/vapi.js"></script>
 <script src="js/vapi-common.js"></script>

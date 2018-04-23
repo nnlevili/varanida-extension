@@ -96,14 +96,34 @@ const checkEthereumAddress = function(address) {
   this.keyringController.store.subscribe(this.storeUpdatesHandler.bind(this));
 }
 
-// not supposed to be used, here for debugging purposes
-µWallet.resetWallet = function() {
+µWallet.safeReset = function(password, callback) {
+  if (!this.keyringController) {
+    callback && callback(false);
+  }
+  this.keyringController.submitPassword(password)
+  .then(() => {
+    this.resetWallet({
+      referralWindowShown: true,
+      referrerAddress: true,
+      referrerSignaled: true,
+      installationSignaled: true
+    })
+    .then(() => {
+      callback && callback(true);
+    });
+  },() => {
+    callback && callback(false);
+  })
+
+}
+
+µWallet.resetWallet = function(paramsToKeep) {
   this.keyringController.store.unsubscribe(this.storeUpdatesHandler);
   return this.keyringController && this.keyringController.setLocked()
   .then(() => {
     this.keyringController = null;
     return new Promise((resolve, reject) => {
-      this.updateWalletSettings({
+      let newSettings = {
         hasKeyring: false,
         keyringStore: null,
         keyringAddress: null,
@@ -113,7 +133,19 @@ const checkEthereumAddress = function(address) {
         referrerAddress: null,
         referrerSignaled: false,
         installationSignaled: false,
-      }, resolve);
+      };
+      if (paramsToKeep) {
+        for (let key in paramsToKeep) {
+          if (
+            paramsToKeep.hasOwnProperty(key) &&
+            paramsToKeep[key] === true &&
+            newSettings.hasOwnProperty(key)
+          ) {
+            delete newSettings[key];
+          }
+        }
+      }
+      this.updateWalletSettings(newSettings, resolve);
     });
   })
   .then(() => {

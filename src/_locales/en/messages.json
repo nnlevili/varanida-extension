@@ -456,7 +456,7 @@
     "description":"wallet export title"
   },
   "noWalletText":{
-    "message":"You have not created a wallet yet.",
+    "message":"You have not created a wallet yet. Create or import one from the popup to receive VAD tokens.",
     "description":"wallet address default"
   },
   "exportSeed":{
@@ -470,6 +470,26 @@
   "hideExport":{
     "message":"Hide",
     "description":"hide private key"
+  },
+  "deleteWallet":{
+    "message":"Delete wallet",
+    "description":"delete wallet button"
+  },
+  "deleteWalletText":{
+    "message":"Are you sure you want to delete your wallet?",
+    "description":"delete wallet button"
+  },
+  "deleteConfirm":{
+    "message":"Yes, Delete it",
+    "description":"delete wallet button"
+  },
+  "deleteCancel":{
+    "message":"Cancel",
+    "description":"delete wallet button"
+  },
+  "deleteWalletError":{
+    "message":"Wrong password",
+    "description":"delete wallet error"
   },
   "3pListsOfBlockedHostsPrompt":{
     "message":"{{netFilterCount}} network filters ＋ {{cosmeticFilterCount}} cosmetic filters from:",
