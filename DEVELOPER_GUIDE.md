@@ -1,4 +1,4 @@
-## DEVELOPER GUIDE
+# DEVELOPER GUIDE
 
 ### Build instructions
 
@@ -12,18 +12,20 @@
     - Chromium: load the unpacked extension folder `/varanida-extension-ublock/dist/build/Varanida0.chromium/` in Chromium to use the extension.
     - Firefox: drag-and-drop `/varanida-extension-ublock/dist/build/Varanida0.webext.xpi` into Firefox.
 
-### good to know
+#### good to know
 
-The code is mainly divided between cross browser code (in `/varanida-extension-ublock/src/js)
+The code is mainly divided between cross browser code (in `/varanida-extension-ublock/src/js`)
 and code that is specific to browser (in `/platform/<browsername>`).
 
 Some of the code specific to chrome (`/platform/chromium`) is also used for other browsers, and the chromium manifest.json is parsed to integrate version number and other informations in other browser packages.
 
 all code is supposed to be backward compatible pretty far into the past, so only ES5 is accepted. No promises and such, or only browserified.
 
-## config file
+#### config file
 
 a config file is located in `src/config/main-config.js`, and should be used to centralize urls and other non-sensitive information that we could need to change at any point without having to go in every file where it's used.
+
+
 
 ## important libraries page side (should be imported in user facing interfaces)
 
@@ -34,11 +36,17 @@ those libraries are used as an interface to use browser specific features and co
 import `js/vapi.js`, `js/vapi-common.js`, `js/vapi-client.js`
 
 main useful functions:
+
 `vAPI.setTimeout(function, timeout)` --> standardize settimout
+
 `vAPI.closePopup()` --> to close the extension popup
+
 `vAPI.localStorage.setItem("propertyName", value)` --> standardized window.localStorage
+
 `vAPI.i18n('textKey')` --> get language specific text to inject through js
+
 `vAPI.messaging` --> important for page <-> background scripts communication
+
 --> `vAPI.messaging.send('channelName', {
         what: "messageName",//mandatory for routing
         property1: "stringProperty",//you can pretty much send any type of data
@@ -48,7 +56,9 @@ main useful functions:
       },
       callback //callback is not mandatory
      )`
+
 --> `vAPI.messaging.addChannelListener('channelName', handler)`
+
 handler should look like this:
 ```
 function(data) {
@@ -65,22 +75,29 @@ function(data) {
 ### uDom
 
 import `js/udom.js`:
+
 this is a way to manipulate the dom with good cross browser and backward compatibility
 examples:
+
 `uDom.nodeFromId("address-field")`
+
 `uDom.nodeFromSelector('#basicTools div[href^="logger-ui.html"]')`
+
 `uDom.nodesFromClass("overlayWindow")`
+
 `uDom('a[href]').on('click', gotoURL)`
 
 ### i18n
 
-import `js/i18n.js:
+import `js/i18n.js`:
 
 needed for i18n support. See language management below to know more. Mandatory for user facing interfaces.
 
+
+
 ## important libraries background side
 
-### messaging
+### Messaging
 
 `/js/messaging.js`
 
@@ -136,6 +153,8 @@ var onMessage = function(request, sender, callback) {
 vAPI.messaging.listen('popupPanel', onMessage);
 })();
 ```
+
+
 
 ## language management
 
