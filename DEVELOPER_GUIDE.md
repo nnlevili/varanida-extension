@@ -2,9 +2,13 @@
 
 ### Build instructions
 
+requirements: you need to have **npm** installed
+
 - Clone [Varanida](https://github.com/Varanida/varanida-extension) and [Varanida Assets](https://github.com/Varanida/varanida-extension-assets) repositories in the same parent directory
 - Set path to the extension's path: `cd varanida-extension-ublock`
 - Optional: Select the version to build: `git checkout <tag>` or `git checkout master`
+- Optional: if you haven't installed it yet, install browserify globally using npm (`npm install -g browserify`)
+- Install the npm packages: `npm i`
 - Build the plugin:
     - Chromium: `./tools/make-chromium.sh` (add `all` to create a ziped version to release it to the chrome store
     - Firefox: `./tools/make-webext.sh all`
