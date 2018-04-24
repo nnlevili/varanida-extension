@@ -9,7 +9,7 @@
     - Chromium: `./tools/make-chromium.sh` (add `all` to create a ziped version to release it to the chrome store
     - Firefox: `./tools/make-webext.sh all`
 - Load the result of the build into your browser:
-    - Chromium: load the unpacked extension folder `/varanida-extension-ublock/dist/build/Varanida0.chromium/` in Chromium to use the extension.
+    - Chromium: load the unpacked extension folder `/varanida-extension-ublock/dist/build/Varanida0.chromium/` in Chromium through chrome://extensions to use the extension.
     - Firefox: drag-and-drop `/varanida-extension-ublock/dist/build/Varanida0.webext.xpi` into Firefox.
 
 #### good to know
@@ -25,7 +25,8 @@ all code is supposed to be backward compatible pretty far into the past, so only
 
 a config file is located in `src/config/main-config.js`, and should be used to centralize urls and other non-sensitive information that we could need to change at any point without having to go in every file where it's used.
 
-
+### Debugging tips
+you can inspect the background scripts in chrome by going to chrome://extensions and clicking "background.html". You can inspect the popup by right clicking it and selecting "inspect". To inspect a normal page, like the settings (dashboard.html) proceed like normal web pages (Cmd-Alt-I and all that).
 
 ## important libraries page side (should be imported in user facing interfaces)
 
