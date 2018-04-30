@@ -14,6 +14,10 @@ rm -rf src/browserify-js/dist
 mkdir src/browserify-js/dist
 browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
 
+echo "*** Varanida0.chromium: gulping"
+mkdir src/gulp-dist
+gulp
+
 echo "*** Varanida0.webext: making assets"
 bash ./tools/make-assets.sh $DES
 
@@ -27,6 +31,9 @@ cp -R $DES/_locales/nb                  $DES/_locales/no
 cp src/*.html                           $DES/
 cp -R platform/chromium/img             $DES/
 cp src/browserify-js/dist/*.js          $DES/js/
+cp src/gulp-dist/dist/js/*.js           $DES/js/
+cp src/gulp-dist/dist/css/*.css         $DES/css/
+cp src/gulp-dist/dist/css/fonts/*       $DES/css/fonts/
 cp platform/chromium/*.js               $DES/js/
 cp platform/chromium/*.html             $DES/
 cp platform/chromium/*.json             $DES/

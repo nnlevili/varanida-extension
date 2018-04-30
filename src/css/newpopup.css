@@ -1,0 +1,319 @@
+/* html, body {
+  font-size: 13px;
+    margin: 0px;
+    padding: 0px;
+    font-weight: 300;
+    font-family: Poppins;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  display: block;
+  margin: 0;
+  font-family: "Poppins";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+  width: 400px;
+  height: 500px;
+  overflow: hidden;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+} */
+
+/*fonts definition*/
+
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/Poppins/Poppins-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: url('fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: url('fonts/Roboto/Roboto-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('fonts/Roboto/Roboto-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('fonts/Roboto/Roboto-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('fonts/Roboto/Roboto-Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: "LineAwesome";
+    src: url("fonts/line-awesome/line-awesome.eot?v=1.1.");
+    src: url("fonts/line-awesome/line-awesome.eot??v=1.1.#iefix") format("embedded-opentype"), url("fonts/line-awesome/line-awesome.woff2?v=1.1.") format("woff2"), url("fonts/line-awesome/line-awesome.woff?v=1.1.") format("woff"), url("fonts/line-awesome/line-awesome.ttf?v=1.1.") format("truetype"), url("fonts/line-awesome/line-awesome.svg?v=1.1.#fa") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Flaticon";
+    src: url("fonts/flaticon/Flaticon.eot");
+    src: url("fonts/flaticon/Flaticon.eot?#iefix") format("embedded-opentype"), url("fonts/flaticon/Flaticon.woff") format("woff"), url("fonts/flaticon/Flaticon.ttf") format("truetype"), url("fonts/flaticon/Flaticon.svg#Flaticon") format("svg");
+    font-weight: normal;
+    font-style: normal;
+}
+/*end font definition*/
+
+/*icons definition*/
+[class^="flaticon-"]:before,
+[class*=" flaticon-"]:before {
+    font-family: Flaticon;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-decoration: inherit;
+    text-rendering: optimizeLegibility;
+    text-transform: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased; }
+.flaticon-grid-menu:before {
+  content: "\f115";
+}
+/*custom style*/
+
+html, body {
+  overflow: hidden;
+  font-size: 13px;
+}
+
+.popup-fixed-dimensions {
+  width: 370px;
+  height: 480px;
+}
+
+.m-body .m-content.popup-content {
+  padding:0;
+}
+
+.m-widget1.popup-widget1 {
+  padding: 0.6rem 1rem 1rem 1rem;
+}
+
+.reward-row {
+  margin-bottom: -0.9rem;
+}
+
+.alert.reward-alert {
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+}
+
+.alert.reward-alert.m-alert--icon .m-alert__icon {
+  padding: 0.4rem 0.7rem 0.4rem 0.7rem;
+}
+.alert.reward-alert.m-alert--icon .m-alert__text {
+  padding: 0.4rem 0rem;
+  font-weight: 500;
+}
+
+.wallet-related-content {
+  display: none;
+}
+
+.popup-clickable-text {
+  cursor: pointer;
+}
+
+.popup-clickable-text:hover {
+  color: #2cd069;
+}
+
+.popup-sidebar {
+  padding: 20px 30px 15px 30px;
+}
+
+.popup-fixed-dimensions .m-header {
+  width: 370px;
+}
+
+.popup-fixed-dimensions .m-footer {
+  min-height: 40px;
+}
+.m-topbar .m-topbar__nav.m-nav > .m-nav__item > .m-nav__link .m-nav__link-icon .m-nav__link-icon-wrapper > i {
+  transition: font-size 0.2s;
+}
+.m-topbar .m-topbar__nav.m-nav > .m-nav__item > .m-nav__link:hover .m-nav__link-icon .m-nav__link-icon-wrapper > i {
+  font-size: 1.9rem;
+}
+
+.m-quick-sidebar.m-quick-sidebar--tabbed .popup-tabs.m-tabs.m-tabs-line {
+  margin-bottom: 20px;
+}
+.parameter-bottom-stack {
+  margin-top: 0.7rem;
+}
+.add-wallet-stack {
+  margin-top: 0.4rem;
+}
+
+.btn.btn-popup {
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0.65rem 1rem 0.65rem 0.8rem;
+  min-width: 120px;
+}
+.btn.btn-parameter {
+  min-width: 120px;
+}
+
+.btn.btn-popup > i.la {
+  font-size: 1.4rem;
+  margin-right: 0.3rem;
+}
+
+.overlay-container {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 210;
+  background-color: rgba(255,255,255,0.95);
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+.overlayWindow {
+  display: none;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.overlayPanel {
+  display: none;
+}
+
+.overlayWindow .overlayClose {
+  position: absolute;
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #000;
+  opacity: .5;
+  top: 10px;
+  right: 20px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.overlayWindow .overlayClose:hover {
+  opacity: 0.75;
+}
+
+.stack-overlay-title {
+  width: 100%;
+  padding: 0 2.2rem;
+  height: 4rem;
+}
+
+.overlayWindow .overlayTitle {
+  padding: 1.4rem 0rem;
+  vertical-align: middle;
+  font-weight: 500;
+  font-family: Roboto;
+}
+
+.overlayWindow .overlaySubtitle {
+  padding: 1rem 0rem;
+  font-size: 1.4rem;
+}
+
+.overlayWindow .overlayText {
+  font-size: 1.2rem;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.overlayWindow .overlayText.main-text {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.overlayWindow .overlayText p {
+  margin-bottom: 0;
+}
+
+.overlay-form.m-form {
+  padding: 1.3rem 2.5rem;
+}
+
+.overlay-form.m-form.cramped,
+.overlay-form.m-form.very-cramped {
+  padding: 0rem 2.5rem;
+}
+.overlay-form.m-form.cramped .m-form__group,
+.overlay-form.m-form.very-cramped .m-form__group {
+  padding-bottom: 0;
+}
+
+.overlay-form.m-form .m-form__actions {
+  padding: 30px 0px;
+}
+.overlay-form.m-form.very-cramped .m-form__actions {
+  padding: 15px 0px;
+}
+
+.centered-form.form-control.m-input {
+  text-align: center;
+}
+
+.overlay-form.m-form .form-control-feedback {
+  height: 0;
+  margin-top: 0;
+}
+.overlayWindow .m-stack__item .btn,
+.overlayWindow .m-form__actions .btn {
+  min-width: 90px;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+.overlayWindow .button-list .button-div.m-stack__item {
+  padding-bottom: 30px;
+}
