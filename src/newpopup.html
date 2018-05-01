@@ -78,31 +78,21 @@
                     <div class="m-widget1__item">
                       <div id="existingWallet" class="wallet-related-content row m-row--no-padding align-items-center">
                         <div class="col">
-                          <h3 class="m-widget1__title">
-                            Récompense
-                          </h3>
-                          <span class="m-widget1__desc">
-                            Total de vos gains en VAD
-                          </span>
+                          <h3 class="m-widget1__title" data-i18n="popupWalletRewardPrompt"></h3>
+                          <span class="m-widget1__desc" data-i18n="popupWalletRewardSubtitle"></span>
                         </div>
                         <div class="col m--align-right">
-                          <span id="total-reward" class="m-widget1__number m--font-accent">
-                            322.99 VAD
-                          </span>
+                          <span id="total-reward" class="m-widget1__number m--font-accent">0 VAD</span>
                         </div>
                       </div>
                       <div id="abscentWallet" class="wallet-related-content reward-row row m-row--no-padding align-items-center">
                         <div class="col">
-                          <h3 class="m-widget1__title">
-                            Récompense
-                          </h3>
+                          <h3 class="m-widget1__title" data-i18n="popupWalletRewardPrompt"></h3>
                           <div class="reward-alert m-alert m-alert--icon m-alert--outline alert alert-info show" role="alert">
                   					<div class="m-alert__icon">
                   						<i class="la la-info-circle"></i>
                   					</div>
-                  					<div class="m-alert__text">
-                  					  	Ajoutez un portefeuille pour recevoir une récompense lorsque <strong>Varanida</strong> bloque un élément
-                  					</div>
+                  					<div class="m-alert__text" data-i18n="popupWalletRewardExplanation"></div>
                   				</div>
                         </div>
                       </div>
@@ -110,66 +100,46 @@
                     <div class="m-widget1__item">
                       <div class="row m-row--no-padding align-items-center">
                         <div class="col">
-                          <h3 class="m-widget1__title">
-                            Requêtes bloquées
-                          </h3>
-                          <span class="m-widget1__desc">
-                            sur cette page
-                          </span>
+                          <h3 class="m-widget1__title" data-i18n="popupBlockedRequestPrompt"></h3>
+                          <span class="m-widget1__desc" data-i18n="popupBlockedOnThisPagePrompt"></span>
                         </div>
                         <div class="col m--align-right">
-                          <span class="m-widget1__number m--font-accent">
-                            1, soit 2%
-                          </span>
+                          <span id="page-blocked" class="m-widget1__number m--font-accent">?</span>
                         </div>
                       </div>
                     </div>
                     <div class="m-widget1__item">
                       <div class="row m-row--no-padding align-items-center">
                         <div class="col">
-                          <h3 class="m-widget1__title">
-                            Requêtes bloquées
-                          </h3>
-                          <span class="m-widget1__desc">
-                            depuis toujours
-                          </span>
+                          <h3 class="m-widget1__title" data-i18n="popupBlockedRequestPrompt"></h3>
+                          <span class="m-widget1__desc" data-i18n="popupBlockedSinceInstallPrompt"></span>
                         </div>
                         <div class="col m--align-right">
-                          <span class="m-widget1__number m--font-accent">
-                            9 105, soit 12%
-                          </span>
+                          <span id="total-blocked" class="m-widget1__number m--font-accent">?</span>
                         </div>
                       </div>
                     </div>
                     <div class="m-widget1__item">
                       <div class="row m-row--no-padding align-items-center">
                         <div id="existingWalletAddress" class="wallet-related-content col m--align-left">
-                          <h3 class="m-widget1__title">
-                            Adresse
-                          </h3>
-                          <span class="m-widget1__desc">
-                            Votre adresse unique Varanida
-                          </span>
+                          <h3 class="m-widget1__title" data-i18n="popupWalletAdressPrompt"></h3>
+                          <span class="m-widget1__desc" data-i18n="popupWalletAdressSubtitle"></span>
                           <div class="input-group">
-                            <input id="address-field" onClick="this.select();" readonly="" placeholder="" value="0x..."  type="text" class="form-control" placeholder="Search for...">
+                            <input id="address-field" onClick="this.select();" readonly="" placeholder="" value="0x..."  type="text" class="form-control" placeholder="0x...">
                             <div class="input-group-append">
-                              <button id="address-clipboard-button" class="btn btn-success" type="button">Copy</button>
+                              <button id="address-clipboard-button" class="btn btn-success" type="button" data-i18n="popupWalletAdressCopy"></button>
                             </div>
                           </div>
                         </div>
                         <div id="abscentWalletAddress" class="wallet-related-content col m--align-left">
-                          <h3 class="m-widget1__title">
-                            Adresse
-                          </h3>
-                          <span class="m-widget1__desc">
-                            Ajoutez d'abord un portefeuille
-                          </span>
+                          <h3 class="m-widget1__title" data-i18n="popupWalletAdressPrompt"></h3>
+                          <span class="m-widget1__desc" data-i18n="popupWalletAdressExplanation"></span>
                           <div class="add-wallet-stack m-stack m-stack--ver m-stack--general">
                               <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                                <button id="create-wallet-button" type="button" class="btn btn-success btn-popup"><i class="la la-plus"></i>Nouveau</button>
+                                <button id="create-wallet-button" type="button" class="btn btn-success btn-popup" data-i18n="popupCreateWalletButton"><i class="la la-plus"></i></button>
                               </div>
                               <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                                <button id="import-wallet-button" type="button" class="btn btn-success btn-popup"><i class="la la-sign-in"></i>Importer</button>
+                                <button id="import-wallet-button" type="button" class="btn btn-success btn-popup" data-i18n="popupImportWalletButton"><i class="la la-sign-in"></i></button>
                               </div>
                           </div>
                         </div>
@@ -213,27 +183,19 @@
       </span>
       <ul id="m_quick_sidebar_tabs" class="popup-tabs nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
         <li class="nav-item m-tabs__item">
-          <a id="params-tab" class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab">
-            Paramètres
-          </a>
+          <a id="params-tab" class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab" data-i18n="settingsPageName"></a>
         </li>
         <li class="nav-item m-tabs__item">
-          <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab">
-            Statistiques
-          </a>
+          <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab" data-i18n="popupStatisticsTab"></a>
         </li>
       </ul>
       <div class="tab-content">
         <div id="params-pane" class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_settings" role="tabpanel">
           <div class="m-list-settings">
             <div class="m-list-settings__group">
-              <div class="m-list-settings__heading">
-                Configuration générale
-              </div>
+              <div class="m-list-settings__heading" data-i18n="popupGeneralConfig"></div>
               <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label">
-                  Bloquer toutes les popups de ce site
-                </span>
+                <span class="m-list-settings__item-label" data-i18n="popupConfigPopup"></span>
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
@@ -244,9 +206,7 @@
                 </span>
               </div>
               <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label">
-                  Bloquer les medias de grande taille sur ce site
-                </span>
+                <span class="m-list-settings__item-label" data-i18n="popupConfigMedia"></span>
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
@@ -257,9 +217,7 @@
                 </span>
               </div>
               <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label">
-                  Désactiver le filtrage esthétique sur ce site
-                </span>
+                <span class="m-list-settings__item-label" data-i18n="popupConfigCosmetic"></span>
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
@@ -270,9 +228,7 @@
                 </span>
               </div>
               <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label">
-                  Bloquer les polices d'écriture distantes sur ce site
-                </span>
+                <span class="m-list-settings__item-label" data-i18n="popupConfigFonts"></span>
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
@@ -287,31 +243,24 @@
           <div class="parameter-buttons">
             <div class="parameter-bottom-stack m-stack m-stack--ver m-stack--general">
 								<div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                  <button id="settings-button" type="button" class="btn btn-success btn-popup btn-parameter"><i class="la la-gears"></i>Paramètres</button>
+                  <button id="settings-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="settingsPageName"><i class="la la-gears"></i></button>
                 </div>
                 <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                  <button id="logger-button" type="button" class="btn btn-success btn-popup btn-parameter"><i class="la la-list"></i>Journal</button>
+                  <button id="logger-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="popupOpenLogger"><i class="la la-list"></i></button>
                 </div>
             </div>
           </div>
         </div>
         <div id="stats-pane" class="tab-pane m-scrollable" id="m_quick_sidebar_tabs_logs" role="tabpanel">
-            <!--begin:: Widgets/Daily Sales-->
-              <div class="m--margin-bottom-30">
-                <h5 class="m-list-settings__heading">
-                  Activité journalière
-                </h5>
-                <span class="m-widget14__desc">
-                        Your Ads fighting activity today per hour
-                      </span>
-              </div>
-              <div class="m-widget14__chart" style="height:160px;">
-                <canvas  id="m_chart_daily_activity"></canvas>
-              </div>
-
-
-            <!--end:: Widgets/Daily Sales-->
-
+          <!--begin:: Widgets/Daily Sales-->
+            <div class="m--margin-bottom-30">
+              <h5 class="m-list-settings__heading" data-i18n="popupStatsDaily"></h5>
+              <span class="m-widget14__desc" data-i18n="popupStatsDailySubtitle"></span>
+            </div>
+            <div class="m-widget14__chart" style="height:160px;">
+              <canvas  id="m_chart_daily_activity"></canvas>
+            </div>
+          <!--end:: Widgets/Daily Sales-->
         </div>
       </div>
     </div>
@@ -322,7 +271,7 @@
       <div class="m-stack m-stack--hor m-stack--general">
 				<div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
           <div class="overlayTitle">
-            <h3 data-i18n="popupOverlayCreateWalletTitle">Créer un portefeuille</h3>
+            <h3 data-i18n="popupOverlayCreateWalletTitle"></h3>
           </div>
           <div class="overlayClose">
             <i class="la la-close"></i>
@@ -332,22 +281,22 @@
   				<div class="m-portlet__body">
   					<div class="m-form__section m-form__section--first">
   						<div class="form-group m-form__group">
-  							<label data-i18n="popupOverlayPassword">Mot de passe</label>
+  							<label data-i18n="popupOverlayPassword"></label>
   							<input id="create-wallet-password" type="password" class="centered-form form-control m-input" placeholder="">
-  							<span class="m-form__help">Entrez un mot de passe pour le portefeuille</span>
+  							<span class="m-form__help" data-i18n="popupOverlayPasswordSubtitle"></span>
   						</div>
   						<div class="form-group m-form__group has-danger">
-  							<label>Confirmez le mot de passe:</label>
+  							<label data-i18n="popupOverlayPasswordConfirm"></label>
   							<input id="create-wallet-password-duplicate" type="password" class="centered-form form-control m-input" placeholder="">
-  							<span class="m-form__help">Entrez le même mot de passe</span>
-                <div id="create-wallet-overlay-error" class="form-control-feedback">Mot de passe différent</div>
+  							<span class="m-form__help" data-i18n="popupOverlayPasswordConfirmSubtitle"></span>
+                <div id="create-wallet-overlay-error" class="form-control-feedback"></div>
   						</div>
             </div>
           </div>
           <div class="m-portlet__foot m-portlet__foot--fit">
   					<div class="m-form__actions m-form__actions">
-  						<button id="create-wallet-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayCreateWalletButton">Créer</button>
-  						<button type="reset" class="btn btn-secondary">Annuler</button>
+  						<button id="create-wallet-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayCreateWalletButton"></button>
+  						<button type="reset" class="btn btn-secondary" data-i18n="deleteCancel"></button>
   					</div>
   				</div>
   			</form>
@@ -358,27 +307,27 @@
       <div class="m-stack m-stack--hor m-stack--general">
         <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
           <div class="overlayTitle">
-            <h3 data-i18n="popupOverlayShowSeedTitle">Portefeuille Créé!</h3>
+            <h3 data-i18n="popupOverlayShowSeedTitle"></h3>
           </div>
         </div>
         <form class="overlay-form m-form">
           <div class="m-portlet__body">
             <div class="m-form__section m-form__section--first">
               <div class="form-group m-form__group">
-                <label data-i18n="popupOverlaySaveSeed">Enregistrez cette passphrase</label>
+                <label data-i18n="popupOverlaySaveSeed"></label>
                 <div class="input-group">
                   <input id="seed-field" onClick="this.select();" readonly="" class="form-control m-input" placeholder="">
     							<div class="input-group-append">
-    								<button class="btn btn-success" type="button">Copy</button>
+    								<button class="btn btn-success" type="button" data-i18n="popupWalletAdressCopy"></button>
     							</div>
     						</div>
-                <span class="m-form__help">Cette passphrase vous permettra d'importer ce portefeuille ailleurs et doit être gardée secrète</span>
+                <span class="m-form__help" data-i18n="popupOverlaySaveSeedSubtitle"></span>
               </div>
             </div>
           </div>
           <div class="m-portlet__foot m-portlet__foot--fit">
             <div class="m-form__actions m-form__actions">
-              <button id="show-seed-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayShowSeedButton">J'ai écrit/enregistré ma passphrase</button>
+              <button id="show-seed-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayShowSeedButton"></button>
             </div>
           </div>
         </form>
@@ -389,7 +338,7 @@
       <div class="m-stack m-stack--hor m-stack--general">
         <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
           <div class="overlayTitle">
-            <h3 data-i18n="popupOverlayImportWalletTitle">Importer un portefeuille</h3>
+            <h3 data-i18n="popupOverlayImportWalletTitle"></h3>
           </div>
           <div class="overlayClose">
             <i class="la la-close"></i>
@@ -397,13 +346,13 @@
         </div>
         <div id="importMethodOverlayPanel" class="overlayPanel button-list">
           <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-            <div class="overlaySubtitle"><h5 data-i18n="popupOverlayImportChoice">Que voulez vous importer?</h5></div>
+            <div class="overlaySubtitle"><h5 data-i18n="popupOverlayImportChoice"></h5></div>
           </div>
           <div class="button-div m-stack__item m-stack__item--center m-stack__item--middle">
-            <button id="import-wallet-method-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletMethodButton">Portefeuille</button>
+            <button id="import-wallet-method-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletMethodButton"></button>
           </div>
           <div class="button-div m-stack__item m-stack__item--center m-stack__item--middle">
-            <button id="import-address-method-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportAddressMethodButton">Adresse seule</button>
+            <button id="import-address-method-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportAddressMethodButton"></button>
           </div>
         </div>
         <div id="walletOverlayPanel" class="overlayPanel">
@@ -411,27 +360,27 @@
             <div class="m-portlet__body">
               <div class="m-form__section m-form__section--first">
                 <div class="form-group m-form__group">
-                  <label data-i18n="popupOverlaySeed">Passphrase</label>
+                  <label data-i18n="popupOverlaySeed"></label>
                   <input id="import-wallet-seed" type="text" class="centered-form form-control m-input" placeholder="">
-                  <span class="m-form__help">Entrez la passphrase (seed de 12 mots) du portefeuille à importer</span>
+                  <span class="m-form__help" data-i18n="popupOverlaySeedSubtitle"></span>
                 </div>
                 <div class="form-group m-form__group">
-                  <label data-i18n="popupOverlayPassword">Mot de passe</label>
+                  <label data-i18n="popupOverlayPassword"></label>
                   <input id="import-wallet-password" type="password" class="centered-form form-control m-input" placeholder="">
-                  <span class="m-form__help">Entrez un mot de passe pour le portefeuille</span>
+                  <span class="m-form__help" data-i18n="popupOverlayPasswordSubtitle"></span>
                 </div>
                 <div class="form-group m-form__group">
-                  <label>Confirmez le mot de passe:</label>
+                  <label data-i18n="popupOverlayPasswordConfirm"></label>
                   <input id="import-wallet-password-duplicate" type="password" class="centered-form form-control m-input" placeholder="">
-                  <span class="m-form__help">Entrez le même mot de passe</span>
+                  <span class="m-form__help" data-i18n="popupOverlayPasswordConfirmSubtitle"></span>
                   <div id="import-wallet-overlay-error" class="form-control-feedback"></div>
                 </div>
               </div>
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
               <div class="m-form__actions m-form__actions">
-                <button id="import-wallet-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton">Importer</button>
-                <button type="reset" class="btn btn-secondary">Annuler</button>
+                <button id="import-wallet-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton"></button>
+                <button type="reset" class="btn btn-secondary" data-i18n="deleteCancel"></button>
               </div>
             </div>
           </form>
@@ -441,17 +390,17 @@
             <div class="m-portlet__body">
               <div class="m-form__section m-form__section--first">
                 <div class="form-group m-form__group">
-                  <label data-i18n="popupOverlayAddress">Adresse</label>
+                  <label data-i18n="popupOverlayAddress"></label>
                   <input id="import-wallet-address" type="text" class="centered-form form-control m-input" placeholder="">
-                  <span class="m-form__help">Entrez l'adresse de portefeuille à utiliser</span>
+                  <span class="m-form__help" data-i18n="popupOverlayAddressSubtitle"></span>
                   <div id="import-address-overlay-error" class="form-control-feedback"></div>
                 </div>
               </div>
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
               <div class="m-form__actions m-form__actions">
-                <button id="import-address-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton">Importer</button>
-                <button type="reset" class="btn btn-secondary">Annuler</button>
+                <button id="import-address-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton"></button>
+                <button type="reset" class="btn btn-secondary" data-i18n="deleteCancel"></button>
               </div>
             </div>
           </form>
@@ -463,27 +412,27 @@
       <div class="m-stack m-stack--hor m-stack--general">
         <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
           <div class="overlayTitle">
-            <h3 data-i18n="popupOverlayReferralInputTitle">Parrainage</h3>
+            <h3 data-i18n="popupOverlayReferralInputTitle"></h3>
           </div>
         </div>
         <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-          <div class="overlayText"><p data-i18n="popupOverlayReferralInputSubTitle">Quelqu'un vous a-t-il invité à utiliser cette extension?</p></div>
+          <div class="overlayText"><p data-i18n="popupOverlayReferralInputSubTitle"></p></div>
         </div>
         <form class="overlay-form m-form m-form--state">
           <div class="m-portlet__body">
             <div class="m-form__section m-form__section--first">
               <div class="form-group m-form__group">
-                <label data-i18n="popupOverlayReferrerAddress">Adresse de votre parrain</label>
+                <label data-i18n="popupOverlayReferrerAddress"></label>
                 <input id="import-referral-address" type="text" class="centered-form form-control m-input" placeholder="">
-                <span class="m-form__help">Entrez l'adresse de portefeuille de votre parrain</span>
+                <span class="m-form__help" data-i18n="popupOverlayReferrerAddressSubtitle"></span>
                 <div id="import-referral-overlay-error" class="form-control-feedback"></div>
               </div>
             </div>
           </div>
           <div class="m-portlet__foot m-portlet__foot--fit">
             <div class="m-form__actions m-form__actions">
-              <button id="import-referral-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportReferralButton">Valider</button>
-              <button id="no-referral-button-overlay"type="reset" class="btn btn-secondary" data-i18n="popupOverlayNoReferralButton">Pas de parrain</button>
+              <button id="import-referral-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportReferralButton"></button>
+              <button id="no-referral-button-overlay"type="reset" class="btn btn-secondary" data-i18n="popupOverlayNoReferralButton"></button>
             </div>
           </div>
         </form>
@@ -494,28 +443,28 @@
       <div class="m-stack m-stack--hor m-stack--general">
         <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
           <div class="overlayTitle">
-            <h3 id="info-overlay-title">Parrain enregistré</h3>
+            <h3 id="info-overlay-title"></h3>
           </div>
           <div class="overlayClose">
             <i class="la la-close"></i>
           </div>
         </div>
         <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-          <div class="overlayText main-text"><p id="info-overlay-text">Votre parrain a été enregistré, et une récompense de 50 VAD vous sera attribuée une fois que vous aurez créé/importé un portefeuille</p></div>
+          <div class="overlayText main-text"><p id="info-overlay-text"></p></div>
         </div>
         <div class="button-div m-stack__item m-stack__item--center m-stack__item--middle">
-          <button id="info-validate-button-overlay" type="submit" class="btn btn-primary btn-success">J'ai compris</button>
+          <button id="info-validate-button-overlay" type="submit" class="btn btn-primary btn-success"></button>
         </div>
       </div>
     </div>
 
-<!-- <script src="config/main-config.js"></script>
+<script src="config/main-config.js"></script>
 <script src="lib/punycode.js"></script>
 <script src="js/vapi.js"></script>
 <script src="js/vapi-common.js"></script>
 <script src="js/vapi-client.js"></script>
 <script src="js/udom.js"></script>
-<script src="js/i18n.js"></script> -->
+<script src="js/i18n.js"></script>
 <script src="js/popup_scripts.bundle.js"></script>
 <script src="js/popup_dll.bundle.js"></script>
 <!-- <script src="node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
