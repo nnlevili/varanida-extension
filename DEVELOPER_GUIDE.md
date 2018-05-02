@@ -5,20 +5,20 @@
 requirements: you need to have **npm** installed
 
 - Clone [Varanida](https://github.com/Varanida/varanida-extension) and [Varanida Assets](https://github.com/Varanida/varanida-extension-assets) repositories in the same parent directory
-- Set path to the extension's path: `cd varanida-extension-ublock`
+- Set path to the extension's path: `cd varanida-extension`
 - Optional: Select the version to build: `git checkout <tag>` or `git checkout master`
 - Optional: if you haven't installed it yet, install browserify globally using npm (`npm install -g browserify`)
 - Install the npm packages: `npm i`
 - Build the plugin:
-    - Chromium: `./tools/make-chromium.sh` (add `all` to create a ziped version to release it to the chrome store
-    - Firefox: `./tools/make-webext.sh all`
+    - Chromium: `npm run build` (add `npm run release` to create a ziped version to release it to the chrome store
+    - Firefox: `npm run build:firefox`
 - Load the result of the build into your browser:
     - Chromium: load the unpacked extension folder `/varanida-extension-ublock/dist/build/Varanida0.chromium/` in Chromium through chrome://extensions to use the extension.
     - Firefox: drag-and-drop `/varanida-extension-ublock/dist/build/Varanida0.webext.xpi` into Firefox.
 
 #### good to know
 
-The code is mainly divided between cross browser code (in `/varanida-extension-ublock/src/js`)
+The code is mainly divided between cross browser code (in `/varanida-extension/src/js`)
 and code that is specific to browser (in `/platform/<browsername>`).
 
 Some of the code specific to chrome (`/platform/chromium`) is also used for other browsers, and the chromium manifest.json is parsed to integrate version number and other informations in other browser packages.

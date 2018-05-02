@@ -8,6 +8,13 @@
   "private": true,
   "description": "Varanida ad blocker",
   "author": "Silto",
+  "scripts": {
+    "build": "npm run build:chromium",
+    "build:chromium": "./tools/make-chromium.sh",
+    "build:chromium:all": "./tools/make-chromium.sh all",
+    "build:firefox:all": "./tools/make-webext.sh all",
+    "release": "npm run build:chromium:all && npm run build:firefox:all"
+  },
   "browserify": {
     "transform": [
       [
