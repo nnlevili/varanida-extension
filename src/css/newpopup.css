@@ -176,6 +176,11 @@ html, body {
 .popup-fixed-dimensions .m-footer {
   min-height: 40px;
 }
+
+#address-title {
+  cursor: pointer;
+}
+
 .m-topbar .m-topbar__nav.m-nav > .m-nav__item > .m-nav__link .m-nav__link-icon .m-nav__link-icon-wrapper > i {
   transition: font-size 0.2s;
 }
@@ -316,4 +321,39 @@ html, body {
 }
 .overlayWindow .button-list .button-div.m-stack__item {
   padding-bottom: 30px;
+}
+
+.modal.slideDown {
+  z-index: 1;
+  height: 0;
+  overflow: visible;
+  bottom: auto;
+  display: block;
+}
+/*
+.modal.slideDown.fade.displayed {
+  display: block;
+} */
+
+.modal.slideDown .modal-dialog {
+  width: 120px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+  color: #9699a2;
+  transform: translate(0, -30%);
+}
+.modal.slideDown .modal-dialog:hover {
+  color: #212529;
+}
+
+.modal.slideDown.show .modal-dialog {
+  transform: translate(0, 50px);
+}
+
+.modal.slideDown .modal-content .modal-body {
+  padding: 10px;
+  font-size: 50px;
+  line-height: 50px;
+  text-align: center;
 }

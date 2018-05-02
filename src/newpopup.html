@@ -23,8 +23,8 @@
                 <div class="m-stack__item m-stack__item--middle">
                   <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
                     <label>
-                      <input id="main-onoff-toggle" type="checkbox" checked="checked" name="">
-                      <span></span>
+                      <input id="switch" type="checkbox" checked="checked" name="">
+                      <span id="switchSpan" style="display:none;"></span>
                     </label>
                   </span>
                 </div>
@@ -37,7 +37,7 @@
             <div class="m-stack__item m-brand">
               <div class="m-stack m-stack--ver m-stack--general m-stack--inline">
                 <div class="m-stack__item m-stack__item--middle m-brand__logo">
-                  <a href="index.html" class="m-brand__logo-wrapper">
+                  <a id="main-brand-logo" class="m-brand__logo-wrapper">
                     <img height="40" alt="Varanida" src="img/topbar-logo.png"/>
                   </a>
                 </div>
@@ -122,7 +122,7 @@
                     <div class="m-widget1__item">
                       <div class="row m-row--no-padding align-items-center">
                         <div id="existingWalletAddress" class="wallet-related-content col m--align-left">
-                          <h3 class="m-widget1__title" data-i18n="popupWalletAdressPrompt"></h3>
+                          <h3 id="address-title" class="m-widget1__title" data-i18n="popupWalletAdressPrompt"></h3>
                           <span class="m-widget1__desc" data-i18n="popupWalletAdressSubtitle"></span>
                           <div class="input-group">
                             <input id="address-field" onClick="this.select();" readonly="" placeholder="" value="0x..."  type="text" class="form-control" placeholder="0x...">
@@ -199,7 +199,7 @@
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
-                      <input id="no-popup" type="checkbox" name="">
+                      <input id="no-popup" class="hnSwitch" type="checkbox" name="">
                       <span></span>
                     </label>
                   </span>
@@ -210,7 +210,7 @@
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
-                      <input id="no-large-media" type="checkbox" name="">
+                      <input id="no-large-media" class="hnSwitch" type="checkbox" name="">
                       <span></span>
                     </label>
                   </span>
@@ -221,7 +221,7 @@
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
-                      <input id="no-cosmetic-filtering" type="checkbox" name="">
+                      <input id="no-cosmetic-filtering" class="hnSwitch" type="checkbox" name="">
                       <span></span>
                     </label>
                   </span>
@@ -232,7 +232,7 @@
                 <span class="m-list-settings__item-control">
                   <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
                     <label>
-                      <input id="no-remote-fonts" type="checkbox" name="">
+                      <input id="no-remote-fonts" class="hnSwitch" type="checkbox" name="">
                       <span></span>
                     </label>
                   </span>
@@ -243,10 +243,10 @@
           <div class="parameter-buttons">
             <div class="parameter-bottom-stack m-stack m-stack--ver m-stack--general">
 								<div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                  <button id="settings-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="settingsPageName"><i class="la la-gears"></i></button>
+                  <button href="dashboard.html" id="settings-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="settingsPageName"><i class="la la-gears"></i></button>
                 </div>
                 <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                  <button id="logger-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="popupOpenLogger"><i class="la la-list"></i></button>
+                  <button href="logger-ui.html" id="logger-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="popupOpenLogger"><i class="la la-list"></i></button>
                 </div>
             </div>
           </div>
@@ -265,7 +265,17 @@
       </div>
     </div>
   </div>
-<div id="overlays" class="overlay-container">
+  <!-- refresh slidedown -->
+  <div id="refreshSlideDown" class="modal slideDown fade" tabindex="-1" role="dialog">
+    <div id="refresh" class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+         <i class="la la-refresh"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="overlays" class="overlay-container">
     <!-- create wallet overlay -->
     <div class="overlayWindow" id="createWalletOverlay">
       <div class="m-stack m-stack--hor m-stack--general">
@@ -285,7 +295,7 @@
   							<input id="create-wallet-password" type="password" class="centered-form form-control m-input" placeholder="">
   							<span class="m-form__help" data-i18n="popupOverlayPasswordSubtitle"></span>
   						</div>
-  						<div class="form-group m-form__group has-danger">
+  						<div class="form-group m-form__group">
   							<label data-i18n="popupOverlayPasswordConfirm"></label>
   							<input id="create-wallet-password-duplicate" type="password" class="centered-form form-control m-input" placeholder="">
   							<span class="m-form__help" data-i18n="popupOverlayPasswordConfirmSubtitle"></span>
@@ -296,7 +306,7 @@
           <div class="m-portlet__foot m-portlet__foot--fit">
   					<div class="m-form__actions m-form__actions">
   						<button id="create-wallet-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayCreateWalletButton"></button>
-  						<button type="reset" class="btn btn-secondary" data-i18n="deleteCancel"></button>
+  						<button id="cancel-create-wallet-button-overlay" type="reset" class="btn btn-secondary" data-i18n="deleteCancel"></button>
   					</div>
   				</div>
   			</form>
@@ -318,7 +328,7 @@
                 <div class="input-group">
                   <input id="seed-field" onClick="this.select();" readonly="" class="form-control m-input" placeholder="">
     							<div class="input-group-append">
-    								<button class="btn btn-success" type="button" data-i18n="popupWalletAdressCopy"></button>
+    								<button id="seed-clipboard-button" class="btn btn-success" type="button" data-i18n="popupWalletAdressCopy"></button>
     							</div>
     						</div>
                 <span class="m-form__help" data-i18n="popupOverlaySaveSeedSubtitle"></span>
@@ -349,10 +359,10 @@
             <div class="overlaySubtitle"><h5 data-i18n="popupOverlayImportChoice"></h5></div>
           </div>
           <div class="button-div m-stack__item m-stack__item--center m-stack__item--middle">
-            <button id="import-wallet-method-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletMethodButton"></button>
+            <button id="import-wallet-method-button-overlay" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletMethodButton"></button>
           </div>
           <div class="button-div m-stack__item m-stack__item--center m-stack__item--middle">
-            <button id="import-address-method-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportAddressMethodButton"></button>
+            <button id="import-address-method-button-overlay" class="btn btn-primary btn-success" data-i18n="popupOverlayImportAddressMethodButton"></button>
           </div>
         </div>
         <div id="walletOverlayPanel" class="overlayPanel">
@@ -361,7 +371,7 @@
               <div class="m-form__section m-form__section--first">
                 <div class="form-group m-form__group">
                   <label data-i18n="popupOverlaySeed"></label>
-                  <input id="import-wallet-seed" type="text" class="centered-form form-control m-input" placeholder="">
+                  <input id="import-wallet-seed" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
                   <span class="m-form__help" data-i18n="popupOverlaySeedSubtitle"></span>
                 </div>
                 <div class="form-group m-form__group">
@@ -379,8 +389,8 @@
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
               <div class="m-form__actions m-form__actions">
-                <button id="import-wallet-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton"></button>
-                <button type="reset" class="btn btn-secondary" data-i18n="deleteCancel"></button>
+                <button id="import-wallet-button-overlay" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton"></button>
+                <button id="cancel-import-wallet-button-overlay" class="btn btn-secondary" data-i18n="deleteCancel"></button>
               </div>
             </div>
           </form>
@@ -391,7 +401,7 @@
               <div class="m-form__section m-form__section--first">
                 <div class="form-group m-form__group">
                   <label data-i18n="popupOverlayAddress"></label>
-                  <input id="import-wallet-address" type="text" class="centered-form form-control m-input" placeholder="">
+                  <input id="import-wallet-address" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
                   <span class="m-form__help" data-i18n="popupOverlayAddressSubtitle"></span>
                   <div id="import-address-overlay-error" class="form-control-feedback"></div>
                 </div>
@@ -399,8 +409,8 @@
             </div>
             <div class="m-portlet__foot m-portlet__foot--fit">
               <div class="m-form__actions m-form__actions">
-                <button id="import-address-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton"></button>
-                <button type="reset" class="btn btn-secondary" data-i18n="deleteCancel"></button>
+                <button id="import-address-button-overlay" class="btn btn-primary btn-success" data-i18n="popupOverlayImportWalletButton"></button>
+                <button id="cancel-import-address-button-overlay" class="btn btn-secondary" data-i18n="deleteCancel"></button>
               </div>
             </div>
           </form>
@@ -423,7 +433,7 @@
             <div class="m-form__section m-form__section--first">
               <div class="form-group m-form__group">
                 <label data-i18n="popupOverlayReferrerAddress"></label>
-                <input id="import-referral-address" type="text" class="centered-form form-control m-input" placeholder="">
+                <input id="import-referral-address" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
                 <span class="m-form__help" data-i18n="popupOverlayReferrerAddressSubtitle"></span>
                 <div id="import-referral-overlay-error" class="form-control-feedback"></div>
               </div>
@@ -431,8 +441,8 @@
           </div>
           <div class="m-portlet__foot m-portlet__foot--fit">
             <div class="m-form__actions m-form__actions">
-              <button id="import-referral-button-overlay" type="submit" class="btn btn-primary btn-success" data-i18n="popupOverlayImportReferralButton"></button>
-              <button id="no-referral-button-overlay"type="reset" class="btn btn-secondary" data-i18n="popupOverlayNoReferralButton"></button>
+              <button id="import-referral-button-overlay" class="btn btn-primary btn-success" data-i18n="popupOverlayImportReferralButton"></button>
+              <button id="no-referral-button-overlay" class="btn btn-secondary" data-i18n="popupOverlayNoReferralButton"></button>
             </div>
           </div>
         </form>
@@ -453,10 +463,11 @@
           <div class="overlayText main-text"><p id="info-overlay-text"></p></div>
         </div>
         <div class="button-div m-stack__item m-stack__item--center m-stack__item--middle">
-          <button id="info-validate-button-overlay" type="submit" class="btn btn-primary btn-success"></button>
+          <button id="info-validate-button-overlay" class="btn btn-primary btn-success"></button>
         </div>
       </div>
     </div>
+  </div>
 
 <script src="config/main-config.js"></script>
 <script src="lib/punycode.js"></script>

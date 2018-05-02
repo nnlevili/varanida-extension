@@ -232,7 +232,7 @@
     "description":"appears in popup"
   },
   "popupWalletRewardExplanation":{
-    "message":"Add a wallet to receive a reward when <strong>Varanida</strong> blocks an element",
+    "message":"Add a wallet to receive a reward when Varanida blocks an element",
     "description":"appears in popup"
   },
   "popupStatisticsTab":{

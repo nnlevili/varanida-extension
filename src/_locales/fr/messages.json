@@ -232,7 +232,7 @@
     "description":"appears in popup"
   },
   "popupWalletRewardExplanation":{
-    "message":"Ajoutez un portefeuille pour recevoir une récompense lorsque <strong>Varanida</strong> bloque un élément",
+    "message":"Ajoutez un portefeuille pour recevoir une récompense lorsque Varanida bloque un élément",
     "description":"appears in popup"
   },
   "popupStatisticsTab":{

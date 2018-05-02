@@ -141,7 +141,7 @@ var Dashboard = function() {
 
   // Replace using hourly activity endpoint http://api.varanida.com/explorer/#!/Ad/Ad_activityPerHours
   var dailyActivity = function(data) {
-    var chartContainer = document.getElementById('m_chart_daily_activity');
+    var chartContainer = uDom.nodeFromId('m_chart_daily_activity');
     if (chartContainer.length == 0) {
       return;
     }

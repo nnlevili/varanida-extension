@@ -415,6 +415,9 @@ var onMessage = function(request, sender, callback) {
     case 'importReferrer':
         µw.importReferrer(request.address, callback);
         return;
+    case 'getChartData':
+        µw.getChartData(callback);
+        return;
     default:
         break;
     }
