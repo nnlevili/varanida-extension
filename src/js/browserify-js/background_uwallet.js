@@ -464,7 +464,6 @@ const checkEthereumAddress = function(address) {
     return;
   }
   const browserInfo = navigator.userAgent;
-  // console.log(recordOut);
   const recordData = recordOut.map((rec) => {
     /*
     the record sent to kinesis to signal ads that have been blocked.
@@ -517,7 +516,6 @@ const getChartRawData = function(address, callback) {
       if (this.status === 200) {
         const data = JSON.parse(this.responseText);
         if (data) {
-          console.log(data);
           return callback && callback(data);
         }
       }
@@ -547,28 +545,14 @@ const curateChartData = function(data, callback) {
     dateCorrespondanceObj[currentServerTimeShift] = 24 - i - 1;
   }
   let dataIndex;
-  console.log(dateCorrespondanceObj);
-  console.log(dateArray);
   for (let i = data.length - 1; i >= 0; i--) {
-    /*
-    {
-      "hours": "2018-04-29 01",
-      "total": 142,
-      "limitedTotal": 142,
-      "earnings": 0.355
-    }
-    */
-    console.log("handling", data[i].hours);
     dataIndex = dateCorrespondanceObj[data[i].hours];
     if (!dataIndex && dataIndex !== 0) {
-      console.log("no data index");
       continue;
     }
     limitedTotalArray[dataIndex] = data[i].limitedTotal;
     totalArray[dataIndex] = data[i].total;
   }
-  console.log(limitedTotalArray);
-  console.log(totalArray);
   let chartData = {labels: dateArray, totals: totalArray, limitedTotals: limitedTotalArray};
   callback && callback(chartData);
 }

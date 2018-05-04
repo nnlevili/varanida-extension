@@ -491,7 +491,6 @@ var showOverlay = function(overlayId, params) {
   }
 }
 var hideOverlay = function(overlayId) {
-  console.log("hiding overlay", overlayId);
   var overlaysContainer = uDom.nodeFromId("overlays");
   var overlaysList = uDom.nodesFromClass("overlayWindow");
   if (overlayId === "createWalletOverlay" || overlayId === "all") {
@@ -905,7 +904,6 @@ var importWallet = function(password, seed) {
       showOverlay("showSeedOverlay", {seed: response.seed})
       getUpdatedRewardData();
     };
-    console.log("importing wallet");
     messaging.send(
         'popupPanel',
         { what: 'importWallet', password: password, seed: seed },
@@ -973,7 +971,6 @@ var importWallet = function(password, seed) {
       chartData = response;
       callback && callback(response)
     };
-    console.log("getting chart data");
     messaging.send(
         'popupPanel',
         { what: 'getChartData'},
@@ -1071,7 +1068,6 @@ var importWallet = function(password, seed) {
     };
 
     var openPane = function(paneName) {
-      console.log(paneName);
       var activePane = uDom('.tab-pane.active');
       var activeTab = uDom('.nav-link.active');
       activePane.first().removeClass("active");
@@ -1081,7 +1077,6 @@ var importWallet = function(password, seed) {
     }
     var drawChart = function(exp) {
       if (Dashboard.drawn) {
-        console.log("already drawn");
         return;
       }
       if (Dashboard.initiated) {
