@@ -17,9 +17,19 @@ var i = process.argv.indexOf("--prod");
 if(i>-1) {
     prod = !!process.argv[i+1];
 }
+var clean = false;
+var i = process.argv.indexOf("--clean");
+if(i>-1) {
+    clean = !!process.argv[i+1];
+}
 
-
-if (prod !== false) {
+if (clean !== false) {
+  // force disable debug for production
+  build.config.debug = false;
+  build.config.compile.jsUglify = false;
+  build.config.compile.cssMinify = true;
+  build.config.compile.cssPurify = true;
+} else if (prod !== false) {
   // force disable debug for production
   build.config.debug = false;
   build.config.compile.jsUglify = true;

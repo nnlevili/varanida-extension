@@ -16,7 +16,11 @@ browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/
 
 echo "*** Varanida0.chromium: gulping"
 mkdir src/gulp-dist
-gulp
+if [ "$1" = all ]; then
+  gulp --clean 1
+else
+  gulp
+fi
 
 echo "*** Varanida0.chromium: making assets"
 bash ./tools/make-assets.sh $DES
