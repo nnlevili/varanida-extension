@@ -13,7 +13,9 @@
     "build:chromium": "./tools/make-chromium.sh",
     "build:chromium:all": "./tools/make-chromium.sh all",
     "build:firefox:all": "./tools/make-webext.sh all",
-    "release": "npm run build:chromium:all && npm run build:firefox:all"
+    "release": "npm run release:chromium && npm run release:firefox",
+    "release:chrome": "npm run build:chromium:all",
+    "release:firefox": "npm run build:firefox:all"
   },
   "browserify": {
     "transform": [
