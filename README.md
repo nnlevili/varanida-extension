@@ -11,7 +11,7 @@
 
 ## Manifesto
 
-Varanida is a decentralized technology that rewards web users for their attention, while giving more to publishers and protecting advertisers from fraud ([Manifesto](https://www.varanida.com/manifesto/), [white-paper](https://www.varanida.com/wp-content/uploads/2018/04/varanida.pdf)).
+Varanida is a decentralized technology that rewards web users for their attention, while giving more to publishers and protecting advertisers from fraud ([Manifesto](https://www.varanida.com/manifesto/), [white-paper](https://www.varanida.com/whitepaper.pdf)).
 
 ## Installation 
 
