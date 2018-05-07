@@ -327,69 +327,44 @@ var renderPopup = function() {
     varanidaMainLogo.on("click", gotoURL);
 
 
-    // renderTooltips();
+    renderTooltips();
 };
 
 /******************************************************************************/
 
+var tooltipTargetSelectors = new Map([
+    [
+        '#switch',
+        {
+            tooltipTarget: "#switchSpan",
+            state: 'checked',
+            i18n: 'popupPowerSwitchInfo'
+        }
+    ]
+]);
 // https://github.com/gorhill/uBlock/issues/2889
 //   Use tooltip for ARIA purpose.
 //
-// var renderTooltips = function(selector) {
-//     var elem, text;
-//     for ( var entry of tooltipTargetSelectors ) {
-//         if ( selector !== undefined && entry[0] !== selector ) { continue; }
-//         text = vAPI.i18n(
-//             entry[1].i18n +
-//             (uDom.nodeFromSelector(entry[1].state) === null ? '1' : '2')
-//         );
-//         elem = uDom.nodeFromSelector(entry[0]);
-//         elem.setAttribute('aria-label', text);
-//         elem.setAttribute('data-tip', text);
-//         if ( selector !== undefined ) {
-//             uDom.nodeFromId('tooltip').textContent =
-//                 elem.getAttribute('data-tip');
-//         }
-//     }
-// };
-
-// var tooltipTargetSelectors = new Map([
-//     [
-//         '#switch',
-//         {
-//             state: 'body.off',
-//             i18n: 'popupPowerSwitchInfo',
-//         }
-//     ],
-//     [
-//         '#no-popups',
-//         {
-//             state: '#no-popups.on',
-//             i18n: 'popupTipNoPopups'
-//         }
-//     ],
-//     [
-//         '#no-large-media',
-//         {
-//             state: '#no-large-media.on',
-//             i18n: 'popupTipNoLargeMedia'
-//         }
-//     ],
-//     [
-//         '#no-cosmetic-filtering',
-//         {
-//             state: '#no-cosmetic-filtering.on',
-//             i18n: 'popupTipNoCosmeticFiltering'
-//         }
-//     ],
-//     [
-//         '#no-remote-fonts',
-//         {
-//             state: '#no-remote-fonts.on',
-//             i18n: 'popupTipNoRemoteFonts'
-//         }
-//     ]
-// ]);
+var renderTooltips = function(selector) {
+    var elem, text, tooltipElem;
+    for ( var entry of tooltipTargetSelectors ) {
+        if ( selector !== undefined && entry[0] !== selector ) { continue; }
+        elem = uDom.nodeFromSelector(entry[0]);
+        text = vAPI.i18n(
+            entry[1].i18n +
+            (elem[entry[1].state] === true ? '1' : '2')
+        );
+        tooltipElem = entry[1].tooltipTarget?
+          uDom.nodeFromSelector(entry[1].tooltipTarget) :
+          elem;
+        tooltipElem.setAttribute('aria-label', text);
+        tooltipElem.setAttribute('data-tip', text);
+        if ( selector !== undefined ) {
+            uDom.nodeFromId('tooltip-text').textContent =
+                tooltipElem.getAttribute('data-tip');
+        }
+    }
+};
 
 /******************************************************************************/
 
@@ -663,7 +638,7 @@ var toggleNetFilteringSwitch = function(ev) {
             tabId: popupData.tabId
         }
     );
-    // renderTooltips('#switch');
+    renderTooltips('#switch');
     hashFromPopupData();
 };
 /******************************************************************************/
@@ -980,45 +955,100 @@ var importWallet = function(password, seed) {
 
 /******************************************************************************/
 
-// var onShowTooltip = function() {
-//     if ( popupData.tooltipsDisabled ) {
-//         return;
-//     }
-//
-//     var target = this;
-//
-//     // Tooltip container
-//     var ttc = uDom(target).ancestors('.tooltipContainer').nodeAt(0) ||
-//               document.body;
-//     var ttcRect = ttc.getBoundingClientRect();
-//
-//     // Tooltip itself
-//     var tip = uDom.nodeFromId('tooltip');
-//     tip.textContent = target.getAttribute('data-tip');
-//     tip.style.removeProperty('top');
-//     tip.style.removeProperty('bottom');
-//     ttc.appendChild(tip);
-//
-//     // Target rect
-//     var targetRect = target.getBoundingClientRect();
-//
-//     // Default is "over"
-//     var pos;
-//     var over = target.getAttribute('data-tip-position') !== 'under';
-//     if ( over ) {
-//         pos = ttcRect.height - targetRect.top + ttcRect.top;
-//         tip.style.setProperty('bottom', pos + 'px');
-//     } else {
-//         pos = targetRect.bottom - ttcRect.top;
-//         tip.style.setProperty('top', pos + 'px');
-//     }
-//
-//     tip.classList.add('show');
-// };
-//
-// var onHideTooltip = function() {
-//     uDom.nodeFromId('tooltip').classList.remove('show');
-// };
+var tooltipClosing = false;
+var tooltipTimeBeforeShow = 500;
+var tooltipTimeout = null;
+var moveOutWhenDone = function() {
+  var tip = uDom.nodeFromId('tooltip');
+  if (tooltipClosing) {
+    tip.style.left = "";
+    tip.style.setProperty('right', '-1000px');
+    uDom.nodeFromId('templates').appendChild(tip);
+    tooltipClosing = false;
+  }
+  tip.removeEventListener("transitionend", moveOutWhenDone, false);
+};
+
+var onShowTooltipDelayed = function() {
+    tooltipTimeout = null;
+    moveOutWhenDone();
+    var target = this;
+
+    // Tooltip container
+    var ttc = uDom(target).ancestors('.tooltipContainer').nodeAt(0) ||
+              document.body;
+    var ttcRect = ttc.getBoundingClientRect();
+
+    // Tooltip itself
+    var tip = uDom.nodeFromId('tooltip');
+    var tipArrow = uDom.nodeFromId('tooltip-arrow');
+    var tipText = uDom.nodeFromId('tooltip-text');
+    tipText.textContent = target.getAttribute('data-tip');
+    // tip.style.removeProperty('top');
+    // tip.style.removeProperty('bottom');
+    ttc.appendChild(tip);
+    tip.offsetWidth;
+    var tipRect = tip.getBoundingClientRect();
+    console.log("tipRect", tipRect);
+    // Target rect
+    var targetRect = target.getBoundingClientRect();
+
+    // Default is "over"
+    var pos;
+    var over = target.getAttribute('data-tip-position') !== 'under';
+    if ( over ) {
+        pos = ttcRect.height - targetRect.top + ttcRect.top + 1;
+        tip.style.setProperty('bottom', pos + 'px');
+        tip.classList.add("bs-tooltip-top");
+    } else {
+        pos = targetRect.bottom - ttcRect.top  + 1;
+        tip.style.setProperty('top', pos + 'px');
+        tip.classList.add("bs-tooltip-bottom");
+    }
+    var horizontalTargetCenter = (targetRect.left + targetRect.right)/2;
+    console.log("horizontalTargetCenter", horizontalTargetCenter);
+    var tipWidth = tipRect.width;
+    console.log("tipWidth", tipWidth);
+    var left = horizontalTargetCenter - tipWidth/2;
+    var right = null;
+    if (left + tipWidth > ttcRect.right) {
+      left -= (left + tipWidth - ttcRect.right);
+      left -= 7;
+      console.log("slidding left");
+    }
+    if (left < 7) {
+      console.log("trimming left");
+      left = 7;
+    }
+    var right = ttcRect.width - (left + tipWidth);
+    console.log("left", left);
+    tip.style.setProperty('left', left + 'px');
+    tip.style.setProperty('right', right + 'px');
+    var arrowLeft = horizontalTargetCenter - left;
+    tipArrow.style.setProperty('left', arrowLeft + 'px');
+    tip.classList.add('show');
+};
+
+var onShowTooltip = function() {
+  if ( popupData.tooltipsDisabled ) {
+      return;
+  }
+  if (tooltipTimeout) {
+    clearTimeout(tooltipTimeout);
+  }
+  tooltipTimeout = setTimeout(onShowTooltipDelayed.bind(this), tooltipTimeBeforeShow);
+};
+
+var onHideTooltip = function() {
+  if (tooltipTimeout) {
+    clearTimeout(tooltipTimeout);
+    tooltipTimeout = null;
+  }
+  var tip = uDom.nodeFromId('tooltip');
+  tooltipClosing = true;
+  tip.addEventListener("transitionend", moveOutWhenDone, false);
+  tip.classList.remove('show');
+};
 
 /******************************************************************************/
 
@@ -1120,8 +1150,8 @@ var importWallet = function(password, seed) {
     uDom('#seed-clipboard-button').on('click', function() {copyAdressToClipboard("seed-field")});
     // uDom('[data-i18n="popupAnyRulePrompt"]').on('click', toggleMinimize);
 
-    // uDom('body').on('mouseenter', '[data-tip]', onShowTooltip)
-    //             .on('mouseleave', '[data-tip]', onHideTooltip);
+    uDom('body').on('mouseenter', '[data-tip]', onShowTooltip)
+                .on('mouseleave', '[data-tip]', onHideTooltip);
 
     // uDom('a[href]').on('click', gotoURL);
     uDom('.btn-parameter[href]').on('click', gotoURL);

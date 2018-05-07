@@ -24,7 +24,7 @@
                   <span class="m-switch m-switch--outline m-switch--icon m-switch--success">
                     <label>
                       <input id="switch" type="checkbox" checked="checked" name="">
-                      <span id="switchSpan" style="display:none;"></span>
+                      <span id="switchSpan" aria-label data-tip-position="under" style="display:none;"></span>
                     </label>
                   </span>
                 </div>
@@ -175,92 +175,94 @@
     <!-- end::Footer -->
   </div>
   <!-- end:: Page -->
-                <!-- begin::Quick Sidebar -->
-  <div id="m_quick_sidebar" class="popup-sidebar m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
-    <div class="m-quick-sidebar__content">
-      <span id="m_quick_sidebar_close" class="m-quick-sidebar__close">
-        <i class="la la-close"></i>
-      </span>
-      <ul id="m_quick_sidebar_tabs" class="popup-tabs nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
-        <li class="nav-item m-tabs__item">
-          <a id="params-tab" class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab" data-i18n="settingsPageName"></a>
-        </li>
-        <li class="nav-item m-tabs__item">
-          <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab" data-i18n="popupStatisticsTab"></a>
-        </li>
-      </ul>
-      <div class="tab-content">
-        <div id="params-pane" class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_settings" role="tabpanel">
-          <div class="m-list-settings">
-            <div class="m-list-settings__group">
-              <div class="m-list-settings__heading" data-i18n="popupGeneralConfig"></div>
-              <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label" data-i18n="popupConfigPopup"></span>
-                <span class="m-list-settings__item-control">
-                  <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-                    <label>
-                      <input id="no-popup" class="hnSwitch" type="checkbox" name="">
-                      <span></span>
-                    </label>
+  <!-- begin::Quick Sidebar -->
+  <div class="tooltipContainer">
+    <div id="m_quick_sidebar" class="popup-sidebar m-quick-sidebar m-quick-sidebar--tabbed m-quick-sidebar--skin-light">
+      <div class="m-quick-sidebar__content">
+        <span id="m_quick_sidebar_close" class="m-quick-sidebar__close">
+          <i class="la la-close"></i>
+        </span>
+        <ul id="m_quick_sidebar_tabs" class="popup-tabs nav nav-tabs m-tabs m-tabs-line m-tabs-line--brand" role="tablist">
+          <li class="nav-item m-tabs__item">
+            <a id="params-tab" class="nav-link m-tabs__link active" data-toggle="tab" href="#m_quick_sidebar_tabs_settings" role="tab" data-i18n="settingsPageName"></a>
+          </li>
+          <li class="nav-item m-tabs__item">
+            <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab" data-i18n="popupStatisticsTab"></a>
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div id="params-pane" class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_settings" role="tabpanel">
+            <div class="m-list-settings">
+              <div class="m-list-settings__group">
+                <div class="m-list-settings__heading" data-i18n="popupGeneralConfig"></div>
+                <div class="m-list-settings__item">
+                  <span class="m-list-settings__item-label" data-i18n="popupConfigPopup"></span>
+                  <span class="m-list-settings__item-control">
+                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                      <label>
+                        <input id="no-popup" class="hnSwitch" type="checkbox" name="">
+                        <span></span>
+                      </label>
+                    </span>
                   </span>
-                </span>
+                </div>
+                <div class="m-list-settings__item">
+                  <span class="m-list-settings__item-label" data-i18n="popupConfigMedia"></span>
+                  <span class="m-list-settings__item-control">
+                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                      <label>
+                        <input id="no-large-media" class="hnSwitch" type="checkbox" name="">
+                        <span></span>
+                      </label>
+                    </span>
+                  </span>
+                </div>
+                <div class="m-list-settings__item">
+                  <span class="m-list-settings__item-label" data-i18n="popupConfigCosmetic"></span>
+                  <span class="m-list-settings__item-control">
+                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                      <label>
+                        <input id="no-cosmetic-filtering" class="hnSwitch" type="checkbox" name="">
+                        <span></span>
+                      </label>
+                    </span>
+                  </span>
+                </div>
+                <div class="m-list-settings__item">
+                  <span class="m-list-settings__item-label" data-i18n="popupConfigFonts"></span>
+                  <span class="m-list-settings__item-control">
+                    <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
+                      <label>
+                        <input id="no-remote-fonts" class="hnSwitch" type="checkbox" name="">
+                        <span></span>
+                      </label>
+                    </span>
+                  </span>
+                </div>
               </div>
-              <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label" data-i18n="popupConfigMedia"></span>
-                <span class="m-list-settings__item-control">
-                  <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-                    <label>
-                      <input id="no-large-media" class="hnSwitch" type="checkbox" name="">
-                      <span></span>
-                    </label>
-                  </span>
-                </span>
-              </div>
-              <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label" data-i18n="popupConfigCosmetic"></span>
-                <span class="m-list-settings__item-control">
-                  <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-                    <label>
-                      <input id="no-cosmetic-filtering" class="hnSwitch" type="checkbox" name="">
-                      <span></span>
-                    </label>
-                  </span>
-                </span>
-              </div>
-              <div class="m-list-settings__item">
-                <span class="m-list-settings__item-label" data-i18n="popupConfigFonts"></span>
-                <span class="m-list-settings__item-control">
-                  <span class="m-switch m-switch--outline m-switch--icon-check m-switch--brand">
-                    <label>
-                      <input id="no-remote-fonts" class="hnSwitch" type="checkbox" name="">
-                      <span></span>
-                    </label>
-                  </span>
-                </span>
+            </div>
+            <div class="parameter-buttons">
+              <div class="parameter-bottom-stack m-stack m-stack--ver m-stack--general">
+  								<div class="m-stack__item m-stack__item--center m-stack__item--middle">
+                    <button href="dashboard.html" id="settings-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="settingsPageName"  data-i18n-tip="popupTipDashboard" data-tip-position="over"><i class="la la-gears"></i></button>
+                  </div>
+                  <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+                    <button href="logger-ui.html" id="logger-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="popupOpenLogger" data-i18n-tip="popupTipLog" data-tip-position="over"><i class="la la-list"></i></button>
+                  </div>
               </div>
             </div>
           </div>
-          <div class="parameter-buttons">
-            <div class="parameter-bottom-stack m-stack m-stack--ver m-stack--general">
-								<div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                  <button href="dashboard.html" id="settings-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="settingsPageName"><i class="la la-gears"></i></button>
-                </div>
-                <div class="m-stack__item m-stack__item--center m-stack__item--middle">
-                  <button href="logger-ui.html" id="logger-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="popupOpenLogger"><i class="la la-list"></i></button>
-                </div>
-            </div>
+          <div id="stats-pane" class="tab-pane m-scrollable" id="m_quick_sidebar_tabs_logs" role="tabpanel">
+            <!--begin:: Widgets/Daily Sales-->
+              <div class="m--margin-bottom-30">
+                <h5 class="m-list-settings__heading" data-i18n="popupStatsDaily"></h5>
+                <span class="m-widget14__desc" data-i18n="popupStatsDailySubtitle"></span>
+              </div>
+              <div class="m-widget14__chart" style="height:160px;">
+                <canvas  id="m_chart_daily_activity"></canvas>
+              </div>
+            <!--end:: Widgets/Daily Sales-->
           </div>
-        </div>
-        <div id="stats-pane" class="tab-pane m-scrollable" id="m_quick_sidebar_tabs_logs" role="tabpanel">
-          <!--begin:: Widgets/Daily Sales-->
-            <div class="m--margin-bottom-30">
-              <h5 class="m-list-settings__heading" data-i18n="popupStatsDaily"></h5>
-              <span class="m-widget14__desc" data-i18n="popupStatsDailySubtitle"></span>
-            </div>
-            <div class="m-widget14__chart" style="height:160px;">
-              <canvas  id="m_chart_daily_activity"></canvas>
-            </div>
-          <!--end:: Widgets/Daily Sales-->
         </div>
       </div>
     </div>
@@ -273,6 +275,12 @@
          <i class="la la-refresh"></i>
         </div>
       </div>
+    </div>
+  </div>
+  <div id="templates" style="display: none">
+    <div id="tooltip" class="m-tooltip tooltip popup-tooltip fade" role="tooltip" x-placement="top">
+      <div id="tooltip-arrow" class="arrow"></div>
+      <div id="tooltip-text" class="tooltip-inner"></div>
     </div>
   </div>
   <div id="overlays" class="overlay-container">

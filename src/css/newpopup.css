@@ -357,3 +357,12 @@ html, body {
   line-height: 50px;
   text-align: center;
 }
+
+.tooltip.popup-tooltip {
+  right: -1000px;
+}
+
+.tooltip.popup-tooltip .tooltip-inner {
+  padding: 7px 10px 7px 10px;
+  max-width: 280px;
+}
