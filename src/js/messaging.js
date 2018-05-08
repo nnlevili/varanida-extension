@@ -86,6 +86,16 @@ var onMessage = function(request, sender, callback) {
     case 'deleteWallet':
         µw.safeReset(request.password, callback);
         return;
+
+    case 'getUserData':
+        return µdw.getUserData(request.password, callback);
+
+    case 'setShareLevel':
+        return µdw.setShareLevel(request.newLevel, callback);
+
+    case 'setTrackingWhitelist':
+        return µdw.setTrackingWhitelist(request.whitelist, callback);
+
     default:
         break;
     }
@@ -135,6 +145,11 @@ var onMessage = function(request, sender, callback) {
     case 'getDomainNames':
         response = getDomainNames(request.targets);
         break;
+
+    case 'getLevels':
+        response = µdw.getLevels();
+        break;
+
     case 'getWalletInfo':
         response = {
           hasWallet: µw.walletSettings.hasKeyring,
@@ -143,8 +158,17 @@ var onMessage = function(request, sender, callback) {
           onlyAddress: µw.walletSettings.onlyAddress
         };
         break;
+
     case 'getWhitelist':
         response = µb.stringFromWhitelist(µb.netWhitelist);
+        break;
+
+    case 'getTrackingWhitelist':
+        response = µdw.getTrackingWhitelist();
+        break;
+
+    case 'isWalletUnlocked':
+        response = µw.isUnlocked();
         break;
 
     case 'launchElementPicker':
@@ -464,6 +488,11 @@ var onMessage = function(request, sender, callback) {
             µb.updateBadgeAsync(request.tabId);
         }
         break;
+
+    case 'toggleTrackingWhitelist':
+        µdw.toggleTrackingWhitelist(request.url, request.scope, request.state);
+        break;
+
     case 'setReferralWindowShown':
         µw.setReferralWindowShown(request.shown);
         break;
@@ -735,6 +764,7 @@ vAPI.messaging.listen('cloudWidget', onMessage);
 
 var µb = µBlock;
 var µw = µWallet;
+var µdw = µDataWallet;
 /******************************************************************************/
 
 // Settings
@@ -946,6 +976,12 @@ var onMessage = function(request, sender, callback) {
 
     case 'readUserFilters':
         return µb.loadUserFilters(callback);
+
+    case 'setUserData':
+        return µdw.setUserData(request.newCompletionLevel, request.data, callback);
+
+    case 'sendUserData':
+        return µdw.sendUserData(request.password, callback);
 
     case 'writeUserFilters':
         return µb.saveUserFilters(request.content, callback);

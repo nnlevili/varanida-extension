@@ -20,69 +20,6 @@
     Home: https://github.com/Varanida/varanida-extension
 */
 
-const blake = require('blakejs');
-
-const µDataWallet = (function() {
-  return {
-    dataSettings: {
-      dataShareLevel: 0,
-      dataCompletionLevel: 0,
-      dataTrackingWhitelistString: "",
-    },
-    tempData: {},
-    dataTrackingWhitelist: {},
-    stringFromWhitelist: function(){},
-    whitelistFromString: function(){},
-    URI: null,
-  };
-})();
-
-/* settings handling */
-
-µDataWallet.saveSettings = function(callback) {
-    vAPI.storage.set(this.dataSettings, callback);
-};
-
-µDataWallet.updateSettings = function(updates, callback) {
-  if (!updates) {
-    return;
-  }
-  const updateKeys = Object.keys(updates);
-  let hasUpdates = false;
-  updateKeys.forEach(key => {
-    this.dataSettings[key] = updates[key];
-    hasUpdates = true;
-  });
-  if (hasUpdates) {
-    this.saveSettings(callback);
-  } else {
-    callback && callback();
-  }
-};
-
-µDataWallet.saveWhitelist = function(callback) {
-    const newWhitelistString = this.stringFromWhitelist(this.dataTrackingWhitelist);
-    this.updateSettings({
-      dataTrackingWhitelistString: newWhitelistString
-    }, callback);
-};
-
-/* initialization routine, executed at extension startup */
-
-µDataWallet.init = function() {
-  this.URI = µBlock.URI;
-  this.stringFromWhitelist = µBlock.stringFromWhitelist;
-  this.whitelistFromString = µBlock.whitelistFromString;
-  this.loadDataWhitelist();
-}
-
-µDataWallet.loadDataWhitelist = function() {
-  if (!this.dataTrackingWhitelistString) {
-    this.dataTrackingWhitelist = "";
-  }
-  this.dataTrackingWhitelist = this.whitelistFromString(this.dataTrackingWhitelistString);
-};
-
 /* whitelist utilities */
 
 // TODO since this code is shared with ublock.js, move to a util file
@@ -96,7 +33,7 @@ const whitelistDirectiveEscapeAsterisk = /\*/g;
 let directiveToRegexpMap = new Map();
 
 // Probably manually entered whitelist directive
-var isHandcraftedWhitelistDirective = function(directive) {
+var isHandcraftedWhitelistDirective = function(directive) {//copied from ublock.js
     return directive.startsWith('/') && directive.endsWith('/') ||
            directive.indexOf('/') !== -1 && directive.indexOf('*') !== -1;
 };
@@ -128,7 +65,7 @@ const matchDirective = function(url, hostname, directive) { //copied from ublock
     return re.test(url);
 };
 
-var matchBucket = function(url, hostname, bucket, start) {
+var matchBucket = function(url, hostname, bucket, start) {//copied from ublock.js
     if ( bucket ) {
         for ( let i = start || 0, n = bucket.length; i < n; i++ ) {
             if ( matchDirective(url, hostname, bucket[i]) ) {
@@ -139,24 +76,84 @@ var matchBucket = function(url, hostname, bucket, start) {
     return -1;
 };
 
+/*************************************************************************/
+
+const µDataWallet = (function() {
+  return {
+    dataSettings: {
+      dataShareLevel: 0,
+      dataCompletionLevel: 0,
+      dataTrackingWhitelistString: "",
+    },
+    tempData: {},
+    dataTrackingWhitelist: {}
+  };
+})();
+
+/* settings handling */
+
+µDataWallet.saveSettings = function(callback) {
+    vAPI.storage.set(this.dataSettings, callback);
+};
+
+µDataWallet.updateSettings = function(updates, callback) {
+  if (!updates) {
+    return;
+  }
+  const updateKeys = Object.keys(updates);
+  let hasUpdates = false;
+  updateKeys.forEach(key => {
+    this.dataSettings[key] = updates[key];
+    hasUpdates = true;
+  });
+  if (hasUpdates) {
+    this.saveSettings(callback);
+  } else {
+    callback && callback();
+  }
+};
+
+/* initialization routine, executed at extension startup */
+
+µDataWallet.init = function() {
+  this.loadDataWhitelist();
+}
+
+µDataWallet.loadDataWhitelist = function() {
+  if (!this.dataSettings.dataTrackingWhitelistString) {
+    this.dataTrackingWhitelist = {};
+    return;
+  }
+  this.dataTrackingWhitelist = µBlock.whitelistFromString(this.dataSettings.dataTrackingWhitelistString);
+};
+
 /* external functions, change interface carefully */
 
+/* WHITELIST */
+
+µDataWallet.saveWhitelist = function(callback) {
+    const newWhitelistString = µBlock.stringFromWhitelist(this.dataTrackingWhitelist);
+    this.updateSettings({
+      dataTrackingWhitelistString: newWhitelistString
+    }, callback);
+};
+
 µDataWallet.getDataWhitelistSwitch = function(url) {
-    var targetHostname = this.URI.hostnameFromURI(url),
+    var targetHostname = µBlock.URI.hostnameFromURI(url),
         key = targetHostname,
         pos;
     for (;;) {
         if ( matchBucket(url, targetHostname, this.dataTrackingWhitelist[key]) !== -1 ) {
-            return false;
+            return true;
         }
         pos = key.indexOf('.');
         if ( pos === -1 ) { break; }
         key = key.slice(pos + 1);
     }
     if ( matchBucket(url, targetHostname, this.dataTrackingWhitelist['//']) !== -1 ) {
-        return false;
+        return true;
     }
-    return true;
+    return false;
 };
 
 µDataWallet.toggleTrackingWhitelist = function(url, scope, newState) {
@@ -171,12 +168,12 @@ var matchBucket = function(url, hostname, bucket, start) {
   var dataTrackingWhitelist = this.dataTrackingWhitelist,
       pos = url.indexOf('#'),
       targetURL = pos !== -1 ? url.slice(0, pos) : url,
-      targetHostname = this.URI.hostnameFromURI(targetURL),
+      targetHostname = µBlock.URI.hostnameFromURI(targetURL),
       key = targetHostname,
       directive = scope === 'page' ? targetURL : targetHostname;
 
   // Add to directive list
-  if ( newState === false ) {
+  if ( newState === true ) {
       if ( dataTrackingWhitelist[key] === undefined ) {
           dataTrackingWhitelist[key] = [];
       }
@@ -226,7 +223,30 @@ var matchBucket = function(url, hostname, bucket, start) {
   return true;
 };
 
+µDataWallet.getTrackingWhitelist = function() {
+  return µBlock.stringFromWhitelist(this.dataTrackingWhitelist);
+}
+
+µDataWallet.setTrackingWhitelist = function(newWhitelistString, callback) {
+  this.dataTrackingWhitelist = µBlock.whitelistFromString(newWhitelistString);
+  this.saveWhitelist(callback);
+}
+
+µDataWallet.getLevels = function() {
+  return {
+    dataShareLevel: this.dataSettings.dataShareLevel,
+    dataCompletionLevel: this.dataSettings.dataCompletionLevel
+  };
+};
+
 µDataWallet.setShareLevel = function(newShareLevel, callback) {
+  if (
+    typeof newShareLevel !== "number" ||
+    newShareLevel > this.dataSettings.dataCompletionLevel ||
+    newShareLevel < 0
+  ) {
+    return callback && callback("Not a number or out of range");
+  }
   this.updateSettings({
     dataShareLevel: newShareLevel
   }, callback);
@@ -234,6 +254,14 @@ var matchBucket = function(url, hostname, bucket, start) {
 
 µDataWallet.setUserData = function(newCompletionLevel, data, callback) {
   //TODO check data validity
+  if (
+    typeof data !== "object" ||
+    typeof newCompletionLevel !== "number" ||
+    newCompletionLevel > 3 ||
+    newCompletionLevel < 0
+  ) {
+    return callback && callback("Data invalid or Completion level not a number or out of range");
+  }
   this.tempData = data;
   this.updateSettings({
     dataCompletionLevel: newCompletionLevel
@@ -249,5 +277,7 @@ var matchBucket = function(url, hostname, bucket, start) {
   //TODO get and decrypt data using µWallet
   let data = {};
   this.tempData = data;
-  callback && callback(tempData);
+  callback && callback(this.tempData);
 }
+
+window.µDataWallet = µDataWallet;
