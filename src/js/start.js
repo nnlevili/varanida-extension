@@ -33,6 +33,7 @@
 
 var µb = µBlock;
 var µw = µWallet;
+var µdw = µDataWallet;
 
 /******************************************************************************/
 
@@ -199,6 +200,15 @@ var onWalletSettingReady = function(fetched) {
 
 /******************************************************************************/
 
+var onDataWalletSettingReady = function(fetched) {
+  var dataSettings = µdw.dataSettings;
+
+  fromFetch(dataSettings, fetched);
+  µdw.init();
+}
+
+/******************************************************************************/
+
 // Housekeeping, as per system setting changes
 
 var onSystemSettingsReady = function(fetched) {
@@ -231,6 +241,7 @@ var onFirstFetchReady = function(fetched) {
     onNetWhitelistReady(fetched.netWhitelist);
     onVersionReady(fetched.version);
     onWalletSettingReady(fetched);
+    onDataWalletSettingReady(fetched);
 
     // If we have a selfie, skip loading PSL, filter lists
     vAPI.cacheStorage.get('selfie', function(bin) {
@@ -285,6 +296,7 @@ var onSelectedFilterListsLoaded = function() {
     toFetch(µb.userSettings, fetchableProps);
     toFetch(µb.restoreBackupSettings, fetchableProps);
     toFetch(µw.walletSettings, fetchableProps);
+    toFetch(µdw.dataSettings, fetchableProps);
 
     vAPI.storage.get(fetchableProps, onFirstFetchReady);
 };

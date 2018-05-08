@@ -370,6 +370,11 @@ const checkEthereumAddress = function(address) {
   }
 }
 
+µWallet.isUnlocked = function() {
+  const store = this.keyringController.memStore.getState();
+  return store.isUnlocked;
+}
+
 µWallet.lockWallet = function(callback) {
   const store = this.keyringController.memStore.getState();
   if (store.isUnlocked) {
