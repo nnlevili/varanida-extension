@@ -10,7 +10,7 @@ requirements: you need to have **npm** installed
 - Optional: if you haven't installed it yet, install browserify globally using npm (`npm install -g browserify`)
 - Install the npm packages: `npm i`
 - Build the plugin:
-    - Chromium: `npm run build` (add `build:chromium` to create a ziped version to release it to the chrome store)
+    - Chromium: `npm run build` (add `npm run release:chrome` to create a ziped version to release it to the chrome store)
     - Firefox: `npm run build:firefox`
 - Load the result of the build into your browser:
     - Chromium: load the unpacked extension folder `/varanida-extension-ublock/dist/build/Varanida0.chromium/` in Chromium through chrome://extensions to use the extension.
