@@ -62,18 +62,6 @@ var cachedPopupHash = '';
 var statsStr = vAPI.i18n('popupBlockedStats');
 var chartData = null;
 var toggleButtons = {};
-// var domainsHitStr = vAPI.i18n('popupHitDomainCount');
-
-// https://github.com/gorhill/uBlock/issues/2550
-// Solution inspired from
-// - https://bugs.chromium.org/p/chromium/issues/detail?id=683314
-// - https://bugzilla.mozilla.org/show_bug.cgi?id=1332714#c17
-// Confusable character set from:
-// - http://unicode.org/cldr/utility/list-unicodeset.jsp?a=%5B%D0%B0%D1%81%D4%81%D0%B5%D2%BB%D1%96%D1%98%D3%8F%D0%BE%D1%80%D4%9B%D1%95%D4%9D%D1%85%D1%83%D1%8A%D0%AC%D2%BD%D0%BF%D0%B3%D1%B5%D1%A1%5D&g=gc&i=
-// Linked from:
-// - https://www.chromium.org/developers/design-documents/idn-in-google-chrome
-var reCyrillicNonAmbiguous = /[\u0400-\u042b\u042d-\u042f\u0431\u0432\u0434\u0436-\u043d\u0442\u0444\u0446-\u0449\u044b-\u0454\u0457\u0459-\u0460\u0462-\u0474\u0476-\u04ba\u04bc\u04be-\u04ce\u04d0-\u0500\u0502-\u051a\u051c\u051e-\u052f]/;
-var reCyrillicAmbiguous = /[\u042c\u0430\u0433\u0435\u043e\u043f\u0440\u0441\u0443\u0445\u044a\u0455\u0456\u0458\u0461\u0475\u04bb\u04bd\u04cf\u0501\u051b\u051d]/;
 
 /******************************************************************************/
 
@@ -129,14 +117,6 @@ var hashFromPopupData = function(reset) {
     }
 
     var hasher = [];
-    //     rules = popupData.firewallRules;
-    // for ( var key in rules ) {
-    //     var rule = rules[key];
-    //     if ( rule !== null ) {
-    //         hasher.push(rule.src + ' ' + rule.des + ' ' + rule.type + ' ' + rule.action);
-    //     }
-    // }
-    // hasher.sort();
     hasher.push(!uDom.nodeFromId('switch').checked);
     hasher.push(uDom.nodeFromId('no-large-media').checked);
     hasher.push(uDom.nodeFromId('no-cosmetic-filtering').checked);
@@ -225,25 +205,12 @@ var renderPopup = function() {
     }
 
     elem = document.body;
-    // elem.classList.toggle('advancedUser', popupData.advancedUserEnabled);
     uDom('#switch').prop("checked",
       !(popupData.pageURL === '' ||
       !popupData.netFilteringSwitch ||
       popupData.pageHostname === 'behind-the-scene')
     );
     uDom.nodeFromId('switchSpan').style.setProperty("display", "inline-block");
-    //
-    // elem.classList.toggle(
-    //     'off',
-    //     popupData.pageURL === '' ||
-    //     !popupData.netFilteringSwitch ||
-    //     popupData.pageHostname === 'behind-the-scene' && !popupData.advancedUserEnabled
-    // );
-
-    // If you think the `=== true` is pointless, you are mistaken
-    // uDom.nodeFromId('gotoPick').classList.toggle('enabled', popupData.canElementPicker === true);
-    // uDom.nodeFromId('gotoPickIcon').classList.toggle('enabled', popupData.canElementPicker === true);
-    // uDom.nodeFromId('gotoZap').classList.toggle('enabled', popupData.canElementPicker === true);
 
     var blocked = popupData.pageBlockedRequestCount,
         total = popupData.pageAllowedRequestCount + blocked;
@@ -274,9 +241,6 @@ var renderPopup = function() {
         );
     }
 
-    // // This will collate all domains, touched or not
-    // renderPrivacyExposure();
-
     // Extra tools
 
     var toggleStates = {
@@ -292,40 +256,10 @@ var renderPopup = function() {
       }
     }
 
-    // // Report blocked popup count on badge
-    // total = popupData.popupBlockedCount;
-    // uDom.nodeFromSelector('#no-popups > span.badge')
-    //     .textContent = total ? total.toLocaleString() : '';
-    //
-    // // Report large media count on badge
-    // total = popupData.largeMediaCount;
-    // uDom.nodeFromSelector('#no-large-media > span.badge')
-    //     .textContent = total ? total.toLocaleString() : '';
-    //
-    // // Report remote font count on badge
-    // total = popupData.remoteFontCount;
-    // uDom.nodeFromSelector('#no-remote-fonts > span.badge')
-    //     .textContent = total ? total.toLocaleString() : '';
-
-    // https://github.com/chrisaljoudi/uBlock/issues/470
-    // This must be done here, to be sure the popup is resized properly
-    // var dfPaneVisible = popupData.dfEnabled;
-    //
-    // uDom.nodeFromId('panes').classList.toggle('dfEnabled', dfPaneVisible);
-    //
-    // elem = uDom.nodeFromId('firewallContainer');
-    // elem.classList.toggle('minimized', popupData.firewallPaneMinimized);
-    // elem.classList.toggle('colorBlind', popupData.colorBlindFriendly);
-
-    // // Build dynamic filtering pane only if in use
-    // if ( dfPaneVisible ) {
-    //     buildAllFirewallRows();
-    // }
     //add varanida website linking
     var varanidaMainLogo = uDom("#main-brand-logo");
     varanidaMainLogo.attr("href", µConfig.urls.front);
     varanidaMainLogo.on("click", gotoURL);
-
 
     renderTooltips();
 };
@@ -372,47 +306,6 @@ var renderTooltips = function(selector) {
 
 var renderOnce = function() {
     renderOnce = function(){};
-    //
-    // uDom.nodeFromId('appname').textContent = popupData.appName;
-    // uDom.nodeFromId('version').textContent = popupData.appVersion;
-
-    // For large displays: we do not want the left pane -- optional and
-    // hidden by defaut -- to dictate the height of the popup. The right pane
-    // dictates the height of the popup, and the left pane will have a
-    // scrollbar if ever its height is more than what is available.
-    // For small displays: we use the whole viewport.
-
-    // var panes = uDom.nodeFromId('panes'),
-    //     rpane = uDom.nodeFromSelector('#panes > div:first-of-type'),
-    //     lpane = uDom.nodeFromSelector('#panes > div:last-of-type');
-    //
-    // var fillViewport = function() {
-    //     var newHeight = Math.max(
-    //         window.innerHeight,
-    //         rpane.offsetHeight
-    //     );
-    //     if ( newHeight !== lpane.offsetHeight ) {
-    //         lpane.style.setProperty('height', newHeight + 'px');
-    //     }
-    //     // https://github.com/gorhill/uBlock/issues/3038
-    //     // - Resize the firewall pane while minding the space between the panes.
-    //     var newWidth = window.innerWidth - panes.offsetWidth + lpane.offsetWidth;
-    //     if ( newWidth !== lpane.offsetWidth ) {
-    //         lpane.style.setProperty('width', newWidth + 'px');
-    //     }
-    // };
-    //
-    // // https://github.com/gorhill/uBlock/issues/2274
-    // //   Make use of the whole viewport on mobile devices.
-    // if ( document.body.classList.contains('mobile') ) {
-    //     fillViewport();
-    //     window.addEventListener('resize', fillViewport);
-    //     return;
-    // }
-    //
-    // if ( document.body.classList.contains('fullsize') === false ) {
-    //     lpane.style.setProperty('height', rpane.offsetHeight + 'px');
-    // }
 };
 
 /******************************************************************************/
@@ -645,24 +538,13 @@ var toggleNetFilteringSwitch = function(ev) {
 
 var copyAdressToClipboard = function(fieldToCopy) {
   var addressInput = uDom.nodeFromId(fieldToCopy);
-  // var button = uDom.nodeFromId("address-clipboard-button");
-  // var resetButton = function() {
-  //   if (button && button.innerHTML) {
-  //     button.innerHTML = "&#xf0c5;"
-  //     button.style.setProperty("color", "#71727B");
-  //   }
-  // }
   if (addressInput && addressInput.select){
     addressInput.focus();
     addressInput.select();
     document.execCommand("copy");
     addressInput.blur();
-    // button.innerHTML = "&#xf00c;"
-    // button.style.setProperty("color", "#19cc58");
-    // vAPI.setTimeout(resetButton, 2000);
   }
-
-}
+};
 
 /******************************************************************************/
 
@@ -790,6 +672,20 @@ var pollForContentChange = (function() {
 
 /******************************************************************************/
 
+var getUpdatedRewardData = function() {
+    var onDataReceived = function(response) {
+        updatePopupData({totalRewardCount: response});
+        renderWallet();
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'getUpdatedRewardCount'},
+        onDataReceived
+    );
+};
+
+/******************************************************************************/
+
 var getPopupData = function(tabId) {
     var onDataReceived = function(response) {
         cachePopupData(response);
@@ -811,29 +707,15 @@ var getPopupData = function(tabId) {
 
 /******************************************************************************/
 
-var getUpdatedRewardData = function() {
-    var onDataReceived = function(response) {
-        updatePopupData({totalRewardCount: response});
-        renderWallet();
-    };
-    messaging.send(
-        'popupPanel',
-        { what: 'getUpdatedRewardCount'},
-        onDataReceived
-    );
-};
-
-/******************************************************************************/
-
 var onCreateWallet = function() {
   showOverlay("createWalletOverlay");
-}
+};
 
 /******************************************************************************/
 
 var onImportWallet = function() {
   showOverlay("importWalletOverlay");
-}
+};
 
 /******************************************************************************/
 
@@ -851,7 +733,7 @@ var setNewWallet = function(password) {
         walletAddress: response.address,
       });
       renderWallet();
-      showOverlay("showSeedOverlay", {seed: response.seed})
+      showOverlay("showSeedOverlay", {seed: response.seed});
     };
     messaging.send(
         'popupPanel',
@@ -962,6 +844,8 @@ var moveOutWhenDone = function() {
   var tip = uDom.nodeFromId('tooltip');
   if (tooltipClosing) {
     tip.style.left = "";
+    tip.style.top = "";
+    tip.style.bottom = "";
     tip.style.setProperty('right', '-1000px');
     uDom.nodeFromId('templates').appendChild(tip);
     tooltipClosing = false;
@@ -984,12 +868,9 @@ var onShowTooltipDelayed = function() {
     var tipArrow = uDom.nodeFromId('tooltip-arrow');
     var tipText = uDom.nodeFromId('tooltip-text');
     tipText.textContent = target.getAttribute('data-tip');
-    // tip.style.removeProperty('top');
-    // tip.style.removeProperty('bottom');
     ttc.appendChild(tip);
     tip.offsetWidth;
     var tipRect = tip.getBoundingClientRect();
-    console.log("tipRect", tipRect);
     // Target rect
     var targetRect = target.getBoundingClientRect();
 
@@ -1006,22 +887,17 @@ var onShowTooltipDelayed = function() {
         tip.classList.add("bs-tooltip-bottom");
     }
     var horizontalTargetCenter = (targetRect.left + targetRect.right)/2;
-    console.log("horizontalTargetCenter", horizontalTargetCenter);
     var tipWidth = tipRect.width;
-    console.log("tipWidth", tipWidth);
     var left = horizontalTargetCenter - tipWidth/2;
     var right = null;
     if (left + tipWidth > ttcRect.right) {
       left -= (left + tipWidth - ttcRect.right);
       left -= 7;
-      console.log("slidding left");
     }
     if (left < 7) {
-      console.log("trimming left");
       left = 7;
     }
     var right = ttcRect.width - (left + tipWidth);
-    console.log("left", left);
     tip.style.setProperty('left', left + 'px');
     tip.style.setProperty('right', right + 'px');
     var arrowLeft = horizontalTargetCenter - left;
@@ -1079,10 +955,12 @@ var onHideTooltip = function() {
     var dropdown = uDom.nodeFromId("m_quick_sidebar");
     var slideDropdown = function() {
       dropdown.style.right = 0;
-    }
+    };
+
     var slideBackDropdown = function() {
       dropdown.style.right = null;
-    }
+    };
+
     uDom('#dropdown-toggle').on("click",slideDropdown);
     uDom('#m_quick_sidebar_close').on("click",slideBackDropdown);
 
@@ -1104,7 +982,8 @@ var onHideTooltip = function() {
       activeTab.first().removeClass("active");
       panes[paneName].addClass("active");
       tabs[paneName].addClass("active");
-    }
+    };
+
     var drawChart = function(exp) {
       if (Dashboard.drawn) {
         return;
@@ -1118,7 +997,8 @@ var onHideTooltip = function() {
         console.log("chart not initiated");
         setTimeout(function() {drawChart(newExp)}, newExp);
       }
-    }
+    };
+
     var openFunctions = {
       params: function() {openPane("params")},
       stats:  function() {
@@ -1184,7 +1064,6 @@ var onHideTooltip = function() {
 
     uDom('#info-validate-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("infoOverlay");});
     uDom('.overlayClose').on('click', function(){hideOverlay("all");})
-
 })();
 
 window.addEventListener("load", function(event) { //on document ready
