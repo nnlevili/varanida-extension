@@ -14,23 +14,34 @@ rm -rf src/browserify-js/dist
 mkdir src/browserify-js/dist
 browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
 
+echo "*** Varanida0.chromium: gulping"
+mkdir src/gulp-dist
+if [ "$1" = all ]; then
+  gulp --clean 1
+else
+  gulp
+fi
+
 echo "*** Varanida0.chromium: making assets"
 bash ./tools/make-assets.sh $DES
 
 echo "*** Varanida0.chromium: copying"
-cp -R src/css                    $DES/
-cp -R src/config                 $DES/
-cp -R src/img                    $DES/
-cp -R src/js                     $DES/
-cp -R src/lib                    $DES/
-cp -R src/_locales               $DES/
-cp src/*.html                    $DES/
-cp platform/chromium/*.js        $DES/js/
-cp src/browserify-js/dist/*.js   $DES/js/
-cp -R platform/chromium/img      $DES/
-cp platform/chromium/*.html      $DES/
-cp platform/chromium/*.json      $DES/
-cp LICENSE.txt                   $DES/
+cp -R src/css                      $DES/
+cp -R src/config                   $DES/
+cp -R src/img                      $DES/
+cp -R src/js                       $DES/
+cp -R src/lib                      $DES/
+cp -R src/_locales                 $DES/
+cp src/*.html                      $DES/
+cp platform/chromium/*.js          $DES/js/
+cp src/browserify-js/dist/*.js     $DES/js/
+cp src/gulp-dist/dist/js/*.js      $DES/js/
+cp src/gulp-dist/dist/css/*.css    $DES/css/
+cp src/gulp-dist/dist/css/fonts/*  $DES/css/fonts/
+cp -R platform/chromium/img        $DES/
+cp platform/chromium/*.html        $DES/
+cp platform/chromium/*.json        $DES/
+cp LICENSE.txt                     $DES/
 
 echo "*** Varanida0.chromium: concatenating content scripts"
 cat $DES/js/vapi-usercss.js > /tmp/contentscript.js

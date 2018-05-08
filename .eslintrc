@@ -1,0 +1,47 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "sourceType": "module"
+  },
+  "env": {
+    "browser": true
+  },
+  "globals": {
+  },
+  "rules": {
+    "no-console": [1, {"allow": ["warn", "error", "info"]}],
+    "array-callback-return": 2,
+    "curly": 2,
+    "dot-location": [1, "property"],
+    "dot-notation": 1,
+    "eqeqeq": 1,
+    "no-empty-function": 1,
+    "no-eval": 2,
+    "no-loop-func": 2,
+    "no-param-reassign": 1,
+    "no-use-before-define": 1,
+    "array-bracket-spacing": 0,
+    "block-spacing": 0,
+    "brace-style": 0,
+    "camelcase": 1,
+    "comma-dangle": 0,
+    "eol-last": 2,
+    "indent": 0,
+    "key-spacing": 0,
+    "keyword-spacing": [1, {
+      "before": true,
+      "after": true
+    }],
+    "linebreak-style": [2, "unix"],
+    "max-nested-callbacks": [2, 6],
+    "no-trailing-spaces": 1,
+    "quotes": 0,
+    "operator-linebreak": 0,
+    "padded-blocks": 0,
+    "semi": [1, "always"],
+    "no-confusing-arrow": [1, {"allowParens": true}],
+    "no-var": 0,
+    "prefer-template": 0,
+    "max-len": [1, 140]
+  }
+}

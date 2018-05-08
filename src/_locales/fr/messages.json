@@ -68,7 +68,7 @@
     "description": "English: requests blocked"
   },
   "popupBlockedOnThisPagePrompt": {
-    "message": "sur cette page :",
+    "message": "sur cette page",
     "description": "English: on this page"
   },
   "popupBlockedStats": {
@@ -76,7 +76,7 @@
     "description": "Example: 15 or 13%"
   },
   "popupBlockedSinceInstallPrompt": {
-    "message": "depuis toujours :",
+    "message": "depuis toujours",
     "description": "English: since install"
   },
   "popupOr": {
@@ -208,12 +208,68 @@
     "description":"appears in popup"
   },
   "popupWalletAdressPrompt":{
-    "message":"adresse :",
+    "message":"Adresse",
+    "description":"appears in popup"
+  },
+  "popupWalletAdressSubtitle":{
+    "message":"Votre adresse unique Varanida",
+    "description":"appears in popup"
+  },
+  "popupWalletAdressExplanation":{
+    "message":"Ajoutez d'abord un portefeuille",
+    "description":"appears in popup"
+  },
+  "popupWalletAdressCopy":{
+    "message":"Copier",
     "description":"appears in popup"
   },
   "popupWalletRewardPrompt":{
-    "message":"récompense :",
+    "message":"Récompense",
     "description":"appears in popup"
+  },
+  "popupWalletRewardSubtitle":{
+    "message":"Total de vos gains en VAD",
+    "description":"appears in popup"
+  },
+  "popupWalletRewardExplanation":{
+    "message":"Ajoutez un portefeuille pour recevoir une récompense lorsque Varanida bloque un élément",
+    "description":"appears in popup"
+  },
+  "popupStatisticsTab":{
+    "message":"Statistiques",
+    "description":"appears in popup"
+  },
+  "popupGeneralConfig":{
+    "message":"Configuration générale",
+    "description":"appears in settings tab"
+  },
+  "popupConfigPopup":{
+    "message":"Bloquer toutes les popups de ce site",
+    "description":"appears in settings tab"
+  },
+  "popupConfigMedia":{
+    "message":"Bloquer les médias de grande taille sur ce site",
+    "description":"appears in settings tab"
+  },
+  "popupConfigCosmetic":{
+    "message":"Désactiver le filtrage esthétique sur ce site",
+    "description":"appears in settings tab"
+  },
+  "popupConfigFonts":{
+    "message":"Bloquer les polices d'écriture distantes sur ce site",
+    "description":"appears in settings tab"
+  },
+  "popupOpenLogger":{
+    "message":"Journal",
+    "description":"button in settings tab"
+  },
+  "popupStatsDaily":{
+    "message":"Activité journalière",
+    "description":"appears in stats tab"
+  },
+  "popupStatsDailySubtitle":{
+    "message":"Votre activité de combat contre les pubs heure par heure",
+    "description":"appears in stats tab"
   },
   "popupCreateWalletButton":{
     "message":"Nouveau",
@@ -228,7 +284,19 @@
     "description":"create wallet overlay title"
   },
   "popupOverlayPassword":{
-    "message":"Mot de Passe :",
+    "message":"Mot de Passe",
+    "description":"overlay password prompt"
+  },
+  "popupOverlayPasswordSubtitle":{
+    "message":"Entrez un mot de passe pour le portefeuille",
+    "description":"overlay password prompt"
+  },
+  "popupOverlayPasswordConfirm":{
+    "message":"Confirmez le mot de passe",
+    "description":"overlay password prompt"
+  },
+  "popupOverlayPasswordConfirmSubtitle":{
+    "message":"Entrez le même mot de passe",
     "description":"overlay password prompt"
   },
   "popupOverlayCreateWalletButton":{
@@ -240,7 +308,11 @@
     "description":"show seed overlay title"
   },
   "popupOverlaySaveSeed":{
-    "message":"Enregistrez cette passphrase :",
+    "message":"Enregistrez cette passphrase",
+    "description":"overlay seed save reminder"
+  },
+  "popupOverlaySaveSeedSubtitle":{
+    "message":"Cette passphrase vous permettra d'importer ce portefeuille ailleurs et doit être gardée secrète",
     "description":"overlay seed save reminder"
   },
   "popupOverlayShowSeedButton":{
@@ -264,11 +336,19 @@
     "description":"overlay address method button"
   },
   "popupOverlayAddress":{
-    "message":"Adresse :",
+    "message":"Adresse",
+    "description":"overlay address prompt"
+  },
+  "popupOverlayAddressSubtitle":{
+    "message":"Entrez l'adresse de portefeuille à utiliser",
     "description":"overlay address prompt"
   },
   "popupOverlaySeed":{
-    "message":"Passphrase :",
+    "message":"Passphrase",
+    "description":"overlay seed prompt"
+  },
+  "popupOverlaySeedSubtitle":{
+    "message":"Entrez la passphrase (seed de 12 mots) du portefeuille à importer",
     "description":"overlay seed prompt"
   },
   "popupOverlayImportWalletButton":{
@@ -284,7 +364,11 @@
     "description":"import referral overlay subtitle"
   },
   "popupOverlayReferrerAddress":{
-    "message":"adresse de parrainage :",
+    "message":"Adresse de votre parrain",
+    "description":"import referral overlay prompt"
+  },
+  "popupOverlayReferrerAddressSubtitle":{
+    "message":"Entrez l'adresse de portefeuille de votre parrain",
     "description":"import referral overlay prompt"
   },
   "popupOverlayImportReferralButton":{
@@ -312,7 +396,7 @@
     "description":"referral text for the info overlay"
   },
   "passwordMismatchError":{
-    "message":"mots de passe différents",
+    "message":"Mots de passe différents",
     "description": "password mismatch error message"
   },
   "noSeedError":{

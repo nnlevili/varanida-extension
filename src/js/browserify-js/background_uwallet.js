@@ -30,7 +30,8 @@ global.log = log;
 //npm dependencies
 const AWS = require('aws-sdk');
 const KeyringController = require('eth-keyring-controller');
-const blake = require('blakejs')
+const blake = require('blakejs');
+const moment = require('moment');
 
 //internal dependencies
 const Recorder = require("./recorder.js")
@@ -463,7 +464,6 @@ const checkEthereumAddress = function(address) {
     return;
   }
   const browserInfo = navigator.userAgent;
-  // console.log(recordOut);
   const recordData = recordOut.map((rec) => {
     /*
     the record sent to kinesis to signal ads that have been blocked.
@@ -504,6 +504,66 @@ this.sendReferrerInfo();
 // signal the extension has been installed (is not executed if it's already done)
 this.signalInstallation();
 }
+
+const getChartRawData = function(address, callback) {
+  if (!address) {
+    return callback && callback(false);
+  }
+  const xmlhttp = new XMLHttpRequest();
+  const url = `${µConfig.urls.api}api/vad/activityTodayPerHour/${address}`;
+  xmlhttp.onreadystatechange = function() {
+    if (this.readyState === 4) {
+      if (this.status === 200) {
+        const data = JSON.parse(this.responseText);
+        if (data) {
+          return callback && callback(data);
+        }
+      }
+      callback && callback(false);
+    }
+  };
+  xmlhttp.open("GET", url, true);
+  xmlhttp.send();
+}
+
+const curateChartData = function(data, callback) {
+  if (!data || !Array.isArray(data)) {
+    callback && callback(false);
+  }
+  let dateCorrespondanceObj = {};
+  let dateArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let limitedTotalArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let totalArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+  let currentTime = moment();
+  let currentServerTime = moment().utc();
+  let currentTimeShift, currentServerTimeShift;
+  for (let i = 0; i < 24; i++) {
+    currentTimeShift = currentTime.subtract(i?1:0,"hours").format("YYYY-MM-DD HH");
+    currentServerTimeShift = currentServerTime.subtract(i?1:0,"hours").format("YYYY-MM-DD HH");
+    dateArray[24 - i - 1] = currentTime.format("D MMM HH")+":00";
+    dateCorrespondanceObj[currentServerTimeShift] = 24 - i - 1;
+  }
+  let dataIndex;
+  for (let i = data.length - 1; i >= 0; i--) {
+    dataIndex = dateCorrespondanceObj[data[i].hours];
+    if (!dataIndex && dataIndex !== 0) {
+      continue;
+    }
+    limitedTotalArray[dataIndex] = data[i].limitedTotal;
+    totalArray[dataIndex] = data[i].total;
+  }
+  let chartData = {labels: dateArray, totals: totalArray, limitedTotals: limitedTotalArray};
+  callback && callback(chartData);
+}
+
+µWallet.getChartData = function(callback) {
+  if (!this.walletSettings.keyringAddress) {
+    return callback && callback(false);
+  }
+  getChartRawData(this.walletSettings.keyringAddress, function(data) {curateChartData(data, callback)});
+}
+
 
 window.µWallet = µWallet;
 /******************************************************************************/
