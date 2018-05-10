@@ -20,6 +20,8 @@
     Home: https://github.com/Varanida/varanida-extension
 */
 
+const moment = require('moment');
+
 /* whitelist utilities */
 
 // TODO since this code is shared with ublock.js, move to a util file
@@ -86,6 +88,7 @@ const µDataWallet = (function() {
       dataTrackingWhitelistString: "",
     },
     tempData: {},
+    tempDataCreatedOn: null,
     dataTrackingWhitelist: {}
   };
 })();
@@ -252,8 +255,24 @@ const µDataWallet = (function() {
   }, callback);
 };
 
-µDataWallet.setUserData = function(newCompletionLevel, data, callback) {
-  //TODO check data validity
+const cleanData = function(dirtyData) {
+  return {
+    level1: dirtyData.level1,
+    level2: dirtyData.level2,
+    level3: dirtyData.level3,
+    completionLevel: dirtyData.completionLevel
+  };
+}
+
+µDataWallet.setUserData = function(credentials, newCompletionLevel, data, callback) {
+  const walletInfo = {
+    hasWallet: µWallet.walletSettings.hasKeyring,
+    walletAddress: µWallet.walletSettings.keyringAddress
+  };
+  if (!walletInfo.hasWallet || !walletInfo.walletAddress) {
+    return callback && callback("no wallet available");
+  }
+  //verify that we have correct data to begin with
   if (
     typeof data !== "object" ||
     typeof newCompletionLevel !== "number" ||
@@ -262,22 +281,134 @@ const µDataWallet = (function() {
   ) {
     return callback && callback("Data invalid or Completion level not a number or out of range");
   }
-  this.tempData = data;
-  this.updateSettings({
-    dataCompletionLevel: newCompletionLevel
-  }, callback);
+  // sanitize data
+  const cleanedData = cleanData(Object.assign({completionLevel: newCompletionLevel}, data));
+  //stringify the object to encrypt it
+  let stringData;
+  try {
+    stringData = JSON.stringify(cleanedData);
+  } catch (e) {
+    return callback && callback("impossible to stringify data");
+  }
+  //encrypt the data
+  return new Promise((resolve, reject) => {
+    return µWallet.encryptAndSign(credentials, stringData, resolve);
+  })
+  .then((encryptedData) => {
+    //add properties to the object that is sent
+    const objectToSend = Object.assign({
+      completionLevel: newCompletionLevel,
+      publicAddress: walletInfo.walletAddress
+    }, encryptedData);
+    //stringify to be added as request body
+    const rawStringToSend = JSON.stringify(objectToSend);
+    return new Promise((resolve, reject) => {
+      //post encrypted data to the API
+      const xmlhttp = new XMLHttpRequest();
+      const url = `${µConfig.urls.api}api/Profiles`;
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4) {
+          if (this.status === 200) {
+            const responseData = JSON.parse(this.responseText);
+            return resolve(responseData);
+          }
+          return reject("failed to send data");
+        }
+      };
+      xmlhttp.open("POST", url, true);
+      xmlhttp.setRequestHeader('Content-Type','application/json')
+      xmlhttp.send(rawStringToSend);
+    });
+  })
+  .then((responseData) => {
+    // the data was accepted by the server, use as temporary local version
+    this.tempData = cleanedData;
+    if (responseData.createdOn) {
+      this.tempDataCreatedOn = moment(responseData.createdOn);
+    }
+    //update completion setting
+    this.updateSettings({
+      dataCompletionLevel: newCompletionLevel
+    });
+    //everything went fine, nothing to report
+    return null;
+  })
+  .then(res => callback && callback(res), err => callback && callback(err));
+
 }
 
-µDataWallet.sendUserData = function(password, callback) {
-  //TODO encrypt and send data using µWallet
-  callback && callback();
-}
+µDataWallet.getUserData = function(credentials, callback) {
+  const walletInfo = {
+    hasWallet: µWallet.walletSettings.hasKeyring,
+    walletAddress: µWallet.walletSettings.keyringAddress
+  };
+  if (!walletInfo.hasWallet || !walletInfo.walletAddress) {
+    return callback && callback("no wallet available");
+  }
 
-µDataWallet.getUserData = function(password, callback) {
-  //TODO get and decrypt data using µWallet
-  let data = {};
-  this.tempData = data;
-  callback && callback(this.tempData);
+  return new Promise((resolve, reject) => {
+    //retrieve encrypted data from the API
+    const xmlhttp = new XMLHttpRequest();
+    const url = `${µConfig.urls.api}api/Profiles/${walletInfo.walletAddress}`;
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200 || this.status === 304) {
+          const encryptedData = JSON.parse(this.responseText);
+          return resolve(encryptedData);
+        }
+        return reject("failed to load data");
+      }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  })
+  .then((encryptedData) => {
+    //don't use this data if for some reason it's older than data that is currently stored
+    if (encryptedData.createdOn && this.tempDataCreatedOn) {
+      encryptedDataTime = moment(encryptedData.createdOn);
+      if (encryptedDataTime.isSameOrBefore(this.tempDataCreatedOn, "second") {
+        console.log("got old data");
+        console.log("received", encryptedDataTime.format());
+        console.log("tempData", this.tempDataCreatedOn.format());
+        return tempData;
+      }
+    }
+    //decrypt data and verify signature
+    return new Promise((resolve, reject) => {
+      return µWallet.decryptAndVerify(credentials, encryptedData, resolve);
+    })
+    .then((rawDataObject) => {
+      // pass the error from the decryption function
+      if (typeof rawDataObject !== "object") {
+        return Promise.reject(rawDataObject)
+      }
+      // don't handle this json if the signature is invalid, who knows what's inside.
+      if (!rawDataObject.isSignValid) {
+        return Promise.reject("Signature invalid")
+      }
+      // parse the new data as json object
+      let parsedData;
+      try {
+        parsedData = JSON.parse(rawDataObject.data);
+      } catch (e) {
+        return Promise.reject("Data invalid: impossible to parse")
+      }
+      //update the completion level if it's wrong
+      if (parsedData && parsedData.completionLevel !== this.dataSettings.dataCompletionLevel) {
+        this.updateSettings({
+          dataCompletionLevel: parsedData.completionLevel
+        });
+      }
+      // remove unknown properties from the data
+      const cleanedData = cleanData(parsedData);
+      //update temporary data for usage as long as the browser is open
+      this.tempData = cleanedData;
+      this.tempDataCreatedOn = rawDataObject.createdOn? moment(rawDataObject.createdOn) : null;
+      return cleanedData;
+    });
+  })
+  .then(res => callback && callback(res), err => callback && callback(err));
+
 }
 
 window.µDataWallet = µDataWallet;
