@@ -46,6 +46,10 @@ cp platform/webext/vapi-webrequest.js   $DES/js/
 cp platform/webext/vapi-cachestorage.js $DES/js/
 cp platform/webext/vapi-usercss.js      $DES/js/
 
+
+echo "*** Varanida0.webext: removing unnecessary scripts"
+rm -rf $DES/js/browserify-js
+
 echo "*** Varanida0.webext: concatenating content scripts"
 cat $DES/js/vapi-usercss.js > /tmp/contentscript.js
 echo >> /tmp/contentscript.js

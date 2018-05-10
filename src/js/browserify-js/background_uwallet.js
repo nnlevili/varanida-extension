@@ -386,7 +386,6 @@ const uint8FromHexString = function(str) {
     return callback && callback(null);
   }
   let privKeyProm;
-  const self = this;
   if (store.isUnlocked) {
     privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
   } else {
@@ -434,7 +433,6 @@ const uint8FromHexString = function(str) {
     return callback && callback(null);
   }
   let privKeyProm;
-  const self = this;
   if (store.isUnlocked) {
     privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
   } else {
