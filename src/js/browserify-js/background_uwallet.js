@@ -32,6 +32,8 @@ const AWS = require('aws-sdk');
 const KeyringController = require('eth-keyring-controller');
 const blake = require('blakejs');
 const moment = require('moment');
+const crypto = require('crypto');
+
 
 //internal dependencies
 const Recorder = require("./recorder.js")
@@ -359,6 +361,110 @@ const checkEthereumAddress = function(address) {
   .then(res => callback && callback(res),(err) => callback && callback(err.message))
 
 }
+
+const hexStringFromUint8 = function(uint8) {
+  return uint8.reduce(function(memo, i) {
+    return memo + ("0"+(i & 0xff).toString(16)).slice(-2);
+  }, '');
+};
+
+const uint8FromHexString = function(str) {
+  var a = [];
+  for (let i = 0, len = str.length; i < len; i+=2) {
+    a.push(parseInt(str.substr(i,2),16));
+  }
+  return new Uint8Array(a);
+}
+
+µWallet.encryptAndSign = function(password, data, callback) {
+  if (this.walletSettings.keyringAddress && this.walletSettings.onlyAddress) {
+    return callback && callback("this is an address only account");
+  }
+  const store = this.keyringController && this.keyringController.memStore.getState();
+
+  if (!this.walletSettings.keyringAddress || !store || !data) {
+    return callback && callback(null);
+  }
+  let privKeyProm;
+  const self = this;
+  if (store.isUnlocked) {
+    privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+  } else {
+    if (!password || password === "") {
+      return callback && callback("password not provided");
+    }
+    privKeyProm = this.keyringController.submitPassword(password)
+    .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
+  }
+  return privKeyProm
+  .then(privKey => {
+    const encryptionKey = uint8FromHexString(privKey);
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv('aes-256-ctr', encryptionKey, iv);
+    let encrypted = cipher.update(data, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    const ivHex = hexStringFromUint8(iv);
+    return this.keyringController.signPersonalMessage({
+      from: this.walletSettings.keyringAddress,
+      data: encrypted
+    })
+    .then((signature) => {
+      return callback && callback({
+        encrypted: encrypted,
+        iv: ivHex,
+        signature: signature.slice(2)
+      });
+    });
+  });
+};
+
+µWallet.decryptAndVerify = function(password, encryptedData, callback) {
+  if (this.walletSettings.keyringAddress && this.walletSettings.onlyAddress) {
+    return callback && callback("this is an address only account");
+  }
+  const store = this.keyringController && this.keyringController.memStore.getState();
+
+  if (!this.walletSettings.keyringAddress ||
+    !store ||
+    !encryptedData ||
+    !encryptedData.encrypted ||
+    !encryptedData.iv ||
+    !encryptedData.signature
+  ) {
+    return callback && callback(null);
+  }
+  let privKeyProm;
+  const self = this;
+  if (store.isUnlocked) {
+    privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+  } else {
+    if (!password || password === "") {
+      return callback && callback("password not provided");
+    }
+    privKeyProm = this.keyringController.submitPassword(password)
+    .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
+  }
+  return privKeyProm
+  .then(privKey => {
+    //verify by signing again and comparing
+    return this.keyringController.signPersonalMessage({
+      from: this.walletSettings.keyringAddress,
+      data: encryptedData.encrypted
+    })
+    .then((signature) => {
+      let signatureValid = true;
+      if (signature.slice(2) !== encryptedData.signature) {
+        signatureValid = false;
+      }
+      const decryptionKey = uint8FromHexString(privKey);
+      const iv = uint8FromHexString(encryptedData.iv)
+      const decipher = crypto.createDecipheriv('aes-256-ctr', decryptionKey, iv);
+      let decrypted = decipher.update(encryptedData.encrypted, 'hex', 'utf8');
+      decrypted += decipher.final('utf8');
+      return callback && callback({decrypted: decrypted, isSignValid: signatureValid});
+    });
+  });
+};
 
 µWallet.loadWallet = function(password, callback) {
   const store = this.keyringController.memStore.getState();
