@@ -11,6 +11,10 @@
     "message": "Varanida — Tableau de bord",
     "description": "English: Varanida — Dashboard"
   },
+  "profilePageName":{
+    "message":"Profil",
+    "description":"appears as tab name in dashboard"
+  },
   "settingsPageName": {
     "message": "Paramètres",
     "description": "appears as tab name in dashboard"
@@ -534,6 +538,170 @@
   "settingsLastBackupPrompt": {
     "message": "Date de la dernière sauvegarde :",
     "description": "English: Last backup:"
+  },
+  "profileLevel1":{
+    "message":"Niveau 1",
+    "description":"English: Level 1"
+  },
+  "profileLevel2":{
+    "message":"Niveau 2",
+    "description":"English: Level 2"
+  },
+  "profileLevel3":{
+    "message":"Niveau 3",
+    "description":"English: Level 3"
+  },
+  "profileUserBirthdate":{
+    "message":"Quand êtes vous né?",
+    "description":"English: When were you born?"
+  },
+  "profileUserCity":{
+    "message":"Où habitez vous?",
+    "description":"English: Where do you live?"
+  },
+  "profileUserGender":{
+    "message":"Vous êtes:",
+    "description":"English: Are you:"
+  },
+  "profileUserGenderMale":{
+    "message":"Un homme",
+    "description":"English: Male"
+  },
+  "profileUserGenderFemale":{
+    "message":"Une femme",
+    "description":"English: Female"
+  },
+  "profileUserMotherTongue":{
+    "message":"Langue natale",
+    "description":"English: Mother tongue"
+  },
+  "profileUserEducationLevel":{
+    "message":"Votre niveau d'étude est:",
+    "description":"English: Your highest education level was:"
+  },
+  "profileUserEducationLevelNone":{
+    "message":"Aucun",
+    "description":"English: None"
+  },
+  "profileUserEducationLevelCollege":{
+    "message":"Lycée",
+    "description":"English: College"
+  },
+  "profileUserEducationLevelHighSchool":{
+    "message":"Université",
+    "description":"English: High School"
+  },
+  "profileUserEducationLevelPostGraduate":{
+    "message":"Master",
+    "description":"English: Post-graduate"
+  },
+  "profileUserEducationLevelDoctorate":{
+    "message":"Doctorat",
+    "description":"English: Doctorate"
+  },
+  "profileUserEducationLevelProfessionalDegree":{
+    "message":"Formation professionnelle",
+    "description":"English: Professional degree"
+  },
+  "profileUserRelationshipStatus":{
+    "message":"Vous êtes:",
+    "description":"English: Are you:"
+  },
+  "profileUserRelationshipStatusSingle":{
+    "message":"Célibataire",
+    "description":"English: Single"
+  },
+  "profileUserRelationshipStatusInRelationship":{
+    "message":"En couple",
+    "description":"English: In relationship"
+  },
+  "profileUserRelationshipStatusEngaged":{
+    "message":"Fiancé",
+    "description":"English: Engaged"
+  },
+  "profileUserRelationshipStatusMarried":{
+    "message":"Marié",
+    "description":"English: Married"
+  },
+  "profileUserRelationshipStatusDivorced":{
+    "message":"Divorcé",
+    "description":"English: Divorced"
+  },
+  "profileUserRelationshipStatusOther":{
+    "message":"Autre",
+    "description":"English: Other"
+  },
+  "profileUserHasKids":{
+    "message":"Vous avez des enfants:",
+    "description":"English: Do you have kids:"
+  },
+  "profileUserHasKidsTrue":{
+    "message":"Oui",
+    "description":"English: Yes"
+  },
+  "profileUserHasKidsFalse":{
+    "message":"Non",
+    "description":"English: No"
+  },
+  "profileUserWorkStatus":{
+    "message":"Votre statut:",
+    "description":"English: Your work status:"
+  },
+  "profileUserWorkStatusEmployee":{
+    "message":"Employé",
+    "description":"English: Employee"
+  },
+  "profileUserWorkStatusIndependant":{
+    "message":"Indépendant",
+    "description":"English: Independant"
+  },
+  "profileUserWorkStatusUnemployed":{
+    "message":"Sans emploi",
+    "description":"English: Unemployed"
+  },
+  "profileUserWorkStatusStudent":{
+    "message":"Étudiant",
+    "description":"English: Student"
+  },
+  "profileUserWorkStatusRetired":{
+    "message":"Retraité",
+    "description":"English: Retired"
+  },
+  "profileUserIndustry":{
+    "message":"Vous travaillez dans:",
+    "description":"English: You work in:"
+  },
+  "profileLocationSharing":{
+    "message":"J'accepte de renseigner ma position avec mon profil",
+    "description":"English: I'm ok to complete my profile with my location"
+  },
+  "profilePreferencesSharing":{
+    "message":"J'accepte de renseigner mes préférences avec mon profil",
+    "description":"English: I'm ok to complete my profile with my preferences information"
+  },
+  "profileSessionSharing":{
+    "message":"J'accepte de renseigner mes informations de session avec mon profil",
+    "description":"English: I'm ok to complete my profile with my session information"
+  },
+  "profileBrowsingHistorySharing":{
+    "message":"J'accepte de renseigner mon historique de navigation avec mon profil",
+    "description":"English: I'm ok to complete my profile with my browsing history information"
+  },
+  "unlockWalletTitle":{
+    "message":"Débloquez votre portefeuille",
+    "description":"English: Unlock your wallet"
+  },
+  "unlockWalletWithPassword":{
+    "message":"Entrez le mot de passe du portefeuille:",
+    "description":"English: Enter your wallet password:"
+  },
+  "unlockWalletWithPrivkey":{
+    "message":"Entrez votre clé privée:",
+    "description":"English: Enter your private key:"
+  },
+  "unlockWalletButton":{
+    "message":"Débloquer",
+    "description":"English: Unlock"
   },
   "walletPrivKeyExport":{
     "message":"Exporter passphrase et clé privée",
