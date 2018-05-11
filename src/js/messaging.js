@@ -88,7 +88,7 @@ var onMessage = function(request, sender, callback) {
         return;
 
     case 'getUserData':
-        return µdw.getUserData(request.password, callback);
+        return µdw.getUserData({password: request.password, privKey: request.privKey}, callback);
 
     case 'setShareLevel':
         return µdw.setShareLevel(request.newLevel, callback);
@@ -978,10 +978,7 @@ var onMessage = function(request, sender, callback) {
         return µb.loadUserFilters(callback);
 
     case 'setUserData':
-        return µdw.setUserData(request.newCompletionLevel, request.data, callback);
-
-    case 'sendUserData':
-        return µdw.sendUserData(request.password, callback);
+        return µdw.setUserData({password: request.password, privKey: request.privKey}, request.newCompletionLevel, request.data, callback);
 
     case 'writeUserFilters':
         return µb.saveUserFilters(request.content, callback);

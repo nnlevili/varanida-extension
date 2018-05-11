@@ -319,29 +319,26 @@ const checkEthereumAddress = function(address) {
   if (this.walletSettings.keyringAddress && this.walletSettings.onlyAddress) {
     return callback && callback("this is an address only account");
   }
-  const store = this.keyringController && this.keyringController.memStore.getState();
-  if (!password || password === "") {
-    return callback && callback("password not provided");
-  }
-  if (!this.walletSettings.keyringAddress || !store) {
+  if (!this.walletSettings.keyringAddress) {
     return callback && callback(null);
   }
   console.log("exporting for address", this.walletSettings.keyringAddress);
   let privKeyProm;
   const self = this;
+  const store = this.keyringController && this.keyringController.memStore.getState();
+  if (!store) {
+    return callback && callback("no wallet available");
+  }
+  //the store is unlocked, get the private key
   if (store.isUnlocked) {
     privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
   } else {
+    if (!password || password === "") {
+      return callback && callback("password not provided");
+    }
+    //the password was provided, unlock the keyring and get the private key
     privKeyProm = this.keyringController.submitPassword(password)
     .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
-
-
-    // privKeyProm =  new Promise((resolve) => {
-    //   this.keyringController.once('update', () => {
-    //     setTimeout(() => resolve(self.keyringController.exportAccount(self.walletSettings.keyringAddress)), 1000);
-    //   });
-    //   this.keyringController.submitPassword(password)
-    // });
   }
   return privKeyProm
   .then(privKey => {
@@ -351,7 +348,6 @@ const checkEthereumAddress = function(address) {
       if (!keyring) {
         return null;
       }
-      self.keyringController.setLocked();
       return {
         address: self.walletSettings.keyringAddress,
         privKey: privKey,
@@ -428,7 +424,6 @@ const extractAddress = function(msg) {
     //sign the data
     return signPersonalMessage(privKey, encrypted)
     .then((signature) => {
-      console.log("signature", signature);
       return callback && callback({
         data: encrypted,
         iv: ivHex,
@@ -476,7 +471,6 @@ const extractAddress = function(msg) {
     //extraxt address associated with the signature
     return extractAddress(encryptedData)
     .then((address) => {
-      console.log("address", address);
       let signatureValid = true;
       //verify the signature
       if (address !== this.walletSettings.keyringAddress) {

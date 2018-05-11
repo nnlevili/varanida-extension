@@ -256,11 +256,22 @@ const µDataWallet = (function() {
 };
 
 const cleanData = function(dirtyData) {
+  let completionLevel = dirtyData.completionLevel;
+  if (typeof completionLevel !== "number") {
+    completionLevel = 0;
+    if (dirtyData.level3) {
+      completionLevel = 3;
+    } else if (dirtyData.level2) {
+      completionLevel = 2;
+    } else if (dirtyData.level1) {
+      completionLevel = 1;
+    }
+  }
   return {
     level1: dirtyData.level1,
     level2: dirtyData.level2,
     level3: dirtyData.level3,
-    completionLevel: dirtyData.completionLevel
+    completionLevel: completionLevel
   };
 }
 
@@ -362,11 +373,11 @@ const cleanData = function(dirtyData) {
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
   })
-  .then((encryptedData) => {
+  .then((encryptedDataObject) => {
     //don't use this data if for some reason it's older than data that is currently stored
-    if (encryptedData.createdOn && this.tempDataCreatedOn) {
-      encryptedDataTime = moment(encryptedData.createdOn);
-      if (encryptedDataTime.isSameOrBefore(this.tempDataCreatedOn, "second") {
+    if (encryptedDataObject.createdOn && this.tempDataCreatedOn) {
+      const encryptedDataTime = moment(encryptedDataObject.createdOn);
+      if (encryptedDataTime.isSameOrBefore(this.tempDataCreatedOn, "second")) {
         console.log("got old data");
         console.log("received", encryptedDataTime.format());
         console.log("tempData", this.tempDataCreatedOn.format());
@@ -375,7 +386,7 @@ const cleanData = function(dirtyData) {
     }
     //decrypt data and verify signature
     return new Promise((resolve, reject) => {
-      return µWallet.decryptAndVerify(credentials, encryptedData, resolve);
+      return µWallet.decryptAndVerify(credentials, encryptedDataObject, resolve);
     })
     .then((rawDataObject) => {
       // pass the error from the decryption function
@@ -394,7 +405,11 @@ const cleanData = function(dirtyData) {
         return Promise.reject("Data invalid: impossible to parse")
       }
       //update the completion level if it's wrong
-      if (parsedData && parsedData.completionLevel !== this.dataSettings.dataCompletionLevel) {
+      if (
+        parsedData &&
+        typeof parsedData.completionLevel === "number" &&
+        parsedData.completionLevel !== this.dataSettings.dataCompletionLevel
+      ) {
         this.updateSettings({
           dataCompletionLevel: parsedData.completionLevel
         });
@@ -403,7 +418,7 @@ const cleanData = function(dirtyData) {
       const cleanedData = cleanData(parsedData);
       //update temporary data for usage as long as the browser is open
       this.tempData = cleanedData;
-      this.tempDataCreatedOn = rawDataObject.createdOn? moment(rawDataObject.createdOn) : null;
+      this.tempDataCreatedOn = encryptedDataObject.createdOn? moment(encryptedDataObject.createdOn) : null;
       return cleanedData;
     });
   })
