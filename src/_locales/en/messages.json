@@ -11,6 +11,10 @@
     "message":"Varanida — Dashboard",
     "description":"English: Varanida — Dashboard"
   },
+  "profilePageName":{
+    "message":"Profile",
+    "description":"appears as tab name in dashboard"
+  },
   "settingsPageName":{
     "message":"Settings",
     "description":"appears as tab name in dashboard"
@@ -534,6 +538,170 @@
   "settingsLastBackupPrompt":{
     "message":"Last backup:",
     "description":"English: Last backup:"
+  },
+  "profileLevel1":{
+    "message":"Level 1",
+    "description":"English: Level 1"
+  },
+  "profileLevel2":{
+    "message":"Level 2",
+    "description":"English: Level 2"
+  },
+  "profileLevel3":{
+    "message":"Level 3",
+    "description":"English: Level 3"
+  },
+  "profileUserBirthdate":{
+    "message":"When were you born?",
+    "description":"English: When were you born?"
+  },
+  "profileUserCity":{
+    "message":"Where do you live?",
+    "description":"English: Where do you live?"
+  },
+  "profileUserGender":{
+    "message":"Are you:",
+    "description":"English: Are you:"
+  },
+  "profileUserGenderMale":{
+    "message":"Male",
+    "description":"English: Male"
+  },
+  "profileUserGenderFemale":{
+    "message":"Female",
+    "description":"English: Female"
+  },
+  "profileUserMotherTongue":{
+    "message":"Mother tongue",
+    "description":"English: Mother tongue"
+  },
+  "profileUserEducationLevel":{
+    "message":"Your highest education level was:",
+    "description":"English: Your highest education level was:"
+  },
+  "profileUserEducationLevelNone":{
+    "message":"None",
+    "description":"English: None"
+  },
+  "profileUserEducationLevelCollege":{
+    "message":"College",
+    "description":"English: College"
+  },
+  "profileUserEducationLevelHighSchool":{
+    "message":"High School",
+    "description":"English: High School"
+  },
+  "profileUserEducationLevelPostGraduate":{
+    "message":"Post-graduate",
+    "description":"English: Post-graduate"
+  },
+  "profileUserEducationLevelDoctorate":{
+    "message":"Doctorate",
+    "description":"English: Doctorate"
+  },
+  "profileUserEducationLevelProfessionalDegree":{
+    "message":"Professional degree",
+    "description":"English: Professional degree"
+  },
+  "profileUserRelationshipStatus":{
+    "message":"Are you:",
+    "description":"English: Are you:"
+  },
+  "profileUserRelationshipStatusSingle":{
+    "message":"Single",
+    "description":"English: Single"
+  },
+  "profileUserRelationshipStatusInRelationship":{
+    "message":"In relationship",
+    "description":"English: In relationship"
+  },
+  "profileUserRelationshipStatusEngaged":{
+    "message":"Engaged",
+    "description":"English: Engaged"
+  },
+  "profileUserRelationshipStatusMarried":{
+    "message":"Married",
+    "description":"English: Married"
+  },
+  "profileUserRelationshipStatusDivorced":{
+    "message":"Divorced",
+    "description":"English: Divorced"
+  },
+  "profileUserRelationshipStatusOther":{
+    "message":"Other",
+    "description":"English: Other"
+  },
+  "profileUserHasKids":{
+    "message":"Do you have kids:",
+    "description":"English: Do you have kids:"
+  },
+  "profileUserHasKidsTrue":{
+    "message":"Yes",
+    "description":"English: Yes"
+  },
+  "profileUserHasKidsFalse":{
+    "message":"No",
+    "description":"English: No"
+  },
+  "profileUserWorkStatus":{
+    "message":"Your work status:",
+    "description":"English: Your work status:"
+  },
+  "profileUserWorkStatusEmployee":{
+    "message":"Employee",
+    "description":"English: Employee"
+  },
+  "profileUserWorkStatusIndependant":{
+    "message":"Independant",
+    "description":"English: Independant"
+  },
+  "profileUserWorkStatusUnemployed":{
+    "message":"Unemployed",
+    "description":"English: Unemployed"
+  },
+  "profileUserWorkStatusStudent":{
+    "message":"Student",
+    "description":"English: Student"
+  },
+  "profileUserWorkStatusRetired":{
+    "message":"Retired",
+    "description":"English: Retired"
+  },
+  "profileUserIndustry":{
+    "message":"You work in:",
+    "description":"English: You work in:"
+  },
+  "profileLocationSharing":{
+    "message":"I'm ok to complete my profile with my location",
+    "description":"English: I'm ok to complete my profile with my location"
+  },
+  "profilePreferencesSharing":{
+    "message":"I'm ok to complete my profile with my preferences information",
+    "description":"English: I'm ok to complete my profile with my preferences information"
+  },
+  "profileSessionSharing":{
+    "message":"I'm ok to complete my profile with my session information",
+    "description":"English: I'm ok to complete my profile with my session information"
+  },
+  "profileBrowsingHistorySharing":{
+    "message":"I'm ok to complete my profile with my browsing history information",
+    "description":"English: I'm ok to complete my profile with my browsing history information"
+  },
+  "unlockWalletTitle":{
+    "message":"Unlock your wallet",
+    "description":"English: Unlock your wallet"
+  },
+  "unlockWalletWithPassword":{
+    "message":"Enter your wallet password:",
+    "description":"English: Enter your wallet password:"
+  },
+  "unlockWalletWithPrivkey":{
+    "message":"Enter your private key:",
+    "description":"English: Enter your private key:"
+  },
+  "unlockWalletButton":{
+    "message":"Unlock",
+    "description":"English: Unlock"
   },
   "walletPrivKeyExport":{
     "message":"Export passphrase and private key",

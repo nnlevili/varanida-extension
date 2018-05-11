@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-i18n="profilePageName"></title>
+<link rel="stylesheet" type="text/css" href="css/common.css">
+<link rel="stylesheet" type="text/css" href="css/dashboard-common.css">
+</head>
+
+<body>
+
+<!-- When user have an unlocked wallet -->
+<ul id="userProfileForm">
+  <li class="subgroup">
+    <span data-i18n="profileLevel1"></span>
+    <ul>
+      <li>
+        <label data-i18n="profileUserBirthdate" for="user-birthdate"></label>
+        <input id="user-birthdate" type="date" data-setting-name="userBirthdate" data-setting-type="input">
+      </li>
+      <li>
+        <label data-i18n="profileUserCity" for="user-city"></label>
+        <input id="user-city" type="text" data-setting-name="userCity" data-setting-type="input">
+      </li>
+      <li>
+        <p data-i18n="profileUserGender"></p>
+        <input type="radio" name="userGender" id="user-gender-male" data-setting-name="userGender" value="male" data-setting-type="radio">
+        <label for="user-gender-male" data-i18n="profileUserGenderMale"></label>
+        <input type="radio" name="userGender" id="user-gender-female" data-setting-name="userGender" value="female" data-setting-type="radio">
+        <label for="user-gender-female" data-i18n="profileUserGenderFemale"></label>
+      </li>
+      <li>
+        <label data-i18n="profileUserMotherTongue" for="user-mother-tongue"></label>
+        <select id="user-mother-tongue" data-setting-name="userMotherTongue" data-setting-type="select">
+          <option value=""></option>
+          <option value="french">Français</option>
+          <option value="english">English</option>
+        </select>
+      </li>
+      <li>
+        <p data-i18n="profileUserEducationLevel"></p>
+        <input type="radio" name="userEducationLevel" id="user-education-level-none" data-setting-name="userEducationLevel" value="none" data-setting-type="radio">
+        <label for="user-education-level-none" data-i18n="profileUserEducationLevelNone"></label>
+        <input type="radio" name="userEducationLevel" id="user-education-level-college" data-setting-name="userEducationLevel" value="college" data-setting-type="radio">
+        <label for="user-education-level-college" data-i18n="profileUserEducationLevelCollege"></label>
+        <input type="radio" name="userEducationLevel" id="user-education-level-high-school" data-setting-name="userEducationLevel" value="high-school" data-setting-type="radio">
+        <label for="user-education-level-high-school" data-i18n="profileUserEducationLevelHighSchool"></label>
+        <input type="radio" name="userEducationLevel" id="user-education-level-post-graduate" data-setting-name="userEducationLevel" value="post-graduate" data-setting-type="radio">
+        <label for="user-education-level-post-graduate" data-i18n="profileUserEducationLevelPostGraduate"></label>
+        <input type="radio" name="userEducationLevel" id="user-education-level-doctorate" data-setting-name="userEducationLevel" value="doctorate" data-setting-type="radio">
+        <label for="user-education-level-doctorate" data-i18n="profileUserEducationLevelDoctorate"></label>
+        <input type="radio" name="userEducationLevel" id="user-education-level-professional-degree" data-setting-name="userEducationLevel" value="professional-degree" data-setting-type="radio">
+        <label for="user-education-level-professional-degree" data-i18n="profileUserEducationLevelProfessionalDegree"></label>
+      </li>
+      <li>
+        <p data-i18n="profileUserRelationshipStatus"></p>
+        <input type="radio" name="userRelationshipStatus" id="user-relationship-status-single" data-setting-name="userRelationshipStatus" value="single" data-setting-type="radio">
+        <label for="user-relationship-status-single" data-i18n="profileUserRelationshipStatusSingle"></label>
+        <input type="radio" name="userRelationshipStatus" id="user-relationship-status-in-relationship" data-setting-name="userRelationshipStatus" value="in-relationship" data-setting-type="radio">
+        <label for="user-relationship-status-in-relationship" data-i18n="profileUserRelationshipStatusInRelationship"></label>
+        <input type="radio" name="userRelationshipStatus" id="user-relationship-status-engaged" data-setting-name="userRelationshipStatus" value="engaged" data-setting-type="radio">
+        <label for="user-relationship-status-engaged" data-i18n="profileUserRelationshipStatusEngaged"></label>
+        <input type="radio" name="userRelationshipStatus" id="user-relationship-status-married" data-setting-name="userRelationshipStatus" value="married" data-setting-type="radio">
+        <label for="user-relationship-status-married" data-i18n="profileUserRelationshipStatusMarried"></label>
+        <input type="radio" name="userRelationshipStatus" id="user-relationship-status-divorced" data-setting-name="userRelationshipStatus" value="divorced" data-setting-type="radio">
+        <label for="user-relationship-status-divorced" data-i18n="profileUserRelationshipStatusDivorced"></label>
+        <input type="radio" name="userRelationshipStatus" id="user-relationship-status-other" data-setting-name="userRelationshipStatus" value="other" data-setting-type="radio">
+        <label for="user-relationship-status-other" data-i18n="profileUserRelationshipStatusOther"></label>
+      </li>
+      <li>
+        <p data-i18n="profileUserHasKids"></p>
+        <input type="radio" name="userHasKids" id="user-has-kids" data-setting-name="userHasKids" value="true" data-setting-type="radio">
+        <label for="user-has-kids" data-i18n="profileUserHasKidsTrue"></label>
+        <input type="radio" name="userHasKids" id="user-hasnt-kids" data-setting-name="userHasKids" value="false" data-setting-type="radio">
+        <label for="user-hasnt-kids" data-i18n="profileUserHasKidsFalse"></label>
+      </li>
+      <li>
+        <p data-i18n="profileUserWorkStatus"></p>
+        <input type="radio" name="userWorkStatus" id="user-work-status-employee" data-setting-name="userWorkStatus" value="employee" data-setting-type="radio">
+        <label for="user-work-status-employee" data-i18n="profileUserWorkStatusEmployee"></label>
+        <input type="radio" name="userWorkStatus" id="user-work-status-independant" data-setting-name="userWorkStatus" value="independant" data-setting-type="radio">
+        <label for="user-work-status-independant" data-i18n="profileUserWorkStatusIndependant"></label>
+        <input type="radio" name="userWorkStatus" id="user-work-status-unemployed" data-setting-name="userWorkStatus" value="unemployed" data-setting-type="radio">
+        <label for="user-work-status-unemployed" data-i18n="profileUserWorkStatusUnemployed"></label>
+        <input type="radio" name="userWorkStatus" id="user-work-status-student" data-setting-name="userWorkStatus" value="student" data-setting-type="radio">
+        <label for="user-work-status-student" data-i18n="profileUserWorkStatusStudent"></label>
+        <input type="radio" name="userWorkStatus" id="user-work-status-retired" data-setting-name="userWorkStatus" value="retired" data-setting-type="radio">
+
+        <label for="user-work-status-retired" data-i18n="profileUserWorkStatusRetired"></label>
+      </li>
+      <li>
+        <label data-i18n="profileUserIndustry" for="user-industry"></label>
+        <select id="user-industry" data-setting-name="userIndustry" data-setting-type="input">
+          <!-- List from Thomson Reuters Business Classification -->
+          <option value=""></option>
+          <option value="50">Energy</option>
+          <option value="51">Basic Materials</option>
+          <option value="52">Industrials</option>
+          <option value="53">Cyclical Consumer Goods & Services</option>
+          <option value="54">Non-Cyclical Consumer Goods & Services</option>
+          <option value="55">Financials</option>
+          <option value="56">Healthcare</option>
+          <option value="57">Technology</option>
+          <option value="58">Telecommunications Services</option>
+          <option value="59">Utilities</option>
+        </select>
+      </li>
+    </ul>
+  </li>
+  <li class="subgroup">
+    <span data-i18n="profileLevel2"></span>
+    <ul>
+      <li>
+        <input id="share-location" type="checkbox" data-setting-name="userShareLocation" data-setting-type="bool">
+        <label data-i18n="profileLocationSharing" for="share-location"></label>
+      </li>
+      <li>
+        <input id="share-preferences" type="checkbox" data-setting-name="userSharePreferences" data-setting-type="bool">
+        <label data-i18n="profilePreferencesSharing" for="share-preferences"></label>
+      </li>
+    </ul>
+  </li>
+  <li class="subgroup">
+    <span data-i18n="profileLevel3"></span>
+    <ul>
+      <li>
+        <input id="share-session" type="checkbox" data-setting-name="userShareSession" data-setting-type="bool">
+        <label data-i18n="profileSessionSharing" for="share-session"></label>
+      </li>
+      <li>
+        <input id="share-browsing-history" type="checkbox" data-setting-name="userShareBrowsingHistory" data-setting-type="bool">
+        <label data-i18n="profileBrowsingHistorySharing" for="share-browsing-history"></label>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<!-- When user have a locked wallet -->
+<div id="userUnlockWallet">
+  <h2 data-i18n="unlockWalletTitle"></h2>
+  <p>
+    <div class="text-input-group" id="userUnlockWalletWithPassword">
+      <label data-i18n="unlockWalletWithPassword" for="unlock-password"></label>
+      <input type="password" id="unlock-password" placeholder="">
+    </div>
+    <div class="text-input-group" id="userUnlockWalletWithPrivkey">
+      <label data-i18n="unlockWalletWithPrivkey" for="unlock-privkey"></label>
+      <input type="text" id="unlock-privkey" placeholder="">
+    </div>
+  </p>
+  <p><span id="errorUnlockWalletMessage"></span></p>
+  <p>
+    <button id="unlockWalletButton" class="action-button primary-button" type="button" data-i18n="unlockWalletButton"></button>
+  </p>
+</div>
+
+<!-- When user doesn't have a wallet -->
+<div id="userHasNoWallet">
+  <p data-i18n="noWalletText"></p>
+</div>
+
+<script src="js/vapi.js"></script>
+<script src="js/vapi-common.js"></script>
+<script src="js/vapi-client.js"></script>
+<script src="js/udom.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/dashboard-common.js"></script>
+<script src="js/profile.js"></script>
+
+</body>
+</html>
