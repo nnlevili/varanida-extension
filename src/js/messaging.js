@@ -76,6 +76,10 @@ var onMessage = function(request, sender, callback) {
         );
         return;
 
+    case 'lockWallet':
+        µw.lockWallet(callback);
+        return;
+
     case 'reloadAllFilters':
         µb.loadFilterLists();
         return;
@@ -155,7 +159,8 @@ var onMessage = function(request, sender, callback) {
           hasWallet: µw.walletSettings.hasKeyring,
           walletAddress: µw.walletSettings.keyringAddress,
           totalRewardCount: µw.walletSettings.totalRewardCount,
-          onlyAddress: µw.walletSettings.onlyAddress
+          onlyAddress: µw.walletSettings.onlyAddress,
+          isUnlocked: µw.isUnlocked()
         };
         break;
 

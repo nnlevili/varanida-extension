@@ -555,6 +555,10 @@
     "message":"Cacher",
     "description":"hide private key"
   },
+  "lockWallet":{
+    "message":"Verrouiller le portefeuille",
+    "description":"lock wallet button"
+  },
   "deleteWallet":{
     "message":"Supprimer le portefeuille",
     "description":"delete wallet button"
