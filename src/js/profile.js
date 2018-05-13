@@ -35,14 +35,51 @@ var walletIsUnlocked = false;
 
 /******************************************************************************/
 
-var changeUserProfile = function(name, value) {
-  userDataStore[name] = value;
+var calculateNewCompletionLevel = function() {
+  if (userDataStore) {
+    if(userDataStore['level3'] &&
+       userDataStore['level3']['userShareSession'] &&
+       userDataStore['level3']['userShareBrowsingHistory']) {
+         return 3;
+    }
+    if(userDataStore['level2'] &&
+       userDataStore['level2']['userShareLocation'] &&
+       userDataStore['level2']['userSharePreferences']) {
+         return 2;
+    }
+    if(userDataStore['level1'] &&
+       userDataStore['level1']['userBirthdate'] &&
+       userDataStore['level1']['userCity'] &&
+       userDataStore['level1']['userGender'] &&
+       userDataStore['level1']['userMotherTongue'] &&
+       userDataStore['level1']['userEducationLevel'] &&
+       userDataStore['level1']['userRelationshipStatus'] &&
+       userDataStore['level1']['userHasKids'] &&
+       userDataStore['level1']['userWorkStatus'] &&
+       userDataStore['level1']['userIndustry']) {
+         return 2;
+    }
+  }
+  return 0;
+};
+
+/******************************************************************************/
+
+var changeUserProfile = function(level, name, value) {
+  if (!userDataStore) {
+    userDataStore = {};
+  }
+  if (!userDataStore['level'+level]) {
+    userDataStore['level'+level] = {};
+  }
+  userDataStore['level'+level][name] = value;
+  let newCompletionLevel = calculateNewCompletionLevel();
   messaging.send(
     'dashboard',
     {
       what: 'setUserData ',
       password: password,
-      newCompletionLevel: 1,
+      newCompletionLevel: newCompletionLevel,
       data: userDataStore
     }
   );
@@ -52,12 +89,13 @@ var changeUserProfile = function(name, value) {
 
 var onInputChanged = function(ev) {
     var input = ev.target;
+    var level = this.getAttribute('data-setting-level');
     var name = this.getAttribute('data-setting-name');
     var value = input.value;
     if ( value !== input.value ) {
         input.value = value;
     }
-    changeUserProfile(name, value);
+    changeUserProfile(level, name, value);
 };
 
 /******************************************************************************/
@@ -70,17 +108,14 @@ var onPreventDefault = function(ev) {
 /******************************************************************************/
 
 var onUserDataReceived = function(data) {
+  userDataStore = data;
   if (data) {
-    userDataStore = data;
     uDom('[data-setting-type="input"]').forEach(function(uNode) {
       uNode.val(data[uNode.attr('data-setting-name')]);
     });
     uDom('[data-setting-type="radio"]').forEach(function(uNode) {
       uNode.val(data[uNode.attr('data-setting-name')]);
     });
-  } else {
-    // initialize user data if non-existent
-    userDataStore = {};
   }
 };
 
