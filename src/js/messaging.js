@@ -76,6 +76,10 @@ var onMessage = function(request, sender, callback) {
         );
         return;
 
+    case 'lockWallet':
+        µw.lockWallet(callback);
+        return;
+
     case 'reloadAllFilters':
         µb.loadFilterLists();
         return;
@@ -86,6 +90,16 @@ var onMessage = function(request, sender, callback) {
     case 'deleteWallet':
         µw.safeReset(request.password, callback);
         return;
+
+    case 'getUserData':
+        return µdw.getUserData({password: request.password, privKey: request.privKey}, callback);
+
+    case 'setShareLevel':
+        return µdw.setShareLevel(request.newLevel, callback);
+
+    case 'setTrackingWhitelist':
+        return µdw.setTrackingWhitelist(request.whitelist, callback);
+
     default:
         break;
     }
@@ -135,16 +149,31 @@ var onMessage = function(request, sender, callback) {
     case 'getDomainNames':
         response = getDomainNames(request.targets);
         break;
+
+    case 'getLevels':
+        response = µdw.getLevels();
+        break;
+
     case 'getWalletInfo':
         response = {
           hasWallet: µw.walletSettings.hasKeyring,
           walletAddress: µw.walletSettings.keyringAddress,
           totalRewardCount: µw.walletSettings.totalRewardCount,
-          onlyAddress: µw.walletSettings.onlyAddress
+          onlyAddress: µw.walletSettings.onlyAddress,
+          isUnlocked: µw.isUnlocked()
         };
         break;
+
     case 'getWhitelist':
         response = µb.stringFromWhitelist(µb.netWhitelist);
+        break;
+
+    case 'getTrackingWhitelist':
+        response = µdw.getTrackingWhitelist();
+        break;
+
+    case 'isWalletUnlocked':
+        response = µw.isUnlocked();
         break;
 
     case 'launchElementPicker':
@@ -464,6 +493,11 @@ var onMessage = function(request, sender, callback) {
             µb.updateBadgeAsync(request.tabId);
         }
         break;
+
+    case 'toggleTrackingWhitelist':
+        µdw.toggleTrackingWhitelist(request.url, request.scope, request.state);
+        break;
+
     case 'setReferralWindowShown':
         µw.setReferralWindowShown(request.shown);
         break;
@@ -735,6 +769,7 @@ vAPI.messaging.listen('cloudWidget', onMessage);
 
 var µb = µBlock;
 var µw = µWallet;
+var µdw = µDataWallet;
 /******************************************************************************/
 
 // Settings
@@ -946,6 +981,9 @@ var onMessage = function(request, sender, callback) {
 
     case 'readUserFilters':
         return µb.loadUserFilters(callback);
+
+    case 'setUserData':
+        return µdw.setUserData({password: request.password, privKey: request.privKey}, request.newCompletionLevel, request.data, callback);
 
     case 'writeUserFilters':
         return µb.saveUserFilters(request.content, callback);

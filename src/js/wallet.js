@@ -60,6 +60,15 @@ function onHideExport() {
 
 /******************************************************************************/
 
+function onLockWallet() {
+  var onLockHandler = function() {
+    uDom.nodeFromId('lockWallet').style.setProperty("display", "none");
+  };
+  messaging.send('dashboard', { what: 'lockWallet' }, onLockHandler);
+}
+
+/******************************************************************************/
+
 function onExportWallet() {
   var onExportHandler = function(exportValues) {
     console.log(exportValues);
@@ -74,6 +83,7 @@ function onExportWallet() {
       privKey: string,
       seed: string
     }*/
+    uDom.nodeFromId('lockWallet').style.setProperty("display", "block");
     renderExportField(exportValues);
   }
   var passwordField = uDom.nodeFromId("export-privkey-password");
@@ -119,8 +129,9 @@ function renderWalletInfo() {
         uDom.nodeFromId('walletAddress').textContent = walletInfo.walletAddress;
         if (!walletInfo.onlyAddress) {
           uDom.nodeFromId('walletFunctions').style.setProperty("display", "block");
-          uDom('#exportPrivKeyButton').on('click', onExportWallet);
-          uDom('#hidePrivKeyButton').on('click', onHideExport);
+        }
+        if (walletInfo.isUnlocked) {
+          uDom.nodeFromId('lockWallet').style.setProperty("display", "block");
         }
     };
     messaging.send('dashboard', { what: 'getWalletInfo' }, onRead);
@@ -181,6 +192,9 @@ uDom('#seed-clipboard-button').on('click', function() {copyAdressToClipboard("se
 uDom('#privkey-clipboard-button').on('click', function() {copyAdressToClipboard("privkey");});
 uDom('#delete-wallet-button').on('click', openDeleteModal);
 uDom('#delete-wallet-button-overlay').on('click', onDeleteWallet);
+uDom('#lock-wallet-button').on('click', onLockWallet);
+uDom('#exportPrivKeyButton').on('click', onExportWallet);
+uDom('#hidePrivKeyButton').on('click', onHideExport);
 uDom('#cancel-delete-wallet-button-overlay').on('click', function() {hideOverlay("delete-modal");});
 
 uDom('.overlayClose').on('click', function(){hideOverlay("all");})

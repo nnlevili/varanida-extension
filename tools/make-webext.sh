@@ -13,6 +13,7 @@ echo "*** Varanida0.webext: browserifying"
 rm -rf src/browserify-js/dist
 mkdir src/browserify-js/dist
 browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
+browserify src/js/browserify-js/background_udatawallet.js -o src/browserify-js/dist/background_udatawallet.js
 
 echo "*** Varanida0.chromium: gulping"
 mkdir src/gulp-dist
@@ -44,6 +45,10 @@ cp platform/webext/polyfill.js          $DES/js/
 cp platform/webext/vapi-webrequest.js   $DES/js/
 cp platform/webext/vapi-cachestorage.js $DES/js/
 cp platform/webext/vapi-usercss.js      $DES/js/
+
+
+echo "*** Varanida0.webext: removing unnecessary scripts"
+rm -rf $DES/js/browserify-js
 
 echo "*** Varanida0.webext: concatenating content scripts"
 cat $DES/js/vapi-usercss.js > /tmp/contentscript.js

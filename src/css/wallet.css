@@ -145,6 +145,9 @@
 #delete-modal {
   display: none;
 }
+#lockWallet {
+  display: none;
+}
 #delete-overlay-password-div {
   display: none;
 }

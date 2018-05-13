@@ -32,6 +32,9 @@ const AWS = require('aws-sdk');
 const KeyringController = require('eth-keyring-controller');
 const blake = require('blakejs');
 const moment = require('moment');
+const crypto = require('crypto');
+const ethUtil = require('ethereumjs-util');
+const sigUtil = require('eth-sig-util');
 
 //internal dependencies
 const Recorder = require("./recorder.js")
@@ -316,29 +319,26 @@ const checkEthereumAddress = function(address) {
   if (this.walletSettings.keyringAddress && this.walletSettings.onlyAddress) {
     return callback && callback("this is an address only account");
   }
-  const store = this.keyringController && this.keyringController.memStore.getState();
-  if (!password || password === "") {
-    return callback && callback("password not provided");
-  }
-  if (!this.walletSettings.keyringAddress || !store) {
+  if (!this.walletSettings.keyringAddress) {
     return callback && callback(null);
   }
   console.log("exporting for address", this.walletSettings.keyringAddress);
   let privKeyProm;
   const self = this;
+  const store = this.keyringController && this.keyringController.memStore.getState();
+  if (!store) {
+    return callback && callback("no wallet available");
+  }
+  //the store is unlocked, get the private key
   if (store.isUnlocked) {
     privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
   } else {
+    if (!password || password === "") {
+      return callback && callback("password not provided");
+    }
+    //the password was provided, unlock the keyring and get the private key
     privKeyProm = this.keyringController.submitPassword(password)
     .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
-
-
-    // privKeyProm =  new Promise((resolve) => {
-    //   this.keyringController.once('update', () => {
-    //     setTimeout(() => resolve(self.keyringController.exportAccount(self.walletSettings.keyringAddress)), 1000);
-    //   });
-    //   this.keyringController.submitPassword(password)
-    // });
   }
   return privKeyProm
   .then(privKey => {
@@ -348,7 +348,6 @@ const checkEthereumAddress = function(address) {
       if (!keyring) {
         return null;
       }
-      self.keyringController.setLocked();
       return {
         address: self.walletSettings.keyringAddress,
         privKey: privKey,
@@ -360,6 +359,134 @@ const checkEthereumAddress = function(address) {
 
 }
 
+const hexStringFromUint8 = function(uint8) {
+  return uint8.reduce(function(memo, i) {
+    return memo + ("0"+(i & 0xff).toString(16)).slice(-2);
+  }, '');
+};
+
+const uint8FromHexString = function(str) {
+  var a = [];
+  for (let i = 0, len = str.length; i < len; i+=2) {
+    a.push(parseInt(str.substr(i,2),16));
+  }
+  return new Uint8Array(a);
+}
+
+const signPersonalMessage = function(privKey, msgHex) {
+  const privKeyBuffer = new Buffer(privKey, 'hex');
+  const sig = sigUtil.personalSign(privKeyBuffer, { data: msgHex })
+  return Promise.resolve(sig)
+}
+
+const extractAddress = function(msg) {
+  const pubKey = sigUtil.extractPublicKey(msg);
+  const address = ethUtil.bufferToHex(ethUtil.publicToAddress(pubKey));
+  return Promise.resolve(address);
+}
+
+µWallet.encryptAndSign = function(credentials, data, callback) {
+  if (!this.walletSettings.keyringAddress || !data) {
+    return callback && callback(null);
+  }
+  //get the private key
+  let privKeyProm;
+  if (credentials && credentials.privKey) {
+    //the private key was provided as an argument
+    privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(credentials.privKey))
+  } else {
+    const store = this.keyringController && this.keyringController.memStore.getState();
+    if (!store) {
+      return callback && callback("no wallet available");
+    }
+    //the store is unlocked, get the private key
+    if (store.isUnlocked) {
+      privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+    } else {
+      if (!credentials || !credentials.password || credentials.password === "") {
+        return callback && callback("password not provided");
+      }
+      //the password was provided, unlock the keyring and get the private key
+      privKeyProm = this.keyringController.submitPassword(credentials.password)
+      .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
+    }
+  }
+
+  return privKeyProm
+  .then(privKey => {
+    //encrypt the raw data
+    const encryptionKey = uint8FromHexString(privKey);
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipheriv('aes-256-ctr', encryptionKey, iv);
+    let encrypted = cipher.update(data, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+    const ivHex = hexStringFromUint8(iv);
+    //sign the data
+    return signPersonalMessage(privKey, encrypted)
+    .then((signature) => {
+      return callback && callback({
+        data: encrypted,
+        iv: ivHex,
+        sig: signature
+      });
+    });
+  });
+};
+
+µWallet.decryptAndVerify = function(credentials, encryptedData, callback) {
+  if (
+    !this.walletSettings.keyringAddress ||
+    !encryptedData ||
+    !encryptedData.data ||
+    !encryptedData.iv ||
+    !encryptedData.sig
+  ) {
+    return callback && callback("no wallet or missing data");
+  }
+  //get the private key
+  let privKeyProm;
+  if (credentials && credentials.privKey) {
+    //the private key was provided as an argument
+    privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(credentials.privKey))
+  } else {
+    const store = this.keyringController && this.keyringController.memStore.getState();
+    if (!store) {
+      return callback && callback("no wallet available");
+    }
+    //the store is unlocked, get the private key
+    if (store.isUnlocked) {
+      privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+    } else {
+      if (!credentials || !credentials.password || credentials.password === "") {
+        return callback && callback("password not provided");
+      }
+      //the password was provided, unlock the keyring and get the private key
+      privKeyProm = this.keyringController.submitPassword(credentials.password)
+      .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
+    }
+  }
+
+  return privKeyProm
+  .then(privKey => {
+    //extraxt address associated with the signature
+    return extractAddress(encryptedData)
+    .then((address) => {
+      let signatureValid = true;
+      //verify the signature
+      if (address !== this.walletSettings.keyringAddress) {
+        signatureValid = false;
+      }
+      //decrypt the data
+      const decryptionKey = uint8FromHexString(privKey);
+      const iv = uint8FromHexString(encryptedData.iv)
+      const decipher = crypto.createDecipheriv('aes-256-ctr', decryptionKey, iv);
+      let decrypted = decipher.update(encryptedData.data, 'hex', 'utf8');
+      decrypted += decipher.final('utf8');
+      return callback && callback({data: decrypted, isSignValid: signatureValid});
+    });
+  });
+};
+
 µWallet.loadWallet = function(password, callback) {
   const store = this.keyringController.memStore.getState();
   if (store.isUnlocked) {
@@ -368,6 +495,11 @@ const checkEthereumAddress = function(address) {
     return this.keyringController.submitPassword(password)
     .then(res => callback && callback(res));
   }
+}
+
+µWallet.isUnlocked = function() {
+  const store = this.keyringController.memStore.getState();
+  return store.isUnlocked;
 }
 
 µWallet.lockWallet = function(callback) {
