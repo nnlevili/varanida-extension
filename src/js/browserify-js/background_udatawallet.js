@@ -381,7 +381,7 @@ const cleanData = function(dirtyData) {
         console.log("got old data");
         console.log("received", encryptedDataTime.format());
         console.log("tempData", this.tempDataCreatedOn.format());
-        return tempData;
+        return this.tempData;
       }
     }
     //decrypt data and verify signature
