@@ -271,6 +271,14 @@
     "message":"Votre activité de combat contre les pubs heure par heure",
     "description":"appears in stats tab"
   },
+  "popupDataSettings":{
+    "message":"Niveau de ciblage",
+    "description":"appears in data tab"
+  },
+  "popupDataSettingsSubtitle":{
+    "message":"Quel niveau d'informations personnelles voulez vous utiliser pour le ciblage?",
+    "description":"appears in data tab"
+  },
   "popupCreateWalletButton":{
     "message":"Nouveau",
     "description":"button in popup"

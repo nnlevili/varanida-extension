@@ -302,14 +302,6 @@ var renderTooltips = function(selector) {
 
 /******************************************************************************/
 
-// All rendering code which need to be executed only once.
-
-var renderOnce = function() {
-    renderOnce = function(){};
-};
-
-/******************************************************************************/
-
 var renderWallet = function(address) {
   var walletAddress = address || popupData.walletAddress;
   var abscentWalletPane = uDom.nodeFromId("abscentWallet");
@@ -488,6 +480,31 @@ var importReferralFromOverlay = function(ev) {
   }
   importReferrer(address);
 }
+
+/******************************************************************************/
+
+var onDataSliderUpdate = function(newDataShareLevel) {
+  messaging.send('popupPanel', { what: 'setShareLevel', newLevel: newDataShareLevel });
+};
+
+/******************************************************************************/
+
+var renderDataSlider = function() {
+  if (typeof popupData.dataShareLevel !== "number" || typeof popupData.dataCompletionLevel !== "number") {
+    return;
+  }
+  DataSlider.init(popupData.dataShareLevel, popupData.dataCompletionLevel);
+  DataSlider.attachListener(onDataSliderUpdate);
+};
+
+/******************************************************************************/
+
+// All rendering code which need to be executed only once.
+
+var renderOnce = function() {
+    renderOnce = function(){};
+    renderDataSlider();
+};
 
 /******************************************************************************/
 
@@ -968,11 +985,13 @@ var onHideTooltip = function() {
     //change tab
     var tabs = {
       params: uDom('#params-tab'),
-      stats:  uDom('#stats-tab')
+      stats:  uDom('#stats-tab'),
+      data:   uDom('#data-tab'),
     };
     var panes = {
       params: uDom('#params-pane'),
-      stats:  uDom('#stats-pane')
+      stats:  uDom('#stats-pane'),
+      data:  uDom('#data-pane')
     };
 
     var openPane = function(paneName) {
@@ -1010,7 +1029,8 @@ var onHideTooltip = function() {
             drawChart();
           });
         }
-      }
+      },
+      data: function() {openPane("data")}
     };
     for (var tab in tabs) {
       if (tabs.hasOwnProperty(tab)) {

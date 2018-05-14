@@ -271,6 +271,14 @@
     "message":"Your Ads fighting activity today per hour",
     "description":"appears in stats tab"
   },
+  "popupDataSettings":{
+    "message":"Targeting level",
+    "description":"appears in data tab"
+  },
+  "popupDataSettingsSubtitle":{
+    "message":"Which level of personal informations do you want to use for targeting?",
+    "description":"appears in data tab"
+  },
   "popupCreateWalletButton":{
     "message":"Create Wallet",
     "description":"button in popup"

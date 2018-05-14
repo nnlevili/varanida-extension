@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=370, height=500, initial-scale=1"><!-- When showing as a tab in fennec, scale to full size (150px + 320px) -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/popup_style.bundle.css" type="text/css">
+<link rel="stylesheet" href="css/nouislider.min.css" type="text/css">
 <title>Varanida</title>
 </head>
 
@@ -189,6 +190,9 @@
           <li class="nav-item m-tabs__item">
             <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab" data-i18n="popupStatisticsTab"></a>
           </li>
+          <li class="nav-item m-tabs__item">
+            <a id="data-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_data" role="tab">Données</a>
+          </li>
         </ul>
         <div class="tab-content">
           <div id="params-pane" class="tab-pane active m-scrollable" id="m_quick_sidebar_tabs_settings" role="tabpanel">
@@ -262,6 +266,29 @@
                 <canvas  id="m_chart_daily_activity"></canvas>
               </div>
             <!--end:: Widgets/Daily Sales-->
+          </div>
+          <div id="data-pane" class="tab-pane m-scrollable" id="m_quick_sidebar_tabs_data" role="tabpanel">
+            <div class="m--margin-bottom-10">
+              <h5 data-i18n="popupDataSettings"></h5>
+              <span class="m-widget14__desc" data-i18n="popupDataSettingsSubtitle"></span>
+            </div>
+            <div id="varanida-slider-container">
+							<!-- <div id="data-sharing-level" class="varanida-slider noUi-target noUi-ltr noUi-horizontal">
+                <div class="noUi-base">
+                  <div class="noUi-connects">
+                    <div class="noUi-connect" style="transform: translate(0%, 0px) scale(0.333333, 1);"></div>
+                    <div class="noUi-connect noUi-allowed-range" style="transform: translate(0%, 0px) scale(0.333333, 1);"></div>
+                  </div>
+                  <div class="noUi-origin" style="transform: translate(-66.6667%, 0px); z-index: 4;">
+                    <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="33.3" aria-valuenow="33.3" aria-valuetext="1.00"></div>
+                  </div>
+                </div>
+                <div class="noUi-pips noUi-pips-horizontal">
+                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-large" style="left: 1%;"></div>
+                  <div class="noUi-value noUi-value-horizontal noUi-value-large" style="left: 1%;">0</div>
+                </div>
+              </div> -->
+						</div>
           </div>
         </div>
       </div>
