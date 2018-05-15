@@ -684,7 +684,7 @@
     "description":"English: Retired"
   },
   "profileUserBasicMaterials":{
-    "message":"Basic Materials",
+    "message":"Matériaux de base",
     "description":"English: Basic Materials"
   },
   "profileUserIndustry":{
@@ -765,7 +765,7 @@
   },
   "passwordNotCorrect":{
     "message":"Votre mot de passe n'est pas correct!",
-    "description":"English: Your password is not good!"
+    "description":"English: Wrong password"
   },
   "walletPrivKeyExport":{
     "message":"Exporter passphrase et clé privée",
