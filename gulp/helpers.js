@@ -329,17 +329,8 @@ module.exports = {
 
         switch (type) {
           case 'styles':
-            if (this.config.compile.cssPurify) {
-              bundle.src.html && _self.dotPaths(bundle.src.html);
-              bundle.src.scripts && _self.dotPaths(bundle.src.scripts);
-            }
             gulp.src(bundle.src[type])
             .pipe(_self.cssChannel()())
-            .pipe(
-              gulpif(this.config.compile.cssPurify && !!bundle.src.html,purgecss({
-                content: bundle.src.html.concat(bundle.src.scripts)
-              }))
-            )
             .pipe(_self.outputChannel(bundle.output[type])());
             break;
           case 'scripts':

@@ -31,6 +31,8 @@
 /******************************************************************************/
 
 var µb = µBlock;
+var µw = µWallet;
+var µdw = µDataWallet;
 
 /******************************************************************************/
 
@@ -92,13 +94,16 @@ var onMessage = function(request, sender, callback) {
         return;
 
     case 'getUserData':
-        return µdw.getUserData({password: request.password, privKey: request.privKey}, callback);
+        µdw.getUserData({password: request.password, privKey: request.privKey}, callback);
+        return;
 
     case 'setShareLevel':
-        return µdw.setShareLevel(request.newLevel, callback);
+        µdw.setShareLevel(request.newLevel, callback);
+        return;
 
     case 'setTrackingWhitelist':
-        return µdw.setTrackingWhitelist(request.whitelist, callback);
+        µdw.setTrackingWhitelist(request.whitelist, callback);
+        return;
 
     default:
         break;
@@ -243,6 +248,7 @@ vAPI.messaging.setup(onMessage);
 
 var µb = µBlock;
 var µw = µWallet;
+var µdw = µDataWallet;
 
 /******************************************************************************/
 
@@ -388,6 +394,11 @@ var popupDataFromTabId = function(tabId, tabTitle) {
         rootHostname,
         r.hostnameDict
     );
+    var dataLevels = µdw.getLevels();
+    if (dataLevels) {
+      r.dataShareLevel = dataLevels.dataShareLevel;
+      r.dataCompletionLevel = dataLevels.dataCompletionLevel;
+    }
     return r;
 };
 

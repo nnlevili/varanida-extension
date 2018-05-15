@@ -120,6 +120,7 @@ const µDataWallet = (function() {
 
 µDataWallet.init = function() {
   this.loadDataWhitelist();
+  console.log("data wallet initialized");
 }
 
 µDataWallet.loadDataWhitelist = function() {
@@ -250,6 +251,7 @@ const µDataWallet = (function() {
   ) {
     return callback && callback("Not a number or out of range");
   }
+  µWallet.setShareLevel(newShareLevel);
   this.updateSettings({
     dataShareLevel: newShareLevel
   }, callback);

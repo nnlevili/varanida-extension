@@ -25,6 +25,11 @@
                             "scripts": [
                                 "{$config.path.node_modules}/chart.js/dist/Chart.min.js"
                             ]
+                        },
+                        "nouislider": {
+                            "scripts": [
+                                "{$config.path.node_modules}/nouislider/distribute/nouislider.min.js"
+                            ]
                         }
                     }
                 },
@@ -44,6 +49,7 @@
                         ],
                         "scripts": [
                             "{$config.path.src}/js/chart_script.js",
+                            "{$config.path.src}/js/slider_script.js",
                             "{$config.path.src}/js/newpopup.js"
                         ],
                         "html": [
@@ -69,10 +75,14 @@
                         "{$config.path.src}/css/fonts/line-awesome/*",
                         "{$config.path.src}/css/fonts/Poppins/*.ttf",
                         "{$config.path.src}/css/fonts/Roboto/*.ttf"
+                      ],
+                      "styles": [
+                          "{$config.path.node_modules}/nouislider/distribute/nouislider.min.css"
                       ]
                   },
                   "output": {
-                      "fonts": "{$config.output}/css/fonts"
+                      "fonts": "{$config.output}/css/fonts",
+                      "styles": "{$config.output}/css"
                   }
                 }
             }

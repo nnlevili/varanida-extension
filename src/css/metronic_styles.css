@@ -22680,6 +22680,7 @@ select.m-bootstrap-select {
       float: none;
       margin: 0 auto; } }
 
+/*metronic noUI slider*/
 
 .m-login.m-login--1 {
   background: white; }
@@ -26117,3 +26118,158 @@ body.m-portlet--fullscreen.m-aside-left--fixed .m-aside-left {
 .m-portlet.m-portlet--border-bottom-danger {
   border-bottom: 3px solid #f4516c; }
 
+.noUi-target.noUi-horizontal{
+    height:15px
+}
+html:not([dir="rtl"]) .noUi-target.noUi-horizontal .noUi-handle {
+  right: -12px;
+  left: auto;
+}
+.noUi-target.noUi-horizontal .noUi-handle{
+    width:24px;
+    height:24px;
+    left:-17px;
+    top:-6px;
+    border-radius:50%;
+    outline:0
+}
+.noUi-target.noUi-horizontal .noUi-handle::before{
+    display:none
+}
+.noUi-target.noUi-horizontal .noUi-handle::after{
+    display:none
+}
+.noUi-target.noUi-vertical{
+    height:150px;
+    width:15px
+}
+.noUi-target.noUi-vertical .noUi-handle{
+    width:24px;
+    height:24px;
+    left:-5.5px;
+    top:-6px;
+    border-radius:50%;
+    outline:0
+}
+.noUi-target.noUi-vertical .noUi-handle::before{
+    display:none
+}
+.noUi-target.noUi-vertical .noUi-handle::after{
+    display:none
+}
+.noUi-target.m-nouislider.m-nouislider--connect-brand .noUi-connect{
+    background:#716aca
+}
+.noUi-target.m-nouislider.m-nouislider--handle-brand .noUi-handle{
+    border:0;
+    background:#716aca;
+    -webkit-box-shadow:0 3px 6px -3px #716aca;
+    -moz-box-shadow:0 3px 6px -3px #716aca;
+    box-shadow:0 3px 6px -3px #716aca
+}
+.noUi-target.m-nouislider.m-nouislider--connect-metal .noUi-connect{
+    background:#c4c5d6
+}
+.noUi-target.m-nouislider.m-nouislider--handle-metal .noUi-handle{
+    border:0;
+    background:#c4c5d6;
+    -webkit-box-shadow:0 3px 6px -3px #c4c5d6;
+    -moz-box-shadow:0 3px 6px -3px #c4c5d6;
+    box-shadow:0 3px 6px -3px #c4c5d6
+}
+.noUi-target.m-nouislider.m-nouislider--connect-light .noUi-connect{
+    background:#fff
+}
+.noUi-target.m-nouislider.m-nouislider--handle-light .noUi-handle{
+    border:0;
+    background:#fff;
+    -webkit-box-shadow:0 3px 6px -3px #fff;
+    -moz-box-shadow:0 3px 6px -3px #fff;
+    box-shadow:0 3px 6px -3px #fff
+}
+.noUi-target.m-nouislider.m-nouislider--connect-accent .noUi-connect{
+    background:#00c5dc
+}
+.noUi-target.m-nouislider.m-nouislider--handle-accent .noUi-handle{
+    border:0;
+    background:#00c5dc;
+    -webkit-box-shadow:0 3px 6px -3px #00c5dc;
+    -moz-box-shadow:0 3px 6px -3px #00c5dc;
+    box-shadow:0 3px 6px -3px #00c5dc
+}
+.noUi-target.m-nouislider.m-nouislider--connect-focus .noUi-connect{
+    background:#9816f4
+}
+.noUi-target.m-nouislider.m-nouislider--handle-focus .noUi-handle{
+    border:0;
+    background:#9816f4;
+    -webkit-box-shadow:0 3px 6px -3px #9816f4;
+    -moz-box-shadow:0 3px 6px -3px #9816f4;
+    box-shadow:0 3px 6px -3px #9816f4
+}
+.noUi-target.m-nouislider.m-nouislider--connect-primary .noUi-connect{
+    background:#5867dd
+}
+.noUi-target.m-nouislider.m-nouislider--handle-primary .noUi-handle{
+    border:0;
+    background:#5867dd;
+    -webkit-box-shadow:0 3px 6px -3px #5867dd;
+    -moz-box-shadow:0 3px 6px -3px #5867dd;
+    box-shadow:0 3px 6px -3px #5867dd
+}
+.noUi-target.m-nouislider.m-nouislider--connect-success .noUi-connect{
+    background:#34bfa3
+}
+.noUi-target.m-nouislider.m-nouislider--handle-success .noUi-handle{
+    border:0;
+    background:#34bfa3;
+    -webkit-box-shadow:0 3px 6px -3px #34bfa3;
+    -moz-box-shadow:0 3px 6px -3px #34bfa3;
+    box-shadow:0 3px 6px -3px #34bfa3
+}
+.noUi-target.m-nouislider.m-nouislider--connect-info .noUi-connect{
+    background:#36a3f7
+}
+.noUi-target.m-nouislider.m-nouislider--handle-info .noUi-handle{
+    border:0;
+    background:#36a3f7;
+    -webkit-box-shadow:0 3px 6px -3px #36a3f7;
+    -moz-box-shadow:0 3px 6px -3px #36a3f7;
+    box-shadow:0 3px 6px -3px #36a3f7
+}
+.noUi-target.m-nouislider.m-nouislider--connect-warning .noUi-connect{
+    background:#ffb822
+}
+.noUi-target.m-nouislider.m-nouislider--handle-warning .noUi-handle{
+    border:0;
+    background:#ffb822;
+    -webkit-box-shadow:0 3px 6px -3px #ffb822;
+    -moz-box-shadow:0 3px 6px -3px #ffb822;
+    box-shadow:0 3px 6px -3px #ffb822
+}
+.noUi-target.m-nouislider.m-nouislider--connect-danger .noUi-connect{
+    background:#f4516c
+}
+.noUi-target.m-nouislider.m-nouislider--handle-danger .noUi-handle{
+    border:0;
+    background:#f4516c;
+    -webkit-box-shadow:0 3px 6px -3px #f4516c;
+    -moz-box-shadow:0 3px 6px -3px #f4516c;
+    box-shadow:0 3px 6px -3px #f4516c
+}
+.noUi-target{
+    border:1px solid #ebedf2;
+    background:#fafbfc;
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none
+}
+.noUi-target .noUi-connect{
+    background:#716aca
+}
+.noUi-target .noUi-handle{
+    border:1px solid #dfe2ea;
+    -webkit-box-shadow:0 3px 6px -3px #9ea7c0;
+    -moz-box-shadow:0 3px 6px -3px #9ea7c0;
+    box-shadow:0 3px 6px -3px #9ea7c0
+}

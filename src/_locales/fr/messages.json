@@ -103,6 +103,10 @@
     "message": "Ouvrir le Tableau de bord",
     "description": "English: Click to open the dashboard"
   },
+  "popupTipProfile":{
+    "message":"Ouvrir les paramètres du profil",
+    "description":"English: Click to open the profile settings"
+  },
   "popupTipZapper": {
     "message": "Entrer en mode Zappeur",
     "description": "Tooltip for the element-zapper icon in the popup panel"
@@ -279,6 +283,10 @@
     "message":"Journal",
     "description":"button in settings tab"
   },
+  "popupOpenProfile":{
+    "message":"Profil",
+    "description":"button in data tab"
+  },
   "popupStatsDaily":{
     "message":"Activité journalière",
     "description":"appears in stats tab"
@@ -286,6 +294,30 @@
   "popupStatsDailySubtitle":{
     "message":"Votre activité de combat contre les pubs heure par heure",
     "description":"appears in stats tab"
+  },
+  "popupDataSettings":{
+    "message":"Niveau de ciblage",
+    "description":"appears in data tab"
+  },
+  "popupDataSettingsSubtitle":{
+    "message":"Quel niveau d'informations personnelles voulez vous utiliser pour le ciblage?",
+    "description":"appears in data tab"
+  },
+  "popupDataSettingsLevel":{
+    "message":"Niveau {{level}}",
+    "description":"Example: Level 2"
+  },
+  "popupDataSettingsBonus":{
+    "message":"Bonus de +{{bonus}}% par pub bloquée.",
+    "description":"Example: +12% bonus per ad blocked."
+  },
+  "popupDataExplanation":{
+    "message":"Rajoutez des informations sur votre profil pour profiter d'un bonus de récompense.",
+    "description":"Information about data and bonus"
+  },
+  "popupDataDisclaimer":{
+    "message":"Vos données ne sont pour le moment pas utilisées pour du ciblage publicitaire.",
+    "description":"Disclaimer about personal data usage"
   },
   "popupCreateWalletButton":{
     "message":"Nouveau",

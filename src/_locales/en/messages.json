@@ -103,6 +103,10 @@
     "message":"Open the dashboard",
     "description":"English: Click to open the dashboard"
   },
+  "popupTipProfile":{
+    "message":"Open the profile settings",
+    "description":"English: Click to open the profile settings"
+  },
   "popupTipZapper":{
     "message":"Enter element zapper mode",
     "description":"Tooltip for the element-zapper icon in the popup panel"
@@ -279,6 +283,10 @@
     "message":"Logger",
     "description":"button in settings tab"
   },
+  "popupOpenProfile":{
+    "message":"Profile",
+    "description":"button in data tab"
+  },
   "popupStatsDaily":{
     "message":"Daily activity",
     "description":"appears in stats tab"
@@ -286,6 +294,30 @@
   "popupStatsDailySubtitle":{
     "message":"Your Ads fighting activity today per hour",
     "description":"appears in stats tab"
+  },
+  "popupDataSettings":{
+    "message":"Targeting level",
+    "description":"appears in data tab"
+  },
+  "popupDataSettingsSubtitle":{
+    "message":"Which level of personal informations do you want to use for targeting?",
+    "description":"appears in data tab"
+  },
+  "popupDataSettingsLevel":{
+    "message":"Level {{level}}",
+    "description":"Example: Level 2"
+  },
+  "popupDataSettingsBonus":{
+    "message":"+{{bonus}}% bonus per ad blocked.",
+    "description":"Example: +12% bonus per ad blocked."
+  },
+  "popupDataExplanation":{
+    "message":"Add informations to your profile to get a reward bonus.",
+    "description":"Information about data and bonus"
+  },
+  "popupDataDisclaimer":{
+    "message":"For now, your data is not used for ad targeting.",
+    "description":"Disclaimer about personal data usage"
   },
   "popupCreateWalletButton":{
     "message":"Create Wallet",
