@@ -14,6 +14,7 @@ window.µConfig = {
   },
   rewards: {
     install: 50,
-    referral: 20
+    referral: 20,
+    bonusPercentageForData: [0,12,24,36]
   }
 };

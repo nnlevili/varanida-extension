@@ -578,7 +578,8 @@ const extractAddress = function(msg) {
         apiVersion: µConfig.aws.kinesis.apiVersion
     });
   });
-  this.recorder = new Recorder(initState);
+  const initRewardLevel = µDataWallet ? µDataWallet.dataSettings.dataShareLevel : 0;
+  this.recorder = new Recorder(initState, initRewardLevel);
   this.recorder.subscribe(this.recorderUpdatesHandler.bind(this));
   this.recorder.start();
 }
@@ -615,7 +616,8 @@ const extractAddress = function(msg) {
       publicAddress: pubAddress,
       createdOn: rec.timestamp,
       partitionKey: partitionKey,
-      filter: rec.filter
+      filter: rec.filter,
+      level: rec.level
     };
     return {
       Data: JSON.stringify(kinesisRec),
@@ -636,6 +638,14 @@ this.sendReferrerInfo();
 // signal the extension has been installed (is not executed if it's already done)
 this.signalInstallation();
 }
+
+µWallet.setShareLevel = function(newShareLevel) {
+  if (!this.recorder) {
+    console.log("no recorder to update level");
+    return;
+  }
+  this.recorder.setShareLevel(newShareLevel);
+};
 
 const getChartRawData = function(address, callback) {
   if (!address) {

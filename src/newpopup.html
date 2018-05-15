@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=370, height=500, initial-scale=1"><!-- When showing as a tab in fennec, scale to full size (150px + 320px) -->
 <meta charset="utf-8">
 <link rel="stylesheet" href="css/popup_style.bundle.css" type="text/css">
+<link rel="stylesheet" href="css/nouislider.min.css" type="text/css">
 <title>Varanida</title>
 </head>
 
@@ -166,7 +167,7 @@
             <div class="m-stack__item m-stack__item--left m-stack__item--middle m-stack__item--last">
               <span class="m-footer__copyright">
                 2018 &copy; Varanida SAS
-              </span>
+              </span><p style="font-family: Roboto;position: absolute;opacity: 0;">a</p>
             </div>
           </div>
         </div>
@@ -188,6 +189,9 @@
           </li>
           <li class="nav-item m-tabs__item">
             <a id="stats-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_logs" role="tab" data-i18n="popupStatisticsTab"></a>
+          </li>
+          <li class="nav-item m-tabs__item">
+            <a id="data-tab" class="nav-link m-tabs__link" data-toggle="tab" href="#m_quick_sidebar_tabs_data" role="tab">Données</a>
           </li>
         </ul>
         <div class="tab-content">
@@ -262,6 +266,42 @@
                 <canvas  id="m_chart_daily_activity"></canvas>
               </div>
             <!--end:: Widgets/Daily Sales-->
+          </div>
+          <div id="data-pane" class="tab-pane m-scrollable" id="m_quick_sidebar_tabs_data" role="tabpanel">
+            <div class="m--margin-bottom-10">
+              <h5 data-i18n="popupDataSettings"></h5>
+              <span class="m-widget14__desc" data-i18n="popupDataSettingsSubtitle"></span>
+            </div>
+            <div id="varanida-slider-container">
+							<!-- <div id="data-sharing-level" class="varanida-slider noUi-target noUi-ltr noUi-horizontal">
+                <div class="noUi-base">
+                  <div class="noUi-connects">
+                    <div class="noUi-connect"></div>
+                    <div class="noUi-connect noUi-allowed-range"></div>
+                  </div>
+                  <div class="noUi-origin">
+                    <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider"></div>
+                  </div>
+                </div>
+                <div class="noUi-pips noUi-pips-horizontal">
+                  <div class="noUi-marker noUi-marker-horizontal noUi-marker-large"></div>
+                  <div class="noUi-value noUi-value-horizontal noUi-value-large"></div>
+                </div>
+              </div> -->
+						</div>
+            <div class="bottom-data-section m-section">
+    					<h3 id="dataLevelTitle" class="m-section__heading"></h3>
+    					<span id="dataBonusInfo" class="m-section__sub big-sub"></span>
+    					<div class="m-section__content">
+                <p id="noDataYetInformation"></p>
+                <p data-i18n="popupDataDisclaimer"></p>
+    					</div>
+    				</div>
+            <div class="data-bottom-stack m-stack m-stack--ver m-stack--general">
+                <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+                  <button href="dashboard.html#profile.html" id="profile-settings-button" type="button" class="btn btn-success btn-popup btn-parameter" data-i18n="popupOpenProfile"  data-i18n-tip="popupTipProfile" data-tip-position="over"><i class="la la-user"></i></button>
+                </div>
+            </div>
           </div>
         </div>
       </div>

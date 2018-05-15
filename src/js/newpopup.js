@@ -43,6 +43,7 @@ if (
 /******************************************************************************/
 
 var messaging = vAPI.messaging;
+var allScriptsLoaded = false;
 var popupData = {};
 var rewardCount = 0;
 var dfPaneBuilt = false;
@@ -60,6 +61,8 @@ var touchedDomainCount = 0;
 var rowsToRecycle = uDom();
 var cachedPopupHash = '';
 var statsStr = vAPI.i18n('popupBlockedStats');
+var dataSettingsLevelStr = vAPI.i18n('popupDataSettingsLevel');
+var dataSettingsBonusStr = vAPI.i18n('popupDataSettingsBonus');
 var chartData = null;
 var toggleButtons = {};
 
@@ -261,6 +264,10 @@ var renderPopup = function() {
     varanidaMainLogo.attr("href", µConfig.urls.front);
     varanidaMainLogo.on("click", gotoURL);
 
+
+    //fill data sharing information
+    renderDataSharingInfo();
+
     renderTooltips();
 };
 
@@ -298,14 +305,6 @@ var renderTooltips = function(selector) {
                 tooltipElem.getAttribute('data-tip');
         }
     }
-};
-
-/******************************************************************************/
-
-// All rendering code which need to be executed only once.
-
-var renderOnce = function() {
-    renderOnce = function(){};
 };
 
 /******************************************************************************/
@@ -488,6 +487,57 @@ var importReferralFromOverlay = function(ev) {
   }
   importReferrer(address);
 }
+
+/******************************************************************************/
+
+var renderDataSharingInfo = function() {
+  var level = popupData.dataShareLevel || 0;
+  var completionLevel = popupData.dataCompletionLevel || 0;
+  var bonus = µConfig.rewards.bonusPercentageForData[level];
+  var text = dataSettingsLevelStr.replace('{{level}}', formatNumber(level));
+  uDom.nodeFromId('dataLevelTitle').textContent = text;
+  text = dataSettingsBonusStr.replace('{{bonus}}', formatNumber(bonus));
+  uDom.nodeFromId('dataBonusInfo').textContent = text;
+  if (completionLevel === 0) {
+    uDom.nodeFromId('noDataYetInformation').textContent = vAPI.i18n('popupDataExplanation');
+  } else {
+    uDom.nodeFromId('noDataYetInformation').textContent = "";
+  }
+};
+
+/******************************************************************************/
+
+var onDataSliderUpdate = function(newDataShareLevel) {
+  updatePopupData({dataShareLevel: newDataShareLevel});
+  renderDataSharingInfo();
+  messaging.send('popupPanel', { what: 'setShareLevel', newLevel: newDataShareLevel });
+};
+
+/******************************************************************************/
+
+var renderDataSlider = function() {
+  if (typeof popupData.dataShareLevel !== "number" || typeof popupData.dataCompletionLevel !== "number") {
+    return;
+  }
+  if (!allScriptsLoaded) {
+    window.addEventListener("load", function(event) { //on document ready
+      DataSlider.init(popupData.dataShareLevel, popupData.dataCompletionLevel);
+      DataSlider.attachListener(onDataSliderUpdate);
+    });
+    return;
+  }
+  DataSlider.init(popupData.dataShareLevel, popupData.dataCompletionLevel);
+  DataSlider.attachListener(onDataSliderUpdate);
+};
+
+/******************************************************************************/
+
+// All rendering code which need to be executed only once.
+
+var renderOnce = function() {
+    renderOnce = function(){};
+    renderDataSlider();
+};
 
 /******************************************************************************/
 
@@ -968,11 +1018,13 @@ var onHideTooltip = function() {
     //change tab
     var tabs = {
       params: uDom('#params-tab'),
-      stats:  uDom('#stats-tab')
+      stats:  uDom('#stats-tab'),
+      data:   uDom('#data-tab'),
     };
     var panes = {
       params: uDom('#params-pane'),
-      stats:  uDom('#stats-pane')
+      stats:  uDom('#stats-pane'),
+      data:  uDom('#data-pane')
     };
 
     var openPane = function(paneName) {
@@ -1010,7 +1062,8 @@ var onHideTooltip = function() {
             drawChart();
           });
         }
-      }
+      },
+      data: function() {openPane("data")}
     };
     for (var tab in tabs) {
       if (tabs.hasOwnProperty(tab)) {
@@ -1067,6 +1120,7 @@ var onHideTooltip = function() {
 })();
 
 window.addEventListener("load", function(event) { //on document ready
+  allScriptsLoaded = true;
   Dashboard.init();
 });
 /******************************************************************************/
