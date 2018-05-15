@@ -240,8 +240,8 @@ var onFirstFetchReady = function(fetched) {
     fromFetch(µb.restoreBackupSettings, fetched);
     onNetWhitelistReady(fetched.netWhitelist);
     onVersionReady(fetched.version);
-    onWalletSettingReady(fetched);
     onDataWalletSettingReady(fetched);
+    onWalletSettingReady(fetched);// µWallet needs µDataWallet to init the recorder
 
     // If we have a selfie, skip loading PSL, filter lists
     vAPI.cacheStorage.get('selfie', function(bin) {

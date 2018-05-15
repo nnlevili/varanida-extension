@@ -29,11 +29,11 @@ const MAX_ENTRIES_BETWEEN_READ = 50;
 const MIN_TIME_BETWEEN_CHECK = 300 * 1000; //5min
 const START_TIMEOUT = 30 * 1000; //30sec
 
-const LogEntry = function(args) {
-    this.init(args);
+const LogEntry = function(args, shareLevel) {
+    this.init(args, shareLevel);
 };
 
-LogEntry.prototype.init = function(args) {
+LogEntry.prototype.init = function(args, shareLevel) {
     this.tstamp = Date.now();
     this.tab = args[0] || '';
     this.cat = args[1] || '';
@@ -42,29 +42,29 @@ LogEntry.prototype.init = function(args) {
     this.d2 = args[4];
     this.d3 = args[5];
     this.d4 = args[6];
+    this.shareLevel = shareLevel;
 };
 
 class Recorder extends EventEmitter {
 
-  constructor (initState = []) {
+  constructor (initState = [], shareLevel = 0) {
     super()
     // set init state
     this._buffer = initState;
     this._started = false;
     this._hasEmitted = false;
+    this._shareLevel = shareLevel;
   }
-
   start() {
     console.log("starting recorder");
     this._started = true;
     vAPI.setTimeout(this._checkTimeEmit, START_TIMEOUT);
   }
-
   writeOne() {
     if (!this._started) {
       return;
     }
-    const newEntry = new LogEntry(arguments);
+    const newEntry = new LogEntry(arguments, this._shareLevel);
     if (newEntry.d0) { //has been filtered
       this._buffer.push(newEntry);
       this._checkEmit();
@@ -72,6 +72,10 @@ class Recorder extends EventEmitter {
       // console.log("not recorded");
       // console.log(newEntry);
     }
+  }
+
+  setShareLevel(newLevel) {
+    this._shareLevel = newLevel;
   }
 
   readAll() {
@@ -86,7 +90,8 @@ class Recorder extends EventEmitter {
         requestUrl:   this._buffer[i].d2,
         rootHostname: this._buffer[i].d3,
         pageHostname: this._buffer[i].d4,
-        filter:       this._buffer[i].d0.raw
+        filter:       this._buffer[i].d0.raw,
+        level:        this._buffer[i].shareLevel
       });
     }
     this._clean();
