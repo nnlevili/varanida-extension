@@ -211,6 +211,13 @@ html, body {
   margin-right: auto;
   width: fit-content;
 }
+.m-quick-sidebar .m-section.bottom-data-section {
+  margin-bottom: 30px;
+}
+
+.m-quick-sidebar .m-section .m-section__sub.big-sub {
+  font-weight: 600;
+}
 
 .parameter-bottom-stack {
   margin-top: 0.7rem;
@@ -396,6 +403,10 @@ html, body {
   padding-left: 10px;
 }
 
+#varanida-slider-container {
+  margin-bottom: 4em;
+}
+
 #varanida-slider-container.noUi-target .noUi-connect {
   background: #2cd068;
 }
@@ -407,12 +418,13 @@ html, body {
 }
 #varanida-slider-container .noUi-pips.noUi-pips-horizontal {
   padding: 1px 0;
+  height: 20px;
 }
 
 #varanida-slider-container .noUi-pips.noUi-pips-horizontal .noUi-marker-horizontal.noUi-marker-large {
-    height: 10px;
+    display: none;
 }
 
 #varanida-slider-container .noUi-pips.noUi-pips-horizontal .noUi-value-horizontal {
-  transform: translate3d(-50%,63%,0);
+  transform: translate3d(-50%,15%,0);
 }

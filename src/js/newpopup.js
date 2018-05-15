@@ -43,6 +43,7 @@ if (
 /******************************************************************************/
 
 var messaging = vAPI.messaging;
+var allScriptsLoaded = false;
 var popupData = {};
 var rewardCount = 0;
 var dfPaneBuilt = false;
@@ -60,6 +61,8 @@ var touchedDomainCount = 0;
 var rowsToRecycle = uDom();
 var cachedPopupHash = '';
 var statsStr = vAPI.i18n('popupBlockedStats');
+var dataSettingsLevelStr = vAPI.i18n('popupDataSettingsLevel');
+var dataSettingsBonusStr = vAPI.i18n('popupDataSettingsBonus');
 var chartData = null;
 var toggleButtons = {};
 
@@ -260,6 +263,10 @@ var renderPopup = function() {
     var varanidaMainLogo = uDom("#main-brand-logo");
     varanidaMainLogo.attr("href", µConfig.urls.front);
     varanidaMainLogo.on("click", gotoURL);
+
+
+    //fill data sharing information
+    renderDataSharingInfo();
 
     renderTooltips();
 };
@@ -483,7 +490,26 @@ var importReferralFromOverlay = function(ev) {
 
 /******************************************************************************/
 
+var renderDataSharingInfo = function() {
+  var level = popupData.dataShareLevel || 0;
+  var completionLevel = popupData.dataCompletionLevel || 0;
+  var bonus = µConfig.rewards.bonusPercentageForData[level];
+  var text = dataSettingsLevelStr.replace('{{level}}', formatNumber(level));
+  uDom.nodeFromId('dataLevelTitle').textContent = text;
+  text = dataSettingsBonusStr.replace('{{bonus}}', formatNumber(bonus));
+  uDom.nodeFromId('dataBonusInfo').textContent = text;
+  if (completionLevel === 0) {
+    uDom.nodeFromId('noDataYetInformation').textContent = vAPI.i18n('popupDataExplanation');
+  } else {
+    uDom.nodeFromId('noDataYetInformation').textContent = "";
+  }
+};
+
+/******************************************************************************/
+
 var onDataSliderUpdate = function(newDataShareLevel) {
+  updatePopupData({dataShareLevel: newDataShareLevel});
+  renderDataSharingInfo();
   messaging.send('popupPanel', { what: 'setShareLevel', newLevel: newDataShareLevel });
 };
 
@@ -491,6 +517,13 @@ var onDataSliderUpdate = function(newDataShareLevel) {
 
 var renderDataSlider = function() {
   if (typeof popupData.dataShareLevel !== "number" || typeof popupData.dataCompletionLevel !== "number") {
+    return;
+  }
+  if (!allScriptsLoaded) {
+    window.addEventListener("load", function(event) { //on document ready
+      DataSlider.init(popupData.dataShareLevel, popupData.dataCompletionLevel);
+      DataSlider.attachListener(onDataSliderUpdate);
+    });
     return;
   }
   DataSlider.init(popupData.dataShareLevel, popupData.dataCompletionLevel);
@@ -1087,6 +1120,7 @@ var onHideTooltip = function() {
 })();
 
 window.addEventListener("load", function(event) { //on document ready
+  allScriptsLoaded = true;
   Dashboard.init();
 });
 /******************************************************************************/
