@@ -56,7 +56,7 @@
                                                 </a>
                                                 <div class="m-wizard__step-label" data-i18n="profileLevel1">
                                                 </div>
-                                                <div class="m-wizard__step-icon"><i id="profileLevel1Checked" class="hidden checkLevel la la-check"></i></div>
+                                                <div class="m-wizard__step-icon"><i id="profileLevel1Checked" class="hidden la la-check"></i></div>
                                             </div>
                                         </div>
                                         <div id="profileLevel2" data-level="2" class="m-wizard__step pointer">
@@ -66,7 +66,7 @@
                                                 </a>
                                                 <div class="m-wizard__step-label" data-i18n="profileLevel2">
                                                 </div>
-                                                <div class="m-wizard__step-icon"><i id="profileLevel2Checked" class="hidden checkLevel la la-check"></i></div>
+                                                <div class="m-wizard__step-icon"><i id="profileLevel2Checked" class="hidden la la-check"></i></div>
                                             </div>
                                         </div>
                                         <div id="profileLevel3" data-level="3" class="m-wizard__step pointer">
@@ -76,7 +76,7 @@
                                                 </a>
                                                 <div class="m-wizard__step-label" data-i18n="profileLevel3">
                                                 </div>
-                                                <div class="m-wizard__step-icon"><i id="profileLevel3Checked" class="hidden checkLevel la la-check"></i></div>
+                                                <div class="m-wizard__step-icon"><i id="profileLevel3Checked" class="hidden la la-check"></i></div>
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@
                                                     <div class="col-xl-9 col-lg-9">
                                                         <div class="input-group">
                                                             <select name="userGender" class="form-control m-input m-input--solid" id="user-gender" data-setting-name="userGender"
-                                                                    data-setting-level="1" data-setting-type="select">
+                                                                    data-setting-level="1" data-setting-type="input">
                                                                 <option value=""></option>
                                                                 <option value="female" data-i18n="profileUserGenderMale"></option>
                                                                 <option value="male" data-i18n="profileUserGenderFemale"></option>
@@ -200,7 +200,7 @@
                                                     <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserMotherTongue" for="user-mother-tongue"></label>
                                                     <div class="col-xl-9 col-lg-9">
                                                         <select class="form-control m-input m-input--solid" name="userMotherTongue" id="user-mother-tongue" data-setting-name="userMotherTongue"
-                                                                data-setting-level="1" data-setting-type="select">
+                                                                data-setting-level="1" data-setting-type="input">
                                                             <option value=""></option>
                                                             <option value="french">Français</option>
                                                             <option value="english">English</option>
@@ -331,7 +331,7 @@
                                                         <div class="m-checkbox-inline">
                                                             <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
                                                                 <input name="shareLocation" id="share-location" data-setting-name="userShareLocation"
-                                                                       data-setting-level="2" data-setting-type="bool"  type="checkbox" />
+                                                                       data-setting-level="2" data-setting-type="radio"  type="checkbox" />
                                                                 <i data-i18n="profileLocationSharing" for="share-location"></i>
                                                                 <span></span>
                                                             </label>
@@ -343,7 +343,7 @@
                                                         <div class="m-checkbox-inline">
                                                             <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
                                                                 <input name="sharePreferences" id="share-preferences" data-setting-name="userSharePreferences"
-                                                                       data-setting-level="2" data-setting-type="bool" type="checkbox" />
+                                                                       data-setting-level="2" data-setting-type="radio" type="checkbox" />
                                                                 <i data-i18n="profilePreferencesSharing" for="share-preferences"></i>
                                                                 <span></span>
                                                             </label>
@@ -365,7 +365,7 @@
                                                         <div class="m-checkbox-inline">
                                                             <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
                                                                 <input name="shareSession" id="share-session" type="checkbox" data-setting-name="userShareSession"
-                                                                       data-setting-level="3" data-setting-type="bool" />
+                                                                       data-setting-level="3" data-setting-type="radio" />
                                                                 <i data-i18n="profileSessionSharing" for="share-session"></i>
                                                                 <span></span>
                                                             </label>
@@ -377,7 +377,7 @@
                                                         <div class="m-checkbox-inline">
                                                             <label class="m-checkbox m-checkbox--solid m-checkbox--brand">
                                                                 <input name="shareBrowsingHistory" id="share-browsing-history" type="checkbox" data-setting-name="userShareBrowsingHistory"
-                                                                       data-setting-level="3" data-setting-type="bool" />
+                                                                       data-setting-level="3" data-setting-type="radio" />
                                                                 <i data-i18n="profileBrowsingHistorySharing" for="share-browsing-history"></i>
                                                                 <span></span>
                                                             </label>
@@ -395,14 +395,12 @@
                                     <div class="m-portlet__foot m-portlet__foot--fit m--margin-top-40">
                                         <div class="m-form__actions">
                                             <div class="row">
-
                                                 <div class="col-lg-12 m--align-right">
-                                                    <a href="#" class="btn btn-success m-btn m-btn--custom m-btn--icon">
-                                            <span>
-                                                <span data-i18n="profileSave"></span>&nbsp;&nbsp;
-                                                <i class="la la-arrow-right"></i>
-                                            </span>
-                                                    </a>
+                                                    <div class="btn btn-success m-btn m-btn--custom m-btn--iconn">
+                                                        <button id="profileSaveButton" type="button"
+                                                                class="btn btn-success m-btn--wide"
+                                                                data-i18n="profileSave"></button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

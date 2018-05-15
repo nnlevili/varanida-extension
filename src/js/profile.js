@@ -36,53 +36,53 @@ var walletIsUnlocked = false;
 /******************************************************************************/
 
 var calculateNewCompletionLevel = function() {
-  if (userDataStore) {
-    if(userDataStore['level3'] &&
-       userDataStore['level3']['userShareSession'] &&
-       userDataStore['level3']['userShareBrowsingHistory']) {
-         return 3;
-    }
-    if(userDataStore['level2'] &&
-       userDataStore['level2']['userShareLocation'] &&
-       userDataStore['level2']['userSharePreferences']) {
-         return 2;
-    }
-    if(userDataStore['level1'] &&
-       userDataStore['level1']['userBirthdate'] &&
-       userDataStore['level1']['userCity'] &&
-       userDataStore['level1']['userGender'] &&
-       userDataStore['level1']['userMotherTongue'] &&
-       userDataStore['level1']['userEducationLevel'] &&
-       userDataStore['level1']['userRelationshipStatus'] &&
-       userDataStore['level1']['userHasKids'] &&
-       userDataStore['level1']['userWorkStatus'] &&
-       userDataStore['level1']['userIndustry']) {
-         return 2;
-    }
+  if (userDataStore &&
+      userDataStore.level1 &&
+      userDataStore.level1.userBirthdate &&
+      userDataStore.level1.userCity &&
+      userDataStore.level1.userGender &&
+      userDataStore.level1.userMotherTongue &&
+      userDataStore.level1.userEducationLevel &&
+      userDataStore.level1.userRelationshipStatus &&
+      userDataStore.level1.userHasKids &&
+      userDataStore.level1.userWorkStatus &&
+      userDataStore.level1.userIndustry) {
+      if (userDataStore.level2 &&
+            userDataStore.level2.userShareLocation &&
+            userDataStore.level2.userSharePreferences) {
+            if (userDataStore.level3 &&
+                userDataStore.level3.userShareSession &&
+                userDataStore.level3.userShareBrowsingHistory) {
+                return 3;
+            } else {
+                return 2;
+            }
+      } else {
+          return 1;
+      }
+  } else {
+      return 0;
   }
-  return 0;
 };
 
 /******************************************************************************/
 
 var displayCompletionLevel = function(level) {
 
-    uDom.nodeFromSelector('.checkLevel').style.setProperty("display", "none");
     uDom.nodeFromSelector('.currentLevel').style.setProperty("display", "none");
 
-    if(level == 1) {
-        uDom.nodeFromId('profileLevel1Checked').style.setProperty("display", "block");
-        uDom.nodeFromId('currentLevel1').style.setProperty("display", "block");
-    }
-    else if(level == 2){
-        uDom.nodeFromId('profileLevel2Checked').style.setProperty("display", "block");
-        uDom.nodeFromId('currentLevel2').style.setProperty("display", "block");
-    }else if(level == 3){
-        uDom.nodeFromId('profileLevel3Checked').style.setProperty("display", "block");
+    if (level === 3) {
         uDom.nodeFromId('currentLevel3').style.setProperty("display", "block");
-    }else{
+    } else if (level === 2) {
+        uDom.nodeFromId('currentLevel2').style.setProperty("display", "block");
+    } else if (level === 1){
+        uDom.nodeFromId('currentLevel1').style.setProperty("display", "block");
+    } else {
         uDom.nodeFromId('currentLevel0').style.setProperty("display", "block");
     }
+    uDom.nodeFromId('profileLevel3Checked').style.setProperty("display", level > 2 ? "block" : "none");
+    uDom.nodeFromId('profileLevel2Checked').style.setProperty("display", level > 1 ? "block" : "none");
+    uDom.nodeFromId('profileLevel1Checked').style.setProperty("display", level > 0 ? "block" : "none");
 
 };
 /******************************************************************************/
@@ -104,20 +104,9 @@ var changeUserProfile = function(level, name, value) {
     userDataStore['level'+level] = {};
   }
   userDataStore['level'+level][name] = value;
-  let newCompletionLevel = calculateNewCompletionLevel();
 
-    //Display level
-    displayCompletionLevel(level);
-
-  messaging.send(
-    'dashboard',
-    {
-      what: 'setUserData ',
-      password: password,
-      newCompletionLevel: newCompletionLevel,
-      data: userDataStore
-    }
-  );
+  //Display level
+  displayCompletionLevel(level);
 };
 
 /******************************************************************************/
@@ -143,8 +132,8 @@ var onPreventDefault = function(ev) {
 /******************************************************************************/
 
 var onUserDataReceived = function(data) {
-  userDataStore = data;
-  if (data) {
+  if (typeof data !== 'string') {
+    userDataStore = data;
     uDom('[data-setting-type="input"]').forEach(function(uNode) {
       uNode.val(data[uNode.attr('data-setting-name')]);
     });
@@ -158,15 +147,30 @@ var onUserDataReceived = function(data) {
 
 var onUnlockWallet = function() {
     password = uDom.nodeFromId("unlock-password");
-    if (password.value=='') {
+    if (password.value === '') {
         uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "block");
         uDom.nodeFromId('errorUnlockWalletMessagePasswordEmpty').style.setProperty("display", "block");
         return false;
-    }else{
+    } else {
         walletIsUnlocked = true;
         messaging.send('dashboard', { what: 'getUserData', password: password }, onUserDataReceived);
         renderPage();
     }
+};
+
+/******************************************************************************/
+
+var onProfileSave = function() {
+    let newCompletionLevel = calculateNewCompletionLevel();
+    messaging.send(
+        'dashboard',
+        {
+            what: 'setUserData ',
+            password: password,
+            newCompletionLevel: newCompletionLevel,
+            data: userDataStore
+        }
+    );
 };
 
 /******************************************************************************/
@@ -208,6 +212,7 @@ uDom.onLoad(function() {
     messaging.send('dashboard', { what: 'getWalletInfo' }, onReadWalletInfo);
 
     uDom('#unlockWalletButton').on('click', onUnlockWallet);
+    uDom('#profileSaveButton').on('click', onProfileSave);
     uDom('[data-setting-type="input"]').forEach(function(uNode) {
       uNode.on('change', onInputChanged).on('click', onPreventDefault);
     });
