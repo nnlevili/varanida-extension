@@ -368,6 +368,8 @@ const cleanData = function(dirtyData) {
         if (this.status === 200 || this.status === 304) {
           const encryptedData = JSON.parse(this.responseText);
           return resolve(encryptedData);
+        } else if (this.status === 204) {
+          return resolve(null);
         }
         return reject("failed to load data");
       }
@@ -376,6 +378,9 @@ const cleanData = function(dirtyData) {
     xmlhttp.send();
   })
   .then((encryptedDataObject) => {
+    if (!encryptedDataObject) {
+      return cleanData({});
+    }
     //don't use this data if for some reason it's older than data that is currently stored
     if (encryptedDataObject.createdOn && this.tempDataCreatedOn) {
       const encryptedDataTime = moment(encryptedDataObject.createdOn);
