@@ -29,6 +29,7 @@
 
 var messaging = vAPI.messaging;
 var password = undefined;
+var privkey = undefined;
 var userDataStore = undefined;
 var walletInfoStore = undefined;
 var walletIsUnlocked = false;
@@ -70,7 +71,6 @@ var calculateNewCompletionLevel = function() {
 var displayCompletionLevel = function(level) {
 
     uDom.nodeFromSelector('.currentLevel').style.setProperty("display", "none");
-
     if (level === 3) {
         uDom.nodeFromId('currentLevel3').style.setProperty("display", "block");
     } else if (level === 2) {
@@ -106,7 +106,7 @@ var changeUserProfile = function(level, name, value) {
   userDataStore['level'+level][name] = value;
 
   //Display level
-  displayCompletionLevel(level);
+  displayCompletionLevel(calculateNewCompletionLevel());
 };
 
 /******************************************************************************/
@@ -134,28 +134,31 @@ var onPreventDefault = function(ev) {
 var onUserDataReceived = function(data) {
   if (typeof data !== 'string') {
     userDataStore = data;
+    walletIsUnlocked = true;
     uDom('[data-setting-type="input"]').forEach(function(uNode) {
-      uNode.val(data[uNode.attr('data-setting-name')]);
+        if (data['level'+uNode.attr('data-setting-level')]) {
+            uNode.val(data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')]);
+        }
     });
-    uDom('[data-setting-type="radio"]').forEach(function(uNode) {
-      uNode.val(data[uNode.attr('data-setting-name')]);
+    uDom('[data-setting-type="checkbox"]').forEach(function(uNode) {
+      if (data['level'+uNode.attr('data-setting-level')]) {
+          uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === "on");
+      }
     });
+    renderPage();
+    displayCompletionLevel(calculateNewCompletionLevel());
+  } else {
+      uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "block");
+      uDom.nodeFromId('errorUnlockWalletMessagePasswordEmpty').style.setProperty("display", "block");
   }
 };
 
 /******************************************************************************/
 
 var onUnlockWallet = function() {
-    password = uDom.nodeFromId("unlock-password");
-    if (password.value === '') {
-        uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "block");
-        uDom.nodeFromId('errorUnlockWalletMessagePasswordEmpty').style.setProperty("display", "block");
-        return false;
-    } else {
-        walletIsUnlocked = true;
-        messaging.send('dashboard', { what: 'getUserData', password: password }, onUserDataReceived);
-        renderPage();
-    }
+    password = uDom.nodeFromId("unlock-password").value;
+    privkey = uDom.nodeFromId("unlock-privkey").value;
+    messaging.send('dashboard', { what: 'getUserData', password: password , privKey: privkey}, onUserDataReceived);
 };
 
 /******************************************************************************/
@@ -165,7 +168,7 @@ var onProfileSave = function() {
     messaging.send(
         'dashboard',
         {
-            what: 'setUserData ',
+            what: 'setUserData',
             password: password,
             newCompletionLevel: newCompletionLevel,
             data: userDataStore
@@ -215,6 +218,9 @@ uDom.onLoad(function() {
     uDom('#profileSaveButton').on('click', onProfileSave);
     uDom('[data-setting-type="input"]').forEach(function(uNode) {
       uNode.on('change', onInputChanged).on('click', onPreventDefault);
+    });
+    uDom('[data-setting-type="checkbox"]').forEach(function(uNode) {
+        uNode.on('click', onInputChanged);
     });
     uDom('[data-setting-type="radio"]').forEach(function(uNode) {
       uNode.on('click', onInputChanged);
