@@ -76,6 +76,29 @@
                   }
                 }
             }
+        },
+        "profile": {
+            "default": {
+                "base": {
+                    "src": {
+                        "styles": [
+                            "{$config.path.src}/css/metronic_styles.css",
+                            "{$config.path.src}/css/profile.css",
+                            "{$config.path.src}/css/line-awesome.css"
+                        ],
+                        "scripts": [
+                            "{$config.path.src}/js/profile.js"
+                        ],
+                        "html": [
+                            "{$config.path.src}/profile.html"
+                        ]
+                    },
+                    "bundle": {
+                        "styles": "{$config.output}/css/profile_style.bundle.css",
+                        "scripts": "{$config.output}/js/profile_scripts.bundle.js"
+                    }
+                }
+            }
         }
     }
 }

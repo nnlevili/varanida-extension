@@ -65,6 +65,37 @@ var calculateNewCompletionLevel = function() {
 
 /******************************************************************************/
 
+var displayCompletionLevel = function(level) {
+
+    uDom.nodeFromSelector('.checkLevel').style.setProperty("display", "none");
+    uDom.nodeFromSelector('.currentLevel').style.setProperty("display", "none");
+
+    if(level == 1) {
+        uDom.nodeFromId('profileLevel1Checked').style.setProperty("display", "block");
+        uDom.nodeFromId('currentLevel1').style.setProperty("display", "block");
+    }
+    else if(level == 2){
+        uDom.nodeFromId('profileLevel2Checked').style.setProperty("display", "block");
+        uDom.nodeFromId('currentLevel2').style.setProperty("display", "block");
+    }else if(level == 3){
+        uDom.nodeFromId('profileLevel3Checked').style.setProperty("display", "block");
+        uDom.nodeFromId('currentLevel3').style.setProperty("display", "block");
+    }else{
+        uDom.nodeFromId('currentLevel0').style.setProperty("display", "block");
+    }
+
+};
+/******************************************************************************/
+
+var browseLevels = function(ev) {
+    uDom('.m-wizard__step').removeClass("m-wizard__step--current");
+    uDom(this).addClass("m-wizard__step--current");
+    uDom('.m-wizard__form-step').removeClass("m-wizard__form-step--current");
+    let level = this.getAttribute("data-level");
+    uDom('#m_wizard_form_step_'+level).addClass("m-wizard__form-step--current");
+};
+/******************************************************************************/
+
 var changeUserProfile = function(level, name, value) {
   if (!userDataStore) {
     userDataStore = {};
@@ -74,6 +105,10 @@ var changeUserProfile = function(level, name, value) {
   }
   userDataStore['level'+level][name] = value;
   let newCompletionLevel = calculateNewCompletionLevel();
+
+    //Display level
+    displayCompletionLevel(level);
+
   messaging.send(
     'dashboard',
     {
@@ -122,10 +157,16 @@ var onUserDataReceived = function(data) {
 /******************************************************************************/
 
 var onUnlockWallet = function() {
-  walletIsUnlocked = true;
-  password = uDom.nodeFromId("unlock-password");
-  messaging.send('dashboard', { what: 'getUserData', password: password }, onUserDataReceived);
-  renderPage();
+    password = uDom.nodeFromId("unlock-password");
+    if (password.value=='') {
+        uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "block");
+        uDom.nodeFromId('errorUnlockWalletMessagePasswordEmpty').style.setProperty("display", "block");
+        return false;
+    }else{
+        walletIsUnlocked = true;
+        messaging.send('dashboard', { what: 'getUserData', password: password }, onUserDataReceived);
+        renderPage();
+    }
 };
 
 /******************************************************************************/
@@ -139,6 +180,7 @@ var renderPage = function() {
     uDom.nodeFromId('userProfileForm').style.setProperty("display", "none");
     uDom.nodeFromId('userUnlockWallet').style.setProperty("display", "block");
     uDom.nodeFromId('userHasNoWallet').style.setProperty("display", "none");
+    uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "none");
     if ( walletInfoStore.onlyAddress ) {
       uDom.nodeFromId('userUnlockWalletWithPassword').style.setProperty("display", "none");
       uDom.nodeFromId('userUnlockWalletWithPrivkey').style.setProperty("display", "block");
@@ -172,6 +214,8 @@ uDom.onLoad(function() {
     uDom('[data-setting-type="radio"]').forEach(function(uNode) {
       uNode.on('click', onInputChanged);
     });
+    uDom('.m-wizard__step').on('click', browseLevels);
+
 });
 
 /******************************************************************************/

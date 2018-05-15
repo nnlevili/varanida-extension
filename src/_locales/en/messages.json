@@ -15,6 +15,18 @@
     "message":"Profile",
     "description":"appears as tab name in dashboard"
   },
+  "profileCurrentLevel":{
+    "message":"Current level",
+    "description":"Current Level"
+  },
+  "profilePersonalQuestions":{
+    "message":"Personal questions",
+    "description":"Personal questions"
+  },
+  "profileSave":{
+    "message":"Save",
+    "description":"Save"
+  },
   "settingsPageName":{
     "message":"Settings",
     "description":"appears as tab name in dashboard"
@@ -555,6 +567,10 @@
     "message":"When were you born?",
     "description":"English: When were you born?"
   },
+  "profileUserBirthdateInfo":{
+    "message":"Please enter your birthdate",
+    "description":"English: Please enter your birthdate"
+  },
   "profileUserCity":{
     "message":"Where do you live?",
     "description":"English: Where do you live?"
@@ -667,9 +683,49 @@
     "message":"Retired",
     "description":"English: Retired"
   },
+  "profileUserBasicMaterials":{
+    "message":"Basic Materials",
+    "description":"English: Basic Materials"
+  },
   "profileUserIndustry":{
-    "message":"You work in:",
-    "description":"English: You work in:"
+    "message":"Industry",
+    "description":"English: Industry"
+  },
+  "profileUserIndustryEnergy":{
+    "message":"Energy",
+    "description":"English: Energy"
+  },
+  "profileUserIndustryIndustrials":{
+    "message":"Industrials",
+    "description":"English: Industrials"
+  },
+  "profileUserIndustryCyclical":{
+    "message":"Cyclical Consumer Goods & Services",
+    "description":"English: Cyclical Consumer Goods & Services"
+  },
+  "profileUserIndustryNonCyclical":{
+    "message":"Non-Cyclical Consumer Goods & Services",
+    "description":"English: Non-Cyclical Consumer Goods & Services"
+  },
+  "profileUserIndustryFinancials":{
+    "message":"Financials",
+    "description":"English: Financials"
+  },
+  "profileUserIndustryHealthcare":{
+    "message":"Healthcare",
+    "description":"English: Healthcare"
+  },
+  "profileUserIndustryTechnology":{
+    "message":"Technology",
+    "description":"English: Technology"
+  },
+  "profileUserIndustryTelecommunications":{
+    "message":"Telecommunications Services",
+    "description":"English: Telecommunications Services"
+  },
+  "profileUserIndustryUtilities":{
+    "message":"Utilities",
+    "description":"English: Utilities"
   },
   "profileLocationSharing":{
     "message":"I'm ok to complete my profile with my location",
@@ -692,16 +748,24 @@
     "description":"English: Unlock your wallet"
   },
   "unlockWalletWithPassword":{
-    "message":"Enter your wallet password:",
-    "description":"English: Enter your wallet password:"
+    "message":"Enter your wallet password",
+    "description":"English: Enter your wallet password"
   },
   "unlockWalletWithPrivkey":{
-    "message":"Enter your private key:",
-    "description":"English: Enter your private key:"
+    "message":"Enter your private key",
+    "description":"English: Enter your private key"
   },
   "unlockWalletButton":{
     "message":"Unlock",
     "description":"English: Unlock"
+  },
+  "requiredFieldEmpty":{
+    "message":"Please Fill All Required Field",
+    "description":"English: Please Fill All Required Field"
+  },
+  "passwordNotCorrect":{
+    "message":"Your password is not good",
+    "description":"English: Your password is not good"
   },
   "walletPrivKeyExport":{
     "message":"Export passphrase and private key",
