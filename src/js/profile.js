@@ -128,37 +128,35 @@ var onPreventDefault = function(ev) {
 /******************************************************************************/
 
 var onUserDataReceived = function(data) {
-
-    var errorMessage = uDom.nodeFromId("errorUnlockWalletMessage");
-    if (typeof data === "string") {
-        errorMessage.textContent = data;
-        uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "block");
-    } else {
-        errorMessage.textContent = "";
-        uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "none");
-    }
-
+  var errorMessage = uDom.nodeFromId("errorUnlockWalletMessage");
   if (typeof data !== 'string') {
     userDataStore = data;
     walletIsUnlocked = true;
     uDom('[data-setting-type="input"]').forEach(function(uNode) {
         if (data['level'+uNode.attr('data-setting-level')]) {
-            uNode.val(data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')]);
+          uNode.val(data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')]);
         }
     });
     uDom('[data-setting-type="checkbox"]').forEach(function(uNode) {
       if (data['level'+uNode.attr('data-setting-level')]) {
-          uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === true);
+        uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === true);
       }
     });
       uDom('[data-setting-type="radio"]').forEach(function(uNode) {
           if (data['level'+uNode.attr('data-setting-level')]) {
-              uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === uNode.attr('value'));
+            uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === uNode.attr('value'));
           }
       });
     renderPage();
     displayCompletionLevel(calculateNewCompletionLevel());
-  }
+    errorMessage.textContent = "";
+    uDom.nodeFromId('errorUnlockWalletBlock').style.setProperty("display", "none");
+    uDom.nodeFromId("unlock-password").value = "";
+    uDom.nodeFromId("unlock-privkey").value = "";
+  } else {
+      errorMessage.textContent = data;
+      uDom.nodeFromId('errorUnlockWalletBlock').style.setProperty("display", "block");
+    }
 };
 
 /******************************************************************************/
@@ -186,8 +184,8 @@ var renderPage = function() {
   } else if ( !walletIsUnlocked ) {
     uDom.nodeFromId('userProfileForm').style.setProperty("display", "none");
     uDom.nodeFromId('userUnlockWallet').style.setProperty("display", "block");
+    uDom.nodeFromId('errorUnlockWalletBlock').style.setProperty("display", "none");
     uDom.nodeFromId('userHasNoWallet').style.setProperty("display", "none");
-    uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "none");
     if ( walletInfoStore && walletInfoStore.onlyAddress ) {
       uDom.nodeFromId('userUnlockWalletWithPassword').style.setProperty("display", "none");
       uDom.nodeFromId('userUnlockWalletWithPrivkey').style.setProperty("display", "block");
@@ -227,7 +225,7 @@ var onLockWallet = function() {
 
 var onReadWalletInfo = function(walletInfo) {
   walletInfoStore = walletInfo;
-  if (walletInfo && walletInfo.isUnlocked) {
+  if (walletInfo && walletInfo.isUnlocked === true) {
       walletIsUnlocked = true;
       onUnlockWallet();
   } else {
