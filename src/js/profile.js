@@ -70,16 +70,8 @@ var calculateNewCompletionLevel = function() {
 
 var displayCompletionLevel = function(level) {
 
-    uDom.nodeFromSelector('.currentLevel').style.setProperty("display", "none");
-    if (level === 3) {
-        uDom.nodeFromId('currentLevel3').style.setProperty("display", "block");
-    } else if (level === 2) {
-        uDom.nodeFromId('currentLevel2').style.setProperty("display", "block");
-    } else if (level === 1){
-        uDom.nodeFromId('currentLevel1').style.setProperty("display", "block");
-    } else {
-        uDom.nodeFromId('currentLevel0').style.setProperty("display", "block");
-    }
+    uDom(".currentLevel").text(level);
+
     uDom.nodeFromId('profileLevel3Checked').style.setProperty("display", level > 2 ? "block" : "none");
     uDom.nodeFromId('profileLevel2Checked').style.setProperty("display", level > 1 ? "block" : "none");
     uDom.nodeFromId('profileLevel1Checked').style.setProperty("display", level > 0 ? "block" : "none");

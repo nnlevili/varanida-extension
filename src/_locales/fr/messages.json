@@ -19,6 +19,10 @@
     "message":"Niveau actuel",
     "description":"Current Level"
   },
+  "profileLevel":{
+    "message":"Niveau",
+    "description":"Level"
+  },
   "profilePersonalQuestions":{
     "message":"Questions personnelles",
     "description":"Personal questions"
