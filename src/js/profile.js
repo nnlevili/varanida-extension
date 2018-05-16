@@ -115,7 +115,11 @@ var onInputChanged = function(ev) {
     var input = ev.target;
     var level = this.getAttribute('data-setting-level');
     var name = this.getAttribute('data-setting-name');
+    var type = this.getAttribute('data-setting-type');
     var value = input.value;
+    if(type === "checkbox"){
+        value = uDom(this).prop('checked');
+    }
     if ( value !== input.value ) {
         input.value = value;
     }
