@@ -795,14 +795,6 @@
     "message":"Unlock",
     "description":"English: Unlock"
   },
-  "requiredFieldEmpty":{
-    "message":"Please Fill All Required Field",
-    "description":"English: Please Fill All Required Field"
-  },
-  "passwordNotCorrect":{
-    "message":"Wrong password",
-    "description":"English: Wrong password"
-  },
   "walletPrivKeyExport":{
     "message":"Export passphrase and private key",
     "description":"wallet export title"

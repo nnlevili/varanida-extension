@@ -128,6 +128,16 @@ var onPreventDefault = function(ev) {
 /******************************************************************************/
 
 var onUserDataReceived = function(data) {
+
+    var errorMessage = uDom.nodeFromId("errorUnlockWalletMessage");
+    if (typeof data === "string") {
+        errorMessage.textContent = data;
+        uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "block");
+    } else {
+        errorMessage.textContent = "";
+        uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "none");
+    }
+
   if (typeof data !== 'string') {
     userDataStore = data;
     walletIsUnlocked = true;
@@ -148,31 +158,7 @@ var onUserDataReceived = function(data) {
       });
     renderPage();
     displayCompletionLevel(calculateNewCompletionLevel());
-  } else {
-      uDom.nodeFromId('errorUnlockWalletMessage').style.setProperty("display", "block");
-      uDom.nodeFromId('errorUnlockWalletMessagePasswordEmpty').style.setProperty("display", "block");
   }
-};
-
-/******************************************************************************/
-
-var onUnlockWallet = function() {
-    password = uDom.nodeFromId("unlock-password").value;
-    privkey = uDom.nodeFromId("unlock-privkey").value;
-    messaging.send('dashboard', { what: 'getUserData', password: password , privKey: privkey}, onUserDataReceived);
-};
-
-/******************************************************************************/
-
-var onLockWallet = function() {
-    var onLockHandler = function() {
-        password = undefined;
-        privkey = undefined;
-        userDataStore = undefined;
-        walletIsUnlocked = false;
-        renderPage();
-    };
-    messaging.send('dashboard', { what: 'lockWallet' }, onLockHandler);
 };
 
 /******************************************************************************/
@@ -218,21 +204,32 @@ var renderPage = function() {
 
 /******************************************************************************/
 
-var onReadWalletUnlocked = function(isUnlocked) {
-    walletIsUnlocked = isUnlocked;
-    if (isUnlocked) {
-        onUnlockWallet();
-    } else {
+var onUnlockWallet = function() {
+    password = uDom.nodeFromId("unlock-password").value;
+    privkey = uDom.nodeFromId("unlock-privkey").value;
+    messaging.send('dashboard', { what: 'getUserData', password: password , privKey: privkey}, onUserDataReceived);
+};
+
+/******************************************************************************/
+
+var onLockWallet = function() {
+    var onLockHandler = function() {
+        password = undefined;
+        privkey = undefined;
+        userDataStore = undefined;
+        walletIsUnlocked = false;
         renderPage();
-    }
+    };
+    messaging.send('dashboard', { what: 'lockWallet' }, onLockHandler);
 };
 
 /******************************************************************************/
 
 var onReadWalletInfo = function(walletInfo) {
   walletInfoStore = walletInfo;
-  if (walletInfo) {
-      messaging.send('dashboard', { what: 'isWalletUnlocked' }, onReadWalletUnlocked);
+  if (walletInfo && walletInfo.isUnlocked) {
+      walletIsUnlocked = true;
+      onUnlockWallet();
   } else {
       renderPage();
   }

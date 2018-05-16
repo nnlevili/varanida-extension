@@ -795,14 +795,6 @@
     "message":"Débloquer",
     "description":"English: Unlock"
   },
-  "requiredFieldEmpty":{
-    "message":"Merci de remplir les champs obligatoires",
-    "description":"English: Please Fill All Required Field"
-  },
-  "passwordNotCorrect":{
-    "message":"Votre mot de passe n'est pas correct!",
-    "description":"English: Wrong password"
-  },
   "walletPrivKeyExport":{
     "message":"Exporter passphrase et clé privée",
     "description":"wallet export title"
