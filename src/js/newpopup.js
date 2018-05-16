@@ -771,7 +771,7 @@ var onImportWallet = function() {
 
 var setNewWallet = function(password) {
     var onWalletInfoReceived = function(response) {
-      if (!response || !response.address) {
+      if (!response || typeof response !== "object" || !response.address) {
         var errorField = uDom.nodeFromId("create-wallet-overlay-error");
         errorField.textContent = vAPI.i18n('createWalletError');
         errorField.parentElement.classList.add("has-danger");
@@ -796,7 +796,7 @@ var setNewWallet = function(password) {
 
 var importWallet = function(password, seed) {
     var onWalletInfoReceived = function(response) {
-      if (!response || !response.address) {
+      if (!response || typeof response !== "object" || !response.address) {
         var errorField = uDom.nodeFromId("import-wallet-overlay-error");
         errorField.textContent = vAPI.i18n('importWalletError');
         errorField.parentElement.classList.add("has-danger");
@@ -822,7 +822,7 @@ var importWallet = function(password, seed) {
 
   var importAddress = function(address) {
     var onWalletInfoReceived = function(response) {
-      if (!response || !response.address) {
+      if (!response || typeof response !== "object" || !response.address) {
         var errorField = uDom.nodeFromId("import-address-overlay-error");
         errorField.textContent = vAPI.i18n('importAddressError');
         errorField.parentElement.classList.add("has-danger");

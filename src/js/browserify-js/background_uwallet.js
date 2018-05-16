@@ -183,7 +183,8 @@ const checkEthereumAddress = function(address) {
       seed: keyring.mnemonic,
     }
   })
-  .then(res => callback && callback(res));
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
 }
 
 µWallet.importWallet = function(password, seed, callback) {
@@ -204,7 +205,8 @@ const checkEthereumAddress = function(address) {
     }
     return null;
   })
-  .then(res => callback && callback(res))
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
 }
 
 µWallet.importAddress = function(address, callback) {
@@ -355,9 +357,9 @@ const checkEthereumAddress = function(address) {
       };
     })
   })
-  .then(res => callback && callback(res),(err) => callback && callback(err.message))
-
-}
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
+};
 
 const hexStringFromUint8 = function(uint8) {
   return uint8.reduce(function(memo, i) {
@@ -424,13 +426,15 @@ const extractAddress = function(msg) {
     //sign the data
     return signPersonalMessage(privKey, encrypted)
     .then((signature) => {
-      return callback && callback({
+      return {
         data: encrypted,
         iv: ivHex,
         sig: signature
-      });
+      };
     });
-  });
+  })
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
 };
 
 µWallet.decryptAndVerify = function(credentials, encryptedData, callback) {
@@ -482,9 +486,11 @@ const extractAddress = function(msg) {
       const decipher = crypto.createDecipheriv('aes-256-ctr', decryptionKey, iv);
       let decrypted = decipher.update(encryptedData.data, 'hex', 'utf8');
       decrypted += decipher.final('utf8');
-      return callback && callback({data: decrypted, isSignValid: signatureValid});
+      return {data: decrypted, isSignValid: signatureValid};
     });
-  });
+  })
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
 };
 
 µWallet.loadWallet = function(password, callback) {
@@ -493,7 +499,8 @@ const extractAddress = function(msg) {
     callback && callback(store);
   } else {
     return this.keyringController.submitPassword(password)
-    .then(res => callback && callback(res));
+    .then(res => callback && callback(res),
+      err => callback && callback(err instanceof Error? err.message : err));
   }
 }
 
@@ -504,6 +511,7 @@ const extractAddress = function(msg) {
 
 µWallet.lockWallet = function(callback) {
   const store = this.keyringController.memStore.getState();
+  µDataWallet && µDataWallet.lockDataWallet();
   if (store.isUnlocked) {
     this.keyringController.setLocked()
     .then(res => callback && callback(res));
@@ -617,7 +625,7 @@ const extractAddress = function(msg) {
       createdOn: rec.timestamp,
       partitionKey: partitionKey,
       filter: rec.filter,
-      level: rec.level
+      userLevel: rec.level
     };
     return {
       Data: JSON.stringify(kinesisRec),
