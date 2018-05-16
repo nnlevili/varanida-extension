@@ -146,7 +146,7 @@ var onUserDataReceived = function(data) {
     });
     uDom('[data-setting-type="checkbox"]').forEach(function(uNode) {
       if (data['level'+uNode.attr('data-setting-level')]) {
-          uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === "on");
+          uNode.prop('checked', data['level'+uNode.attr('data-setting-level')][uNode.attr('data-setting-name')] === true);
       }
     });
       uDom('[data-setting-type="radio"]').forEach(function(uNode) {
