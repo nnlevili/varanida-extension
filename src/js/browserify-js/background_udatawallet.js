@@ -93,6 +93,12 @@ const µDataWallet = (function() {
   };
 })();
 
+µDataWallet.lockDataWallet = function() {
+  // remove temp data if the wallet is locked
+  this.tempData = {};
+  this.tempDataCreatedOn = null;
+}
+
 /* settings handling */
 
 µDataWallet.saveSettings = function(callback) {
@@ -251,7 +257,7 @@ const µDataWallet = (function() {
   ) {
     return callback && callback("Not a number or out of range");
   }
-  µWallet.setShareLevel(newShareLevel);
+  µWallet && µWallet.setShareLevel(newShareLevel);
   this.updateSettings({
     dataShareLevel: newShareLevel
   }, callback);
@@ -346,7 +352,8 @@ const cleanData = function(dirtyData) {
     //everything went fine, nothing to report
     return null;
   })
-  .then(res => callback && callback(res), err => callback && callback(err));
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
 
 }
 
@@ -429,8 +436,8 @@ const cleanData = function(dirtyData) {
       return cleanedData;
     });
   })
-  .then(res => callback && callback(res), err => callback && callback(err));
-
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
 }
 
 window.µDataWallet = µDataWallet;
