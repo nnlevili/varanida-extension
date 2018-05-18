@@ -264,24 +264,35 @@ const µDataWallet = (function() {
 };
 
 const cleanData = function(dirtyData) {
-  let completionLevel = dirtyData.completionLevel;
-  if (typeof completionLevel !== "number") {
-    completionLevel = 0;
-    if (dirtyData.level3) {
-      completionLevel = 3;
-    } else if (dirtyData.level2) {
-      completionLevel = 2;
-    } else if (dirtyData.level1) {
-      completionLevel = 1;
+  if (!dirtyData || typeof dirtyData !== "object") {
+    return {};
+  }
+  let cleanData = {
+    level1: undefined,
+    level2: undefined,
+    level3: undefined,
+    completionLevel: dirtyData.completionLevel
+  };
+  let lvlStr,cleanLevelData,levelStructure,levelData;
+  for (let level = 1; level < 4; level++) {
+    lvlStr = "level"+level;
+    if (dirtyData[lvlStr] && typeof dirtyData[lvlStr] === "object") {
+      cleanData[lvlStr] = {};
+      cleanLevelData = cleanData[lvlStr];
+      levelStructure = µConfig.userDataStructure[lvlStr];
+      levelData = dirtyData[lvlStr];
+      for (let i = 0; i < levelStructure.length; i++) {
+        if (
+          levelData[levelStructure[i].name] &&
+          typeof levelData[levelStructure[i].name] === levelStructure[i].type
+        ) {
+          cleanLevelData[levelStructure[i].name] = levelData[levelStructure[i].name];
+        }
+      }
     }
   }
-  return {
-    level1: dirtyData.level1,
-    level2: dirtyData.level2,
-    level3: dirtyData.level3,
-    completionLevel: completionLevel
-  };
-}
+  return cleanData;
+};
 
 µDataWallet.setUserData = function(credentials, newCompletionLevel, data, callback) {
   const walletInfo = {

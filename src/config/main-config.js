@@ -16,5 +16,65 @@ window.µConfig = {
     install: 50,
     referral: 20,
     bonusPercentageForData: [0,12,24,36]
+  },
+  userDataStructure: {
+    level1: [
+      {
+        name: "userBirthdate",
+        type: "string"
+      },
+      {
+        name: "userCity",
+        type: "string"
+      },
+      {
+        name: "userGender",
+        type: "string"
+      },
+      {
+        name: "userMotherTongue",
+        type: "string"
+      },
+      {
+        name: "userEducationLevel",
+        type: "string"
+      },
+      {
+        name: "userRelationshipStatus",
+        type: "string"
+      },
+      {
+        name: "userHasKids",
+        type: "string"
+      },
+      {
+        name: "userWorkStatus",
+        type: "string"
+      },
+      {
+        name: "userIndustry",
+        type: "string"
+      }
+    ],
+    level2: [
+      {
+        name: "userShareLocation",
+        type: "boolean"
+      },
+      {
+        name: "userSharePreferences",
+        type: "boolean"
+      }
+    ],
+    level3: [
+      {
+        name: "userShareSession",
+        type: "boolean"
+      },
+      {
+        name: "userShareBrowsingHistory",
+        type: "boolean"
+      }
+    ]
   }
 };

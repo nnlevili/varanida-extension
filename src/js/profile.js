@@ -36,24 +36,28 @@
 
     /******************************************************************************/
 
+    var testLevel = function(level) {
+      var lvlStr = "level"+level;
+      if (!userDataStore || !userDataStore[lvlStr]) {
+        return false;
+      }
+      var levelStructure = µConfig.userDataStructure[lvlStr];
+      var levelStore = userDataStore[lvlStr];
+      for (var i = 0; i < levelStructure.length; i++) {
+        if (
+          !levelStore[levelStructure[i].name] ||
+          typeof levelStore[levelStructure[i].name] !== levelStructure[i].type
+        ) {
+          return false;
+        }
+      }
+      return true;
+    };
+
     var calculateNewCompletionLevel = function() {
-        if (userDataStore &&
-            userDataStore.level1 &&
-            userDataStore.level1.userBirthdate &&
-            userDataStore.level1.userCity &&
-            userDataStore.level1.userGender &&
-            userDataStore.level1.userMotherTongue &&
-            userDataStore.level1.userEducationLevel &&
-            userDataStore.level1.userRelationshipStatus &&
-            userDataStore.level1.userHasKids &&
-            userDataStore.level1.userWorkStatus &&
-            userDataStore.level1.userIndustry) {
-            if (userDataStore.level2 &&
-                userDataStore.level2.userShareLocation &&
-                userDataStore.level2.userSharePreferences) {
-                if (userDataStore.level3 &&
-                    userDataStore.level3.userShareSession &&
-                    userDataStore.level3.userShareBrowsingHistory) {
+        if (testLevel(1)) {
+            if (testLevel(2)) {
+                if (testLevel(3)) {
                     return 3;
                 } else {
                     return 2;
