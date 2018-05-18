@@ -312,7 +312,7 @@ const cleanData = function(dirtyData) {
     return callback && callback("Data invalid or Completion level not a number or out of range");
   }
   // sanitize data
-  const cleanedData = cleanData(Object.assign({completionLevel: newCompletionLevel}, data));
+  const cleanedData = cleanData(Object.assign(data, {completionLevel: newCompletionLevel}));
   //stringify the object to encrypt it
   let stringData;
   try {
@@ -357,9 +357,13 @@ const cleanData = function(dirtyData) {
       this.tempDataCreatedOn = moment(responseData.createdOn);
     }
     //update completion setting
-    this.updateSettings({
+    let newSettings = {
       dataCompletionLevel: newCompletionLevel
-    });
+    };
+    if (newCompletionLevel < this.dataSettings.dataShareLevel) {
+      newSettings.dataShareLevel = newCompletionLevel;
+    }
+    this.updateSettings(newSettings);
     //everything went fine, nothing to report
     return null;
   })
@@ -435,9 +439,13 @@ const cleanData = function(dirtyData) {
         typeof parsedData.completionLevel === "number" &&
         parsedData.completionLevel !== this.dataSettings.dataCompletionLevel
       ) {
-        this.updateSettings({
+        let newSettings = {
           dataCompletionLevel: parsedData.completionLevel
-        });
+        };
+        if (parsedData.completionLevel < this.dataSettings.dataShareLevel) {
+          newSettings.dataShareLevel = parsedData.completionLevel;
+        }
+        this.updateSettings(newSettings);
       }
       // remove unknown properties from the data
       const cleanedData = cleanData(parsedData);
