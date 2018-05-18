@@ -267,6 +267,10 @@
     "message":"Statistics",
     "description":"appears in popup"
   },
+  "popupDataTab":{
+    "message":"Data",
+    "description":"appears in popup"
+  },
   "popupGeneralConfig":{
     "message":"General settings",
     "description":"appears in settings tab"
