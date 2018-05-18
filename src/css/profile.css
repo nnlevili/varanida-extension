@@ -98,3 +98,20 @@
 .pointer{
     cursor:pointer;
 }
+.level-info.alert.m-alert--default {
+  margin-top: 50px;
+}
+@media (max-width: 1200px) {
+  #userProfileForm .m-wizard.m-wizard--4 .m-wizard__form {
+    padding: 3rem 2rem 2rem 2rem;
+  }
+  #userProfileForm .m-wizard.m-wizard--4 .m-wizard__head .m-wizard__nav .m-wizard__steps .m-wizard__step {
+    display: inline-table;
+  }
+  .level-info.alert.m-alert--default {
+    margin-top: 0px;
+  }
+}
+#profileSaveButton {
+  min-width: 175px;
+}

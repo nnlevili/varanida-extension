@@ -97,7 +97,7 @@ function onDeleteWallet() {
   var onDeleteHandler = function(success) {
     if (!success) {
       var errorField = uDom.nodeFromId("delete-wallet-overlay-error");
-      errorField.textContent = vAPI.i18n('deleteWalletError');
+      errorField.textContent = vAPI.i18n('passwordError');
       return console.log("error deleting wallet");
     }
     hideOverlay("delete-modal");

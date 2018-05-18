@@ -31,6 +31,10 @@
     "message":"Sauvegarder",
     "description":"Save"
   },
+  "profileSaved":{
+    "message":"Sauvegardé!",
+    "description":"Saved!"
+  },
   "settingsPageName": {
     "message": "Paramètres",
     "description": "appears as tab name in dashboard"
@@ -779,6 +783,10 @@
     "message":"J'accepte de renseigner mon historique de navigation avec mon profil",
     "description":"English: I'm ok to complete my profile with my browsing history information"
   },
+  "privKeyError":{
+    "message":"Clé privée incorrecte",
+    "description":"wrong private key error"
+  },
   "unlockWalletTitle":{
     "message":"Débloquez votre portefeuille",
     "description":"English: Unlock your wallet"
@@ -835,7 +843,7 @@
     "message":"Annuler",
     "description":"delete wallet button"
   },
-  "deleteWalletError":{
+  "passwordError":{
     "message":"Mot de passe erroné",
     "description":"delete wallet error"
   },

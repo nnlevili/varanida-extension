@@ -165,12 +165,37 @@
             uDom.nodeFromId("unlock-password").value = "";
             uDom.nodeFromId("unlock-privkey").value = "";
         } else {
-            errorMessage.textContent = data;
+            if (walletInfoStore && walletInfoStore.onlyAddress) {
+              errorMessage.textContent = vAPI.i18n('privKeyError');
+            } else {
+              errorMessage.textContent = vAPI.i18n('passwordError');
+            }
             uDom.nodeFromId('errorUnlockWalletBlock').style.setProperty("display", "block");
         }
     };
 
     /******************************************************************************/
+
+    var afterSave = function(saveError) {
+      if (!saveError) {
+        var button = uDom.nodeFromId("profileSaveButton");
+        var resetButton = function() {
+          if (button && button.innerHTML) {
+            button.innerHTML =
+            '<span>'+
+                '<i class="la la-save"></i>'+
+                '<span data-i18n="profileSave">'+vAPI.i18n("profileSave")+'</span>'+
+            '</span>';
+          }
+        }
+        button.innerHTML =
+        '<span>'+
+            '<i class="la la-check"></i>'+
+            '<span>'+vAPI.i18n("profileSaved")+'</span>'+
+        '</span>';
+        vAPI.setTimeout(resetButton, 2000);
+    }
+    }
 
     var onProfileSave = function() {
         let newCompletionLevel = calculateNewCompletionLevel();
@@ -179,9 +204,11 @@
             {
                 what: 'setUserData',
                 password: password,
+                privKey: privkey,
                 newCompletionLevel: newCompletionLevel,
                 data: userDataStore
-            }
+            },
+            afterSave
         );
     };
 
@@ -249,6 +276,12 @@
     uDom.onLoad(function() {
         messaging.send('dashboard', { what: 'getWalletInfo' }, onReadWalletInfo);
         uDom('#unlockWalletButton').on('click', onUnlockWallet);
+        uDom('.unlock-wallet-field').on("keyup", function(event) {
+          event.preventDefault();
+          if (event.keyCode === 13) {
+            onUnlockWallet();
+          }
+        });
         uDom('#lockWalletButton').on('click', onLockWallet);
         uDom('#profileSaveButton').on('click', onProfileSave);
         uDom('[data-setting-type="input"]').forEach(function(uNode) {
