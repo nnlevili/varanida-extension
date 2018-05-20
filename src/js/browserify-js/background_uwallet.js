@@ -52,6 +52,7 @@ const µWallet = (function() {
           referrerAddress: null,
           referrerSignaled: false,
           installationSignaled: false,
+          referralNoticeHidden: false
         },
         recorder: null,
         kinesis: null,
@@ -110,7 +111,8 @@ const checkEthereumAddress = function(address) {
       referralWindowShown: true,
       referrerAddress: true,
       referrerSignaled: true,
-      installationSignaled: true
+      installationSignaled: true,
+      referralNoticeHidden: true
     })
     .then(() => {
       callback && callback(true);
@@ -137,6 +139,7 @@ const checkEthereumAddress = function(address) {
         referrerAddress: null,
         referrerSignaled: false,
         installationSignaled: false,
+        referralNoticeHidden: false
       };
       if (paramsToKeep) {
         for (let key in paramsToKeep) {
@@ -300,6 +303,12 @@ const checkEthereumAddress = function(address) {
 µWallet.setReferralWindowShown = function(shown) {
   this.updateWalletSettings({
     referralWindowShown: shown
+  });
+}
+
+µWallet.hideReferralNotice = function(hide) {
+  this.updateWalletSettings({
+    referralNoticeHidden: hide
   });
 }
 

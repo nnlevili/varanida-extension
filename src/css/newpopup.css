@@ -180,6 +180,21 @@ html, body {
 #address-title {
   cursor: pointer;
 }
+.m-widget1 .m-widget1__item .temporary-notice.m-widget1__desc {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  display: none;
+}
+.m-widget1 .m-widget1__item .temporary-notice.m-widget1__desc > i {
+  font-size: 1rem;
+  vertical-align: middle;
+  margin-left: 6px;
+  cursor: pointer;
+}
+.m-widget1 .m-widget1__item .temporary-notice.m-widget1__desc > i:hover {
+  color: #212529;
+}
+
 
 .m-topbar .m-topbar__nav.m-nav > .m-nav__item > .m-nav__link .m-nav__link-icon .m-nav__link-icon-wrapper > i {
   transition: font-size 0.2s;

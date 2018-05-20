@@ -355,7 +355,8 @@ var popupDataFromTabId = function(tabId, tabTitle) {
         hasWallet: µw.walletSettings.hasKeyring,
         walletAddress: µw.walletSettings.keyringAddress,
         totalRewardCount: µw.walletSettings.totalRewardCount,
-        referralWindowShown: µw.walletSettings.referralWindowShown
+        referralWindowShown: µw.walletSettings.referralWindowShown,
+        referralNoticeHidden: µw.walletSettings.referralNoticeHidden
     };
 
     var pageStore = µb.pageStoreFromTabId(tabId);
@@ -511,6 +512,10 @@ var onMessage = function(request, sender, callback) {
 
     case 'setReferralWindowShown':
         µw.setReferralWindowShown(request.shown);
+        break;
+
+    case 'hideReferralNotice':
+        µw.hideReferralNotice(request.hide);
         break;
     default:
         return vAPI.messaging.UNHANDLED;

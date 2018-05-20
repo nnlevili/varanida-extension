@@ -251,6 +251,10 @@
     "message":"Copier",
     "description":"appears in popup"
   },
+  "popupReferralNotice":{
+    "message":"Partagez-la et gagnez {{referral}} VAD par parrainage",
+    "description":"ntoice under address"
+  },
   "popupWalletRewardPrompt":{
     "message":"Récompense",
     "description":"appears in popup"

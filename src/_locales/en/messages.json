@@ -251,6 +251,10 @@
     "message":"Copy",
     "description":"appears in popup"
   },
+  "popupReferralNotice":{
+    "message":"Share it and earn {{referral}} VAD per referral",
+    "description":"ntoice under address"
+  },
   "popupWalletRewardPrompt":{
     "message":"Reward",
     "description":"appears in popup"

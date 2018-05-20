@@ -259,12 +259,6 @@ var renderPopup = function() {
       }
     }
 
-    //add varanida website linking
-    var varanidaMainLogo = uDom("#main-brand-logo");
-    varanidaMainLogo.attr("href", µConfig.urls.front);
-    varanidaMainLogo.on("click", gotoURL);
-
-
     //fill data sharing information
     renderDataSharingInfo();
 
@@ -536,6 +530,22 @@ var renderDataSlider = function() {
 
 var renderOnce = function() {
     renderOnce = function(){};
+
+    //add varanida website linking
+    var varanidaMainLogo = uDom("#main-brand-logo");
+    varanidaMainLogo.attr("href", µConfig.urls.front);
+    varanidaMainLogo.on("click", gotoURL);
+
+    //show referral notice if needed and attach events
+    if (!popupData.referralNoticeHidden) {
+      uDom.nodeFromId("referral-notice-text").textContent = vAPI.i18n("popupReferralNotice").replace("{{referral}}", µConfig.rewards.referral);
+      uDom("#hide-referral-notice").on("click",function() {
+        messaging.send('popupPanel', { what: 'hideReferralNotice', hide: true });
+        uDom.nodeFromId("referral-notice").style.setProperty("display", "none");
+      });
+      uDom.nodeFromId("referral-notice").style.setProperty("display", "inline-block");
+    }
+
     renderDataSlider();
 };
 
