@@ -296,6 +296,20 @@
         uDom('.m-wizard__step').on('click', browseLevels);
         displayInfoLevel(1);
 
+        //init FlatPickr
+        const setLocale = locale => {
+            locale = locale.split('-')[0].toLowerCase();
+            flatpickr("#user-birthdate", {
+                "locale": locale
+            });
+        };
+
+        let locale = navigator.language;
+        if (navigator.languages && navigator.languages.length > 0) {
+            locale = navigator.languages[0];
+        }
+
+        setLocale(locale);
     });
 
     /******************************************************************************/
