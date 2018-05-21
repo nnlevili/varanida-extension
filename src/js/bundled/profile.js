@@ -140,24 +140,23 @@
 
     var initFlatpickr = function() {
 
-        const setLocale = locale => {
-            locale = locale.split('-')[0].toLowerCase();
-
-            let userBirthdate = uDom("#user-birthdate").val();
-            if (!userBirthdate) {
-                userBirthdate = "1985-5-09";
-            }
-            flatpickr("#user-birthdate", {
-                "locale": locale,
-                "defaultDate": userBirthdate,
-                "allowInput": true
-            });
-        };
-        let locale = navigator.language;
+        var locale = navigator.language;
         if (navigator.languages && navigator.languages.length > 0) {
             locale = navigator.languages[0];
         }
-        setLocale(locale);
+        var localeStr = locale.split('-')[0].toLowerCase();
+        var startDate = "1985-5-09";
+        if (userDataStore &&
+          userDataStore.level1 &&
+          userDataStore.level1.userBirthdate &&
+          /\d{4}-\d{1,2}-\d{1,2}/.test(userDataStore.level1.userBirthdate)
+        ) {
+          startDate = userDataStore.level1.userBirthdate;
+        }
+        flatpickr("#user-birthdate", {
+            "locale": localeStr,
+            "defaultDate": startDate
+        });
     };
 
     /******************************************************************************/
