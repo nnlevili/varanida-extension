@@ -225,6 +225,7 @@ html, body {
   margin-left: auto;
   margin-right: auto;
   width: fit-content;
+  width: -moz-fit-content;
 }
 .m-quick-sidebar .m-section.bottom-data-section {
   margin-bottom: 30px;

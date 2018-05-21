@@ -907,6 +907,8 @@ var moveOutWhenDone = function() {
     tip.style.top = "";
     tip.style.bottom = "";
     tip.style.setProperty('right', '-1000px');
+    tip.classList.remove("bs-tooltip-top");
+    tip.classList.remove("bs-tooltip-bottom");
     uDom.nodeFromId('templates').appendChild(tip);
     tooltipClosing = false;
   }
