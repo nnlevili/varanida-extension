@@ -300,7 +300,8 @@
         const setLocale = locale => {
             locale = locale.split('-')[0].toLowerCase();
             flatpickr("#user-birthdate", {
-                "locale": locale
+                "locale": locale,
+                "defaultDate": "1985-5-09"
             });
         };
 
