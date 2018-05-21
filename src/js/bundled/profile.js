@@ -138,6 +138,30 @@
 
     /******************************************************************************/
 
+    var initFlatpickr = function() {
+
+        const setLocale = locale => {
+            locale = locale.split('-')[0].toLowerCase();
+
+            let userBirthdate = uDom("#user-birthdate").val();
+            if (!userBirthdate) {
+                userBirthdate = "1985-5-09";
+            }
+            flatpickr("#user-birthdate", {
+                "locale": locale,
+                "defaultDate": userBirthdate,
+                "allowInput": true
+            });
+        };
+        let locale = navigator.language;
+        if (navigator.languages && navigator.languages.length > 0) {
+            locale = navigator.languages[0];
+        }
+        setLocale(locale);
+    };
+
+    /******************************************************************************/
+
     var onUserDataReceived = function(data) {
         var errorMessage = uDom.nodeFromId("errorUnlockWalletMessage");
         if (typeof data !== 'string') {
@@ -159,6 +183,7 @@
                 }
             });
             renderPage();
+            initFlatpickr();
             displayCompletionLevel(calculateNewCompletionLevel());
             errorMessage.textContent = "";
             uDom.nodeFromId('errorUnlockWalletBlock').style.setProperty("display", "none");
@@ -295,22 +320,6 @@
         });
         uDom('.m-wizard__step').on('click', browseLevels);
         displayInfoLevel(1);
-
-        //init FlatPickr
-        const setLocale = locale => {
-            locale = locale.split('-')[0].toLowerCase();
-            flatpickr("#user-birthdate", {
-                "locale": locale,
-                "defaultDate": "1985-5-09"
-            });
-        };
-
-        let locale = navigator.language;
-        if (navigator.languages && navigator.languages.length > 0) {
-            locale = navigator.languages[0];
-        }
-
-        setLocale(locale);
     });
 
     /******************************************************************************/
