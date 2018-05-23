@@ -124,85 +124,8 @@
                                                 <div class="form-group m-form__group row">
                                                     <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserCity" for="user-city"></label>
                                                     <div class="col-xl-9 col-lg-9">
-                                                        <input name="userCity" id="user-city" type="text" data-setting-name="userCity"
-                                                               data-setting-level="1" data-setting-type="input" class="form-control m-input" />
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group m-form__group row">
-                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserRelationshipStatus"></label>
-
-                                                    <div class="col-lg-9 m-form__group-sub">
-                                                        <div class="m-radio-inline">
-
-                                                            <label class="m-radio m-radio--solid  m-radio--brand">
-                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-single"
-                                                                       data-setting-name="userRelationshipStatus" value="single"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-single" data-i18n="profileUserRelationshipStatusSingle"></i>
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="m-radio m-radio--solid  m-radio--brand">
-                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-in-relationship"
-                                                                       data-setting-name="userRelationshipStatus" value="in-relationship"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-in-relationship" data-i18n="profileUserRelationshipStatusInRelationship"></i>
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="m-radio m-radio--solid  m-radio--brand">
-                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-engaged"
-                                                                       data-setting-name="userRelationshipStatus" value="engaged"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-engaged" data-i18n="profileUserRelationshipStatusEngaged"></i>
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="m-radio m-radio--solid  m-radio--brand">
-                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-married"
-                                                                       data-setting-name="userRelationshipStatus" value="married"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-married" data-i18n="profileUserRelationshipStatusMarried"></i>
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="m-radio m-radio--solid  m-radio--brand">
-                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-divorced"
-                                                                       data-setting-name="userRelationshipStatus" value="divorced"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-divorced" data-i18n="profileUserRelationshipStatusDivorced"></i>
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="m-radio m-radio--solid  m-checkbox--brand">
-                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-other"
-                                                                       data-setting-name="userRelationshipStatus" value="other"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-other" data-i18n="profileUserRelationshipStatusOther"></i>
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group m-form__group row">
-                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserHasKids"></label>
-
-                                                    <div class="col-lg-9 m-form__group-sub">
-                                                        <div class="m-radio-inline">
-                                                            <label class="m-radio m-radio--solid  m-radio--brand">
-                                                                <input type="radio" name="userHasKids" id="user-has-kids"
-                                                                       data-setting-name="userHasKids" value="true"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-has-kids" data-i18n="profileUserHasKidsTrue"></i>
-                                                                <span></span>
-                                                            </label>
-                                                            <label class="m-radio m-radio--solid  m-radio--brand">
-                                                                <input type="radio" name="userHasKids" id="user-hasnt-kids"
-                                                                       data-setting-name="userHasKids" value="false"
-                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-hasnt-kids" data-i18n="profileUserHasKidsFalse"></i>
-                                                                <span></span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="m-separator m-separator--dashed m-separator--lg"></div>
-
-                                                <div class="form-group m-form__group row">
-                                                    <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserMotherTongue" for="user-mother-tongue"></label>
-                                                    <div class="col-xl-9 col-lg-9">
-                                                        <select class="form-control m-input m-input--solid" name="userMotherTongue" id="user-mother-tongue" data-setting-name="userMotherTongue"
-                                                                data-setting-level="1" data-setting-type="input">
+                                                        <select class="form-control m-input m-input--solid" name="userCity" id="user-city"
+                                                                data-setting-name="userCity" data-setting-level="1" data-setting-type="input">
                                                             <option value=""></option>
                                                             <!-- ISO 3166-1-alpha-2 English country names and code elements -->
                                                             <option value="AF">Afghanistan</option>
@@ -453,6 +376,87 @@
                                                             <option value="YE">Yemen</option>
                                                             <option value="ZM">Zambia</option>
                                                             <option value="ZW">Zimbabwe</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserRelationshipStatus"></label>
+
+                                                    <div class="col-lg-9 m-form__group-sub">
+                                                        <div class="m-radio-inline">
+
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-single"
+                                                                       data-setting-name="userRelationshipStatus" value="single"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-single" data-i18n="profileUserRelationshipStatusSingle"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-in-relationship"
+                                                                       data-setting-name="userRelationshipStatus" value="in-relationship"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-in-relationship" data-i18n="profileUserRelationshipStatusInRelationship"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-engaged"
+                                                                       data-setting-name="userRelationshipStatus" value="engaged"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-engaged" data-i18n="profileUserRelationshipStatusEngaged"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-married"
+                                                                       data-setting-name="userRelationshipStatus" value="married"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-married" data-i18n="profileUserRelationshipStatusMarried"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-divorced"
+                                                                       data-setting-name="userRelationshipStatus" value="divorced"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-divorced" data-i18n="profileUserRelationshipStatusDivorced"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-checkbox--brand">
+                                                                <input type="radio" name="userRelationshipStatus" id="user-relationship-status-other"
+                                                                       data-setting-name="userRelationshipStatus" value="other"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-relationship-status-other" data-i18n="profileUserRelationshipStatusOther"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-lg-3 form-control-label" data-i18n="profileUserHasKids"></label>
+
+                                                    <div class="col-lg-9 m-form__group-sub">
+                                                        <div class="m-radio-inline">
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userHasKids" id="user-has-kids"
+                                                                       data-setting-name="userHasKids" value="true"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-has-kids" data-i18n="profileUserHasKidsTrue"></i>
+                                                                <span></span>
+                                                            </label>
+                                                            <label class="m-radio m-radio--solid  m-radio--brand">
+                                                                <input type="radio" name="userHasKids" id="user-hasnt-kids"
+                                                                       data-setting-name="userHasKids" value="false"
+                                                                       data-setting-level="1" data-setting-type="radio"><i for="user-hasnt-kids" data-i18n="profileUserHasKidsFalse"></i>
+                                                                <span></span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="m-separator m-separator--dashed m-separator--lg"></div>
+
+                                                <div class="form-group m-form__group row">
+                                                    <label class="col-xl-3 col-lg-3 col-form-label" data-i18n="profileUserMotherTongue" for="user-mother-tongue"></label>
+                                                    <div class="col-xl-9 col-lg-9">
+                                                        <select class="form-control m-input m-input--solid" name="userMotherTongue" id="user-mother-tongue" data-setting-name="userMotherTongue"
+                                                                data-setting-level="1" data-setting-type="input">
+                                                            <option value=""></option>
+                                                            <option value="en">English</option>
+                                                            <option value="fr">Français</option>
                                                         </select>
                                                     </div>
                                                 </div>
