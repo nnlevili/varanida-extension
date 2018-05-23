@@ -1005,7 +1005,7 @@ var onHideTooltip = function() {
     }
 
     toggleButtons = {
-      noPopup:             uDom('#no-popup'),
+      noPopup:             uDom('#no-popups'),
       noLargeMedia:        uDom('#no-large-media'),
       noCosmeticFiltering: uDom('#no-cosmetic-filtering'),
       noRemoteFonts:       uDom('#no-remote-fonts')
