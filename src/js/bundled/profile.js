@@ -145,7 +145,7 @@
             locale = navigator.languages[0];
         }
         var localeStr = locale.split('-')[0].toLowerCase();
-        var startDate = "1985-5-09";
+        var startDate = "";
         if (userDataStore &&
           userDataStore.level1 &&
           userDataStore.level1.userBirthdate &&
