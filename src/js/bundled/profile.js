@@ -138,6 +138,53 @@
 
     /******************************************************************************/
 
+    var initDropDown = function(element, configList) {
+      for (var i = 0; i < configList.length; i++) {
+        var opt = configList[i];
+        var el = document.createElement("option");
+        el.textContent = opt.name;
+        el.value = opt.id;
+        element.appendChild(el);
+      }
+    };
+
+    /******************************************************************************/
+
+    var initLanguageDropDown = function(element, configList) {
+      var locale = navigator.language;
+      var localeStr = null;
+      var placedLocale = false;
+      if (navigator.languages && navigator.languages.length > 0) {
+          locale = navigator.languages[0];
+      }
+      localeStr = locale.split('-')[0].toLowerCase();
+      if (localeStr) {
+        for (var j = 0; j < configList.length; j++) {
+          if (configList[j].id === localeStr) {
+            var localEl = document.createElement("option");
+            localEl.textContent = configList[j].name;
+            localEl.value = configList[j].id;
+            element.appendChild(localEl);
+            placedLocale = true;
+            break;
+          }
+        }
+      }
+      var opt, el;
+      for (var i = 0; i < configList.length; i++) {
+        opt = configList[i];
+        if (placedLocale && opt.id === localeStr) {
+          continue;
+        }
+        el = document.createElement("option");
+        el.textContent = opt.name;
+        el.value = opt.id;
+        element.appendChild(el);
+      }
+    };
+
+    /******************************************************************************/
+
     var initFlatpickr = function() {
 
         var locale = navigator.language;
@@ -306,6 +353,8 @@
             onUnlockWallet();
           }
         });
+        initDropDown(uDom.nodeFromId("user-city"), µConfig.countryList);
+        initLanguageDropDown(uDom.nodeFromId("user-mother-tongue"), µConfig.languageList);
         uDom('#lockWalletButton').on('click', onLockWallet);
         uDom('#profileSaveButton').on('click', onProfileSave);
         uDom('[data-setting-type="input"]').forEach(function(uNode) {
