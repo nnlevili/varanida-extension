@@ -599,6 +599,10 @@
     "message":"Last backup:",
     "description":"English: Last backup:"
   },
+  "profileNetworkError":{
+    "message":"A network error prevented your profile from being loaded.",
+    "description":"network error message"
+  },
   "profileLevel1":{
     "message":"Level 1",
     "description":"English: Level 1"

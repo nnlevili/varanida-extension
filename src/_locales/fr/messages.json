@@ -599,6 +599,10 @@
     "message": "Date de la dernière sauvegarde :",
     "description": "English: Last backup:"
   },
+  "profileNetworkError":{
+    "message":"Une erreur réseau a empêché le chargement de votre profil.",
+    "description":"network error message"
+  },
   "profileLevel1":{
     "message":"Niveau 1",
     "description":"English: Level 1"

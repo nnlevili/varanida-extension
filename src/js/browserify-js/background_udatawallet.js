@@ -342,10 +342,13 @@ const cleanData = function(dirtyData) {
             const responseData = JSON.parse(this.responseText);
             return resolve(responseData);
           }
-          return reject("failed to send data");
+          return reject("i18n-profileNetworkError");
         }
       };
       xmlhttp.open("POST", url, true);
+      xmlhttp.addEventListener("error", function() {
+        reject("i18n-profileNetworkError");
+      });
       xmlhttp.setRequestHeader('Content-Type','application/json')
       xmlhttp.send(rawStringToSend);
     });
@@ -393,10 +396,13 @@ const cleanData = function(dirtyData) {
         } else if (this.status === 204) {
           return resolve(null);
         }
-        return reject("failed to load data");
+        return reject("i18n-profileNetworkError");
       }
     };
     xmlhttp.open("GET", url, true);
+    xmlhttp.addEventListener("error", function() {
+      reject("i18n-profileNetworkError");
+    });
     xmlhttp.send();
   })
   .then((encryptedDataObject) => {

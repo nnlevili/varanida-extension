@@ -586,7 +586,7 @@ const extractAddress = function(msg) {
   AWS.config.credentials.get((err) => {
     // attach event listener
     if (err) {
-        alert('Error retrieving credentials.');
+        console.error("failed to retrieve AWS credentials");
         console.error(err);
         return;
     }
