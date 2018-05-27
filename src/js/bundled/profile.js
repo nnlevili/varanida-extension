@@ -236,10 +236,15 @@
             uDom.nodeFromId("unlock-password").value = "";
             uDom.nodeFromId("unlock-privkey").value = "";
         } else {
-            if (walletInfoStore && walletInfoStore.onlyAddress) {
-              errorMessage.textContent = vAPI.i18n('privKeyError');
+          console.log(data);
+            if (data.indexOf("i18n-") === 0) {
+              errorMessage.textContent = vAPI.i18n(data.substr(5));
             } else {
-              errorMessage.textContent = vAPI.i18n('passwordError');
+              if (walletInfoStore && walletInfoStore.onlyAddress) {
+                errorMessage.textContent = vAPI.i18n('privKeyError');
+              } else {
+                errorMessage.textContent = vAPI.i18n('passwordError');
+              }
             }
             uDom.nodeFromId('errorUnlockWalletBlock').style.setProperty("display", "block");
         }
