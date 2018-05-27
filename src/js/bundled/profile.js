@@ -236,7 +236,6 @@
             uDom.nodeFromId("unlock-password").value = "";
             uDom.nodeFromId("unlock-privkey").value = "";
         } else {
-          console.log(data);
             if (data.indexOf("i18n-") === 0) {
               errorMessage.textContent = vAPI.i18n(data.substr(5));
             } else {
