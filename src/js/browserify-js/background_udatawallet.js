@@ -407,15 +407,15 @@ const cleanData = function(dirtyData) {
   })
   .then((encryptedDataObject) => {
     if (!encryptedDataObject) {
-      return cleanData({});
+      return µWallet.getOrValidatePrivKeyProm(credentials)
+      .then(() => {
+        return cleanData({});
+      });
     }
     //don't use this data if for some reason it's older than data that is currently stored
     if (encryptedDataObject.createdOn && this.tempDataCreatedOn) {
       const encryptedDataTime = moment(encryptedDataObject.createdOn);
       if (encryptedDataTime.isSameOrBefore(this.tempDataCreatedOn, "second")) {
-        console.log("got old data");
-        console.log("received", encryptedDataTime.format());
-        console.log("tempData", this.tempDataCreatedOn.format());
         return this.tempData;
       }
     }

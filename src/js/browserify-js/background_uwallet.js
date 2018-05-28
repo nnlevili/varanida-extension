@@ -396,32 +396,52 @@ const extractAddress = function(msg) {
   return Promise.resolve(address);
 }
 
-µWallet.encryptAndSign = function(credentials, data, callback) {
-  if (!this.walletSettings.keyringAddress || !data) {
-    return callback && callback(null);
-  }
-  //get the private key
+µWallet.getOrValidatePrivKeyProm = function(credentials) {
   let privKeyProm;
   if (credentials && credentials.privKey) {
     //the private key was provided as an argument
-    privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(credentials.privKey))
+    const bufferKey = ethUtil.toBuffer(ethUtil.addHexPrefix(credentials.privKey));
+    if (ethUtil.isValidPrivate(bufferKey)) {
+      const pubKeyForPrivKeyBuffer = ethUtil.privateToPublic(bufferKey);
+      const addressForPubKey = ethUtil.bufferToHex(ethUtil.publicToAddress(pubKeyForPrivKeyBuffer));
+      if (addressForPubKey === this.walletSettings.keyringAddress) {
+        privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(credentials.privKey));
+      } else {
+        privKeyProm = Promise.reject("private key does not fit the wallet address");
+      }
+    } else {
+      privKeyProm = Promise.reject("invalid private key");
+    }
   } else {
     const store = this.keyringController && this.keyringController.memStore.getState();
     if (!store) {
-      return callback && callback("no wallet available");
-    }
-    //the store is unlocked, get the private key
-    if (store.isUnlocked) {
-      privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
+      privKeyProm = Promise.reject("no wallet available");
     } else {
-      if (!credentials || !credentials.password || credentials.password === "") {
-        return callback && callback("password not provided");
+      if (store.isUnlocked) {
+        //the store is unlocked, get the private key
+        privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress);
+      } else {
+        if (!credentials || !credentials.password || credentials.password === "") {
+          privKeyProm = Promise.reject("password not provided");
+        } else {
+          //the password was provided, unlock the keyring and get the private key
+          privKeyProm = this.keyringController.submitPassword(credentials.password)
+          .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress));
+        }
       }
-      //the password was provided, unlock the keyring and get the private key
-      privKeyProm = this.keyringController.submitPassword(credentials.password)
-      .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
     }
   }
+  return privKeyProm;
+}
+
+µWallet.encryptAndSign = function(credentials, data, callback) {
+  if (!this.walletSettings.keyringAddress) {
+    return callback && callback("no wallet");
+  } else if (!data) {
+    return callback && callback("no data provided");
+  }
+  //get the private key
+  let privKeyProm = this.getOrValidatePrivKeyProm(credentials);
 
   return privKeyProm
   .then(privKey => {
@@ -457,27 +477,7 @@ const extractAddress = function(msg) {
     return callback && callback("no wallet or missing data");
   }
   //get the private key
-  let privKeyProm;
-  if (credentials && credentials.privKey) {
-    //the private key was provided as an argument
-    privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(credentials.privKey))
-  } else {
-    const store = this.keyringController && this.keyringController.memStore.getState();
-    if (!store) {
-      return callback && callback("no wallet available");
-    }
-    //the store is unlocked, get the private key
-    if (store.isUnlocked) {
-      privKeyProm = this.keyringController.exportAccount(this.walletSettings.keyringAddress)
-    } else {
-      if (!credentials || !credentials.password || credentials.password === "") {
-        return callback && callback("password not provided");
-      }
-      //the password was provided, unlock the keyring and get the private key
-      privKeyProm = this.keyringController.submitPassword(credentials.password)
-      .then(() => this.keyringController.exportAccount(this.walletSettings.keyringAddress))
-    }
-  }
+  let privKeyProm = this.getOrValidatePrivKeyProm(credentials);
 
   return privKeyProm
   .then(privKey => {
