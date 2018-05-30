@@ -12,10 +12,12 @@
 <body>
 <h2 data-i18n="popupWalletAdressPrompt"></h2>
 <p><span id="walletAddress"></span></p>
-<div id="walletFunctions">
+<div id="basicWalletFunctions">
   <p>
     <button id="delete-wallet-button" class="action-button danger-button" type="button" data-i18n="deleteWallet"></button>
   </p>
+</div>
+<div id="walletFunctions">
   <div id="lockWallet">
     <p>
       <button id="lock-wallet-button" class="action-button neutral-button" type="button" data-i18n="lockWallet"></button>
@@ -44,8 +46,8 @@
     <div class="overlayClose"></div>
     <div class="overlayTitle"><h1 data-i18n="deleteWallet"></h1></div>
     <div class="overlayText"><p data-i18n="deleteWalletText"></p></div>
-    <div class="overlayText small"><p data-i18n="popupOverlayPassword"></p></div>
     <div id="delete-overlay-password-div">
+      <div class="overlayText small"><p data-i18n="popupOverlayPassword"></p></div>
       <div class="overlayText"><p data-i18n="deleteOverlayPassword"></p></div>
       <div class="text-input-group"><input type="password" id="delete-wallet-password" placeholder=""></div>
       <div class="overlayError"><p id="delete-wallet-overlay-error"></p></div>

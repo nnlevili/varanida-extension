@@ -35,6 +35,8 @@ const moment = require('moment');
 const crypto = require('crypto');
 const ethUtil = require('ethereumjs-util');
 const sigUtil = require('eth-sig-util');
+const bip39 = require('bip39');
+const hdkey = require('ethereumjs-wallet/hdkey');
 
 //internal dependencies
 const Recorder = require("./recorder.js")
@@ -105,7 +107,13 @@ const checkEthereumAddress = function(address) {
   if (!this.keyringController) {
     callback && callback(false);
   }
-  this.keyringController.submitPassword(password)
+  let passwordProm;
+  if (this.walletSettings.onlyAddress) {
+    passwordProm = Promise.resolve(null);
+  } else {
+    passwordProm = this.keyringController.submitPassword(password);
+  }
+  return passwordProm
   .then(() => {
     this.resetWallet({
       referralWindowShown: true,
@@ -119,12 +127,24 @@ const checkEthereumAddress = function(address) {
     });
   },() => {
     callback && callback(false);
-  })
+  });
+};
 
-}
+µWallet.getInfosFromSeed = function(mnemonic) {
+  const hdwallet = hdkey.fromMasterSeed(bip39.mnemonicToSeed(mnemonic));
+  const walletHdpath = "m/44'/60'/0'/0/";
+  const wallet = hdwallet.derivePath(walletHdpath + '0').getWallet();
+  const privateKey = wallet.getPrivateKey().toString('hex');
+  const address = '0x' + (wallet.getAddress().toString('hex'));
+  return {
+      mnemonic: mnemonic,
+      privateKey: privateKey,
+      address: address
+  };
+};
 
 µWallet.resetWallet = function(paramsToKeep) {
-  this.keyringController.store.unsubscribe(this.storeUpdatesHandler);
+  this.keyringController && this.keyringController.store.unsubscribe(this.storeUpdatesHandler);
   return this.keyringController && this.keyringController.setLocked()
   .then(() => {
     this.keyringController = null;
@@ -399,18 +419,27 @@ const extractAddress = function(msg) {
 µWallet.getOrValidatePrivKeyProm = function(credentials) {
   let privKeyProm;
   if (credentials && credentials.privKey) {
-    //the private key was provided as an argument
-    const bufferKey = ethUtil.toBuffer(ethUtil.addHexPrefix(credentials.privKey));
-    if (ethUtil.isValidPrivate(bufferKey)) {
-      const pubKeyForPrivKeyBuffer = ethUtil.privateToPublic(bufferKey);
-      const addressForPubKey = ethUtil.bufferToHex(ethUtil.publicToAddress(pubKeyForPrivKeyBuffer));
-      if (addressForPubKey === this.walletSettings.keyringAddress) {
-        privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(credentials.privKey));
+    if (bip39.validateMnemonic(credentials.privKey)) {
+      const walletInfosFromSeed = this.getInfosFromSeed(credentials.privKey);
+      if (walletInfosFromSeed.address === this.walletSettings.keyringAddress) {
+        privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(walletInfosFromSeed.privateKey));
       } else {
-        privKeyProm = Promise.reject("private key does not fit the wallet address");
+        privKeyProm = Promise.reject("seed does not fit the wallet address");
       }
     } else {
-      privKeyProm = Promise.reject("invalid private key");
+      //the private key was provided as an argument
+      const bufferKey = ethUtil.toBuffer(ethUtil.addHexPrefix(credentials.privKey));
+      if (ethUtil.isValidPrivate(bufferKey)) {
+        const pubKeyForPrivKeyBuffer = ethUtil.privateToPublic(bufferKey);
+        const addressForPubKey = ethUtil.bufferToHex(ethUtil.publicToAddress(pubKeyForPrivKeyBuffer));
+        if (addressForPubKey === this.walletSettings.keyringAddress) {
+          privKeyProm = Promise.resolve(ethUtil.stripHexPrefix(credentials.privKey));
+        } else {
+          privKeyProm = Promise.reject("private key does not fit the wallet address");
+        }
+      } else {
+        privKeyProm = Promise.reject("invalid private key");
+      }
     }
   } else {
     const store = this.keyringController && this.keyringController.memStore.getState();

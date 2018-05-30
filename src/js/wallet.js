@@ -123,15 +123,24 @@ function renderWalletInfo() {
       };*/
         if ( !walletInfo.hasWallet) {
           uDom.nodeFromId('walletAddress').textContent = vAPI.i18n('noWalletText');
-          return;
+        } else {
+          walletInfoStore = walletInfo;
+          uDom.nodeFromId('walletAddress').textContent = walletInfo.walletAddress;
         }
-        walletInfoStore = walletInfo;
-        uDom.nodeFromId('walletAddress').textContent = walletInfo.walletAddress;
-        if (!walletInfo.onlyAddress) {
+        if (walletInfo.hasWallet) {
+          uDom.nodeFromId('basicWalletFunctions').style.setProperty("display", "block");
+        } else {
+          uDom.nodeFromId('basicWalletFunctions').style.setProperty("display", "none");
+        }
+        if (walletInfo.hasWallet && !walletInfo.onlyAddress) {
           uDom.nodeFromId('walletFunctions').style.setProperty("display", "block");
+        } else {
+          uDom.nodeFromId('walletFunctions').style.setProperty("display", "none");
         }
         if (walletInfo.isUnlocked) {
           uDom.nodeFromId('lockWallet').style.setProperty("display", "block");
+        } else {
+          uDom.nodeFromId('lockWallet').style.setProperty("display", "none");
         }
     };
     messaging.send('dashboard', { what: 'getWalletInfo' }, onRead);

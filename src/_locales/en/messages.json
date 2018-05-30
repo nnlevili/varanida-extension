@@ -808,7 +808,7 @@
     "description":"English: Enter your wallet password"
   },
   "unlockWalletWithPrivkey":{
-    "message":"Enter your private key",
+    "message":"Enter your passphrase or private key",
     "description":"English: Enter your private key"
   },
   "unlockWalletButton":{
