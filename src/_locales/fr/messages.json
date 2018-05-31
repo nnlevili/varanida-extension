@@ -743,42 +743,6 @@
     "message":"Industrie",
     "description":"English: Industry"
   },
-  "profileUserIndustryEnergy":{
-    "message":"Energie",
-    "description":"English: Energy"
-  },
-  "profileUserIndustryIndustrials":{
-    "message":"Industriel",
-    "description":"English: Industrials"
-  },
-  "profileUserIndustryCyclical":{
-    "message":"Biens de consommation cycliques et services",
-    "description":"English: Cyclical Consumer Goods & Services"
-  },
-  "profileUserIndustryNonCyclical":{
-    "message":"Biens de consommation non cycliques et services",
-    "description":"English: Non-Cyclical Consumer Goods & Services"
-  },
-  "profileUserIndustryFinancials":{
-    "message":"Finance",
-    "description":"English: Financials"
-  },
-  "profileUserIndustryHealthcare":{
-    "message":"Santé",
-    "description":"English: Healthcare"
-  },
-  "profileUserIndustryTechnology":{
-    "message":"Technologie",
-    "description":"English: Technology"
-  },
-  "profileUserIndustryTelecommunications":{
-    "message":"Télécommunication",
-    "description":"English: Telecommunications Services"
-  },
-  "profileUserIndustryUtilities":{
-    "message":"Utilitaires",
-    "description":"English: Utilities"
-  },
   "profileLocationSharing":{
     "message":"J'accepte de renseigner ma position avec mon profil",
     "description":"English: I'm ok to complete my profile with my location"

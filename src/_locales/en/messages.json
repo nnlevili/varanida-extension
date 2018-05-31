@@ -743,41 +743,593 @@
     "message":"Industry",
     "description":"English: Industry"
   },
-  "profileUserIndustryEnergy":{
-    "message":"Energy",
-    "description":"English: Energy"
+  "profileUserIndustryAccounting":{
+    "message":"Accounting",
+    "description":"English: Accounting"
   },
-  "profileUserIndustryIndustrials":{
-    "message":"Industrials",
-    "description":"English: Industrials"
+  "profileUserIndustryAirlinesAviation":{
+    "message":"Airlines/Aviation",
+    "description":"English: Airlines/Aviation"
   },
-  "profileUserIndustryCyclical":{
-    "message":"Cyclical Consumer Goods & Services",
-    "description":"English: Cyclical Consumer Goods & Services"
+  "profileUserIndustryAlternativeDisputeResolution":{
+    "message":"Alternative Dispute Resolution",
+    "description":"English: Alternative Dispute Resolution"
   },
-  "profileUserIndustryNonCyclical":{
-    "message":"Non-Cyclical Consumer Goods & Services",
-    "description":"English: Non-Cyclical Consumer Goods & Services"
+  "profileUserIndustryAlternativeMedicine":{
+    "message":"Alternative Medicine",
+    "description":"English: Alternative Medicine"
   },
-  "profileUserIndustryFinancials":{
-    "message":"Financials",
-    "description":"English: Financials"
+  "profileUserIndustryAnimation":{
+    "message":"Animation",
+    "description":"English: Animation"
   },
-  "profileUserIndustryHealthcare":{
-    "message":"Healthcare",
-    "description":"English: Healthcare"
+  "profileUserIndustryApparelFashion":{
+    "message":"Apparel/Fashion",
+    "description":"English: Apparel/Fashion"
   },
-  "profileUserIndustryTechnology":{
-    "message":"Technology",
-    "description":"English: Technology"
+  "profileUserIndustryArchitecturePlanning":{
+    "message":"Architecture/Planning",
+    "description":"English: Architecture/Planning"
+  },
+  "profileUserIndustryArtsCrafts":{
+    "message":"Arts/Crafts",
+    "description":"English: Arts/Crafts"
+  },
+  "profileUserIndustryAutomotive":{
+    "message":"Automotive",
+    "description":"English: Automotive"
+  },
+  "profileUserIndustryAviationAerospace":{
+    "message":"Aviation/Aerospace",
+    "description":"English: Aviation/Aerospace"
+  },
+  "profileUserIndustryBankingMortgage":{
+    "message":"Banking/Mortgage",
+    "description":"English: Banking/Mortgage"
+  },
+  "profileUserIndustryBiotechnologyGreentech":{
+    "message":"Biotechnology/Greentech",
+    "description":"English: Biotechnology/Greentech"
+  },
+  "profileUserIndustryBroadcastMedia":{
+    "message":"Broadcast Media",
+    "description":"English: Broadcast Media"
+  },
+  "profileUserIndustryBuildingMaterials":{
+    "message":"Building Materials",
+    "description":"English: Building Materials"
+  },
+  "profileUserIndustryBusinessSuppliesEquipment":{
+    "message":"Business Supplies/Equipment",
+    "description":"English: Business Supplies/Equipment"
+  },
+  "profileUserIndustryCapitalMarketsHedgeFundPrivateEquity":{
+    "message":"Capital Markets/Hedge Fund/Private Equity",
+    "description":"English: Capital Markets/Hedge Fund/Private Equity"
+  },
+  "profileUserIndustryChemicals":{
+    "message":"Chemicals",
+    "description":"English: Chemicals"
+  },
+  "profileUserIndustryCivicSocialOrganization":{
+    "message":"Civic/Social Organization",
+    "description":"English: Civic/Social Organization"
+  },
+  "profileUserIndustryCivilEngineering":{
+    "message":"Civil Engineering",
+    "description":"English: Civil Engineering"
+  },
+  "profileUserIndustryCommercialRealEstate":{
+    "message":"Commercial Real Estate",
+    "description":"English: Commercial Real Estate"
+  },
+  "profileUserIndustryComputerGames":{
+    "message":"Computer Games",
+    "description":"English: Computer Games"
+  },
+  "profileUserIndustryComputerHardware":{
+    "message":"Computer Hardware",
+    "description":"English: Computer Hardware"
+  },
+  "profileUserIndustryComputerNetworking":{
+    "message":"Computer Networking",
+    "description":"English: Computer Networking"
+  },
+  "profileUserIndustryComputerSoftwareEngineering":{
+    "message":"Computer Software/Engineering",
+    "description":"English: Computer Software/Engineering"
+  },
+  "profileUserIndustryComputerNetworkSecurity":{
+    "message":"Computer/Network Security",
+    "description":"English: Computer/Network Security"
+  },
+  "profileUserIndustryConstruction":{
+    "message":"Construction",
+    "description":"English: Construction"
+  },
+  "profileUserIndustryConsumerElectronics":{
+    "message":"Consumer Electronics",
+    "description":"English: Consumer Electronics"
+  },
+  "profileUserIndustryConsumerGoods":{
+    "message":"Consumer Goods",
+    "description":"English: Consumer Goods"
+  },
+  "profileUserIndustryConsumerServices":{
+    "message":"Consumer Services",
+    "description":"English: Consumer Services"
+  },
+  "profileUserIndustryCosmetics":{
+    "message":"Cosmetics",
+    "description":"English: Cosmetics"
+  },
+  "profileUserIndustryDairy":{
+    "message":"Dairy",
+    "description":"English: Dairy"
+  },
+  "profileUserIndustryDefenseSpace":{
+    "message":"Defense/Space",
+    "description":"English: Defense/Space"
+  },
+  "profileUserIndustryDesign":{
+    "message":"Design",
+    "description":"English: Design"
+  },
+  "profileUserIndustryELearning":{
+    "message":"E-Learning",
+    "description":"English: E-Learning"
+  },
+  "profileUserIndustryEducationManagement":{
+    "message":"Education Management",
+    "description":"English: Education Management"
+  },
+  "profileUserIndustryElectricalElectronicManufacturing":{
+    "message":"Electrical/Electronic Manufacturing",
+    "description":"English: Electrical/Electronic Manufacturing"
+  },
+  "profileUserIndustryEntertainmentMovieProduction":{
+    "message":"Entertainment/Movie Production",
+    "description":"English: Entertainment/Movie Production"
+  },
+  "profileUserIndustryEnvironmentalServices":{
+    "message":"Environmental Services",
+    "description":"English: Environmental Services"
+  },
+  "profileUserIndustryEventsServices":{
+    "message":"Events Services",
+    "description":"English: Events Services"
+  },
+  "profileUserIndustryExecutiveOffice":{
+    "message":"Executive Office",
+    "description":"English: Executive Office"
+  },
+  "profileUserIndustryFacilitiesServices":{
+    "message":"Facilities Services",
+    "description":"English: Facilities Services"
+  },
+  "profileUserIndustryFarming":{
+    "message":"Farming",
+    "description":"English: Farming"
+  },
+  "profileUserIndustryFinancialServices":{
+    "message":"Financial Services",
+    "description":"English: Financial Services"
+  },
+  "profileUserIndustryFineArt":{
+    "message":"Fine Art",
+    "description":"English: Fine Art"
+  },
+  "profileUserIndustryFishery":{
+    "message":"Fishery",
+    "description":"English: Fishery"
+  },
+  "profileUserIndustryFoodProduction":{
+    "message":"Food Production",
+    "description":"English: Food Production"
+  },
+  "profileUserIndustryFoodBeverages":{
+    "message":"Food/Beverages",
+    "description":"English: Food/Beverages"
+  },
+  "profileUserIndustryFundraising":{
+    "message":"Fundraising",
+    "description":"English: Fundraising"
+  },
+  "profileUserIndustryFurniture":{
+    "message":"Furniture",
+    "description":"English: Furniture"
+  },
+  "profileUserIndustryGamblingCasinos":{
+    "message":"Gambling/Casinos",
+    "description":"English: Gambling/Casinos"
+  },
+  "profileUserIndustryGlassCeramicsConcrete":{
+    "message":"Glass/Ceramics/Concrete",
+    "description":"English: Glass/Ceramics/Concrete"
+  },
+  "profileUserIndustryGovernmentAdministration":{
+    "message":"Government Administration",
+    "description":"English: Government Administration"
+  },
+  "profileUserIndustryGovernmentRelations":{
+    "message":"Government Relations",
+    "description":"English: Government Relations"
+  },
+  "profileUserIndustryGraphicDesignWebDesign":{
+    "message":"Graphic Design/Web Design",
+    "description":"English: Graphic Design/Web Design"
+  },
+  "profileUserIndustryHealthFitness":{
+    "message":"Health/Fitness",
+    "description":"English: Health/Fitness"
+  },
+  "profileUserIndustryHigherEducationAcadamia":{
+    "message":"Higher Education/Acadamia",
+    "description":"English: Higher Education/Acadamia"
+  },
+  "profileUserIndustryHospitalHealthCare":{
+    "message":"Hospital/Health Care",
+    "description":"English: Hospital/Health Care"
+  },
+  "profileUserIndustryHospitality":{
+    "message":"Hospitality",
+    "description":"English: Hospitality"
+  },
+  "profileUserIndustryHumanResourcesHR":{
+    "message":"Human Resources/HR",
+    "description":"English: Human Resources/HR"
+  },
+  "profileUserIndustryImportExport":{
+    "message":"Import/Export",
+    "description":"English: Import/Export"
+  },
+  "profileUserIndustryIndividualFamilyServices":{
+    "message":"Individual/Family Services",
+    "description":"English: Individual/Family Services"
+  },
+  "profileUserIndustryIndustrialAutomation":{
+    "message":"Industrial Automation",
+    "description":"English: Industrial Automation"
+  },
+  "profileUserIndustryInformationServices":{
+    "message":"Information Services",
+    "description":"English: Information Services"
+  },
+  "profileUserIndustryInformationTechnologyIT":{
+    "message":"Information Technology/IT",
+    "description":"English: Information Technology/IT"
+  },
+  "profileUserIndustryInsurance":{
+    "message":"Insurance",
+    "description":"English: Insurance"
+  },
+  "profileUserIndustryInternationalAffairs":{
+    "message":"International Affairs",
+    "description":"English: International Affairs"
+  },
+  "profileUserIndustryInternationalTradeDevelopment":{
+    "message":"International Trade/Development",
+    "description":"English: International Trade/Development"
+  },
+  "profileUserIndustryInternet":{
+    "message":"Internet",
+    "description":"English: Internet"
+  },
+  "profileUserIndustryInvestmentBankingVenture":{
+    "message":"Investment Banking/Venture",
+    "description":"English: Investment Banking/Venture"
+  },
+  "profileUserIndustryInvestmentManagementHedgeFundPrivateEquity":{
+    "message":"Investment Management/Hedge Fund/Private Equity",
+    "description":"English: Investment Management/Hedge Fund/Private Equity"
+  },
+  "profileUserIndustryJudiciary":{
+    "message":"Judiciary",
+    "description":"English: Judiciary"
+  },
+  "profileUserIndustryLawEnforcement":{
+    "message":"Law Enforcement",
+    "description":"English: Law Enforcement"
+  },
+  "profileUserIndustryLawPracticeLawFirms":{
+    "message":"Law Practice/Law Firms",
+    "description":"English: Law Practice/Law Firms"
+  },
+  "profileUserIndustryLegalServices":{
+    "message":"Legal Services",
+    "description":"English: Legal Services"
+  },
+  "profileUserIndustryLegislativeOffice":{
+    "message":"Legislative Office",
+    "description":"English: Legislative Office"
+  },
+  "profileUserIndustryLeisureTravel":{
+    "message":"Leisure/Travel",
+    "description":"English: Leisure/Travel"
+  },
+  "profileUserIndustryLibrary":{
+    "message":"Library",
+    "description":"English: Library"
+  },
+  "profileUserIndustryLogisticsProcurement":{
+    "message":"Logistics/Procurement",
+    "description":"English: Logistics/Procurement"
+  },
+  "profileUserIndustryLuxuryGoodsJewelry":{
+    "message":"Luxury Goods/Jewelry",
+    "description":"English: Luxury Goods/Jewelry"
+  },
+  "profileUserIndustryMachinery":{
+    "message":"Machinery",
+    "description":"English: Machinery"
+  },
+  "profileUserIndustryManagementConsulting":{
+    "message":"Management Consulting",
+    "description":"English: Management Consulting"
+  },
+  "profileUserIndustryMaritime":{
+    "message":"Maritime",
+    "description":"English: Maritime"
+  },
+  "profileUserIndustryMarketResearch":{
+    "message":"Market Research",
+    "description":"English: Market Research"
+  },
+  "profileUserIndustryMarketingAdvertisingSales":{
+    "message":"Marketing/Advertising/Sales",
+    "description":"English: Marketing/Advertising/Sales"
+  },
+  "profileUserIndustryMechanicalorIndustrialEngineering":{
+    "message":"Mechanical or Industrial Engineering",
+    "description":"English: Mechanical or Industrial Engineering"
+  },
+  "profileUserIndustryMediaProduction":{
+    "message":"Media Production",
+    "description":"English: Media Production"
+  },
+  "profileUserIndustryMedicalEquipment":{
+    "message":"Medical Equipment",
+    "description":"English: Medical Equipment"
+  },
+  "profileUserIndustryMedicalPractice":{
+    "message":"Medical Practice",
+    "description":"English: Medical Practice"
+  },
+  "profileUserIndustryMentalHealthCare":{
+    "message":"Mental Health Care",
+    "description":"English: Mental Health Care"
+  },
+  "profileUserIndustryMilitaryIndustry":{
+    "message":"Military Industry",
+    "description":"English: Military Industry"
+  },
+  "profileUserIndustryMiningMetals":{
+    "message":"Mining/Metals",
+    "description":"English: Mining/Metals"
+  },
+  "profileUserIndustryMotionPicturesFilm":{
+    "message":"Motion Pictures/Film",
+    "description":"English: Motion Pictures/Film"
+  },
+  "profileUserIndustryMuseumsInstitutions":{
+    "message":"Museums/Institutions",
+    "description":"English: Museums/Institutions"
+  },
+  "profileUserIndustryMusic":{
+    "message":"Music",
+    "description":"English: Music"
+  },
+  "profileUserIndustryNanotechnology":{
+    "message":"Nanotechnology",
+    "description":"English: Nanotechnology"
+  },
+  "profileUserIndustryNewspapersJournalism":{
+    "message":"Newspapers/Journalism",
+    "description":"English: Newspapers/Journalism"
+  },
+  "profileUserIndustryNonProfitVolunteering":{
+    "message":"Non-Profit/Volunteering",
+    "description":"English: Non-Profit/Volunteering"
+  },
+  "profileUserIndustryOilEnergySolarGreentech":{
+    "message":"Oil/Energy/Solar/Greentech",
+    "description":"English: Oil/Energy/Solar/Greentech"
+  },
+  "profileUserIndustryOnlinePublishing":{
+    "message":"Online Publishing",
+    "description":"English: Online Publishing"
+  },
+  "profileUserIndustryOtherIndustry":{
+    "message":"Other Industry",
+    "description":"English: Other Industry"
+  },
+  "profileUserIndustryOutsourcingOffshoring":{
+    "message":"Outsourcing/Offshoring",
+    "description":"English: Outsourcing/Offshoring"
+  },
+  "profileUserIndustryPackageFreightDelivery":{
+    "message":"Package/Freight Delivery",
+    "description":"English: Package/Freight Delivery"
+  },
+  "profileUserIndustryPackagingContainers":{
+    "message":"Packaging/Containers",
+    "description":"English: Packaging/Containers"
+  },
+  "profileUserIndustryPaperForestProducts":{
+    "message":"Paper/Forest Products",
+    "description":"English: Paper/Forest Products"
+  },
+  "profileUserIndustryPerformingArts":{
+    "message":"Performing Arts",
+    "description":"English: Performing Arts"
+  },
+  "profileUserIndustryPharmaceuticals":{
+    "message":"Pharmaceuticals",
+    "description":"English: Pharmaceuticals"
+  },
+  "profileUserIndustryPhilanthropy":{
+    "message":"Philanthropy",
+    "description":"English: Philanthropy"
+  },
+  "profileUserIndustryPhotography":{
+    "message":"Photography",
+    "description":"English: Photography"
+  },
+  "profileUserIndustryPlastics":{
+    "message":"Plastics",
+    "description":"English: Plastics"
+  },
+  "profileUserIndustryPoliticalOrganization":{
+    "message":"Political Organization",
+    "description":"English: Political Organization"
+  },
+  "profileUserIndustryPrimarySecondaryEducation":{
+    "message":"Primary/Secondary Education",
+    "description":"English: Primary/Secondary Education"
+  },
+  "profileUserIndustryPrinting":{
+    "message":"Printing",
+    "description":"English: Printing"
+  },
+  "profileUserIndustryProfessionalTraining":{
+    "message":"Professional Training",
+    "description":"English: Professional Training"
+  },
+  "profileUserIndustryProgramDevelopment":{
+    "message":"Program Development",
+    "description":"English: Program Development"
+  },
+  "profileUserIndustryPublicRelationsPR":{
+    "message":"Public Relations/PR",
+    "description":"English: Public Relations/PR"
+  },
+  "profileUserIndustryPublicSafety":{
+    "message":"Public Safety",
+    "description":"English: Public Safety"
+  },
+  "profileUserIndustryPublishingIndustry":{
+    "message":"Publishing Industry",
+    "description":"English: Publishing Industry"
+  },
+  "profileUserIndustryRailroadManufacture":{
+    "message":"Railroad Manufacture",
+    "description":"English: Railroad Manufacture"
+  },
+  "profileUserIndustryRanching":{
+    "message":"Ranching",
+    "description":"English: Ranching"
+  },
+  "profileUserIndustryRealEstateMortgage":{
+    "message":"Real Estate/Mortgage",
+    "description":"English: Real Estate/Mortgage"
+  },
+  "profileUserIndustryRecreationalFacilitiesServices":{
+    "message":"Recreational Facilities/Services",
+    "description":"English: Recreational Facilities/Services"
+  },
+  "profileUserIndustryReligiousInstitutions":{
+    "message":"Religious Institutions",
+    "description":"English: Religious Institutions"
+  },
+  "profileUserIndustryRenewablesEnvironment":{
+    "message":"Renewables/Environment",
+    "description":"English: Renewables/Environment"
+  },
+  "profileUserIndustryResearchIndustry":{
+    "message":"Research Industry",
+    "description":"English: Research Industry"
+  },
+  "profileUserIndustryRestaurants":{
+    "message":"Restaurants",
+    "description":"English: Restaurants"
+  },
+  "profileUserIndustryRetailIndustry":{
+    "message":"Retail Industry",
+    "description":"English: Retail Industry"
+  },
+  "profileUserIndustrySecurityInvestigations":{
+    "message":"Security/Investigations",
+    "description":"English: Security/Investigations"
+  },
+  "profileUserIndustrySemiconductors":{
+    "message":"Semiconductors",
+    "description":"English: Semiconductors"
+  },
+  "profileUserIndustryShipbuilding":{
+    "message":"Shipbuilding",
+    "description":"English: Shipbuilding"
+  },
+  "profileUserIndustrySportingGoods":{
+    "message":"Sporting Goods",
+    "description":"English: Sporting Goods"
+  },
+  "profileUserIndustrySports":{
+    "message":"Sports",
+    "description":"English: Sports"
+  },
+  "profileUserIndustryStaffingRecruiting":{
+    "message":"Staffing/Recruiting",
+    "description":"English: Staffing/Recruiting"
+  },
+  "profileUserIndustrySupermarkets":{
+    "message":"Supermarkets",
+    "description":"English: Supermarkets"
   },
   "profileUserIndustryTelecommunications":{
-    "message":"Telecommunications Services",
-    "description":"English: Telecommunications Services"
+    "message":"Telecommunications",
+    "description":"English: Telecommunications"
+  },
+  "profileUserIndustryTextiles":{
+    "message":"Textiles",
+    "description":"English: Textiles"
+  },
+  "profileUserIndustryThinkTanks":{
+    "message":"Think Tanks",
+    "description":"English: Think Tanks"
+  },
+  "profileUserIndustryTobacco":{
+    "message":"Tobacco",
+    "description":"English: Tobacco"
+  },
+  "profileUserIndustryTranslationLocalization":{
+    "message":"Translation/Localization",
+    "description":"English: Translation/Localization"
+  },
+  "profileUserIndustryTransportation":{
+    "message":"Transportation",
+    "description":"English: Transportation"
   },
   "profileUserIndustryUtilities":{
     "message":"Utilities",
     "description":"English: Utilities"
+  },
+  "profileUserIndustryVentureCapitalVC":{
+    "message":"Venture Capital/VC",
+    "description":"English: Venture Capital/VC"
+  },
+  "profileUserIndustryVeterinary":{
+    "message":"Veterinary",
+    "description":"English: Veterinary"
+  },
+  "profileUserIndustryWarehousing":{
+    "message":"Warehousing",
+    "description":"English: Warehousing"
+  },
+  "profileUserIndustryWholesale":{
+    "message":"Wholesale",
+    "description":"English: Wholesale"
+  },
+  "profileUserIndustryWineSpirits":{
+    "message":"Wine/Spirits",
+    "description":"English: Wine/Spirits"
+  },
+  "profileUserIndustryWireless":{
+    "message":"Wireless",
+    "description":"English: Wireless"
+  },
+  "profileUserIndustryWritingEditing":{
+    "message":"Writing/Editing",
+    "description":"English: Writing/Editing"
   },
   "profileLocationSharing":{
     "message":"I'm ok to complete my profile with my location",
