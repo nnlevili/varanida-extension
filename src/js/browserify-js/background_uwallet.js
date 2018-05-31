@@ -210,21 +210,23 @@ const checkEthereumAddress = function(address) {
     err => callback && callback(err instanceof Error? err.message : err));
 }
 
-µWallet.importWallet = function(password, seed, callback) {
+µWallet.importWallet = function(password, seed, callback, isRestore) {
   this.keyringController &&
   this.keyringController.createNewVaultAndRestore(password, seed)
   .then((memStore) => {
     if (memStore) {
       let address = memStore.keyrings[0].accounts[0];
-      this.updateWalletSettings({
-        keyringAddress: address,
-        hasKeyring: true
-      });
-      this.signalInstallation();
+      if (!isRestore) {
+        this.updateWalletSettings({
+          keyringAddress: address,
+          hasKeyring: true
+        });
+        this.signalInstallation();
+      }
       return {
         seed: seed,
         address: address,
-      }
+      };
     }
     return null;
   })
@@ -247,12 +249,39 @@ const checkEthereumAddress = function(address) {
   });
 }
 
+µWallet.changePassword = function(currentPassword, newPassword, callback) {
+  if (!this.walletSettings.hasKeyring || this.walletSettings.onlyAddress) {
+    return callback && callback("no full wallet to change password");
+  }
+  this.keyringController.submitPassword(currentPassword)
+  .then(() => this.keyringController.getKeyringForAccount(this.walletSettings.keyringAddress))
+  .then((keyring) => {
+    const seed = keyring.mnemonic;
+    return new Promise((resolve, reject) => {
+      this.importWallet(newPassword, seed, resolve, true);
+    });
+  })
+  .then(res => callback && callback(res),
+    err => callback && callback(err instanceof Error? err.message : err));
+};
+
+µWallet.restoreWalletFromSeed = function(password, seed, callback) {
+  if (!this.walletSettings.hasKeyring || this.walletSettings.onlyAddress) {
+    return callback && callback("no full wallet to restore");
+  }
+  const infosFromSeed = this.getInfosFromSeed(seed);
+  if (infosFromSeed.address !== this.walletSettings.keyringAddress) {
+    callback && callback("i18n-seedMismatch");
+  }
+  return this.importWallet(password, seed, callback, true);
+};
+
 µWallet.signalInstallation = function(callback) {
   if (
     this.walletSettings.installationSignaled ||
     !this.walletSettings.keyringAddress
   ) {
-    return;
+    return callback && callback(false);
   }
 
   const walletContext = this;
@@ -289,7 +318,7 @@ const checkEthereumAddress = function(address) {
     !this.walletSettings.referrerAddress ||
     !this.walletSettings.keyringAddress
   ) {
-    return;
+    return callback && callback(false);
   }
 
   const walletContext = this;
@@ -716,7 +745,7 @@ const getChartRawData = function(address, callback) {
 
 const curateChartData = function(data, callback) {
   if (!data || !Array.isArray(data)) {
-    callback && callback(false);
+    return callback && callback(false);
   }
   let dateCorrespondanceObj = {};
   let dateArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];

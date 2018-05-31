@@ -39,7 +39,7 @@
     "bip39": "^2.5.0",
     "blakejs": "1.1.0",
     "chart.js": "^2.7.2",
-    "eth-keyring-controller": "^3.1.1",
+    "eth-keyring-controller": "^3.1.4",
     "eth-sig-util": "^1.4.2",
     "ethereumjs-util": "^5.2.0",
     "ethereumjs-wallet": "^0.6.0",

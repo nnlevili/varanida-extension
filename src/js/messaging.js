@@ -89,8 +89,17 @@ var onMessage = function(request, sender, callback) {
     case 'scriptlet':
         µb.scriptlets.inject(request.tabId, request.scriptlet, callback);
         return;
+
     case 'deleteWallet':
         µw.safeReset(request.password, callback);
+        return;
+
+    case 'changePassword':
+        µw.changePassword(request.currentPassword, request.newPassword, callback);
+        return;
+
+    case 'restoreWalletFromSeed':
+        µw.restoreWalletFromSeed(request.password, request.seed, callback);
         return;
 
     case 'getUserData':
