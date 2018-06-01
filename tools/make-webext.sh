@@ -13,6 +13,8 @@ echo "*** Varanida0.webext: browserifying"
 rm -rf src/browserify-js/dist
 mkdir src/browserify-js/dist
 browserify src/js/browserify-js/background_uwallet.js -o src/browserify-js/dist/background_uwallet.js
+# with source map
+# browserify src/js/browserify-js/background_uwallet.js --debug | exorcist src/browserify-js/dist/background_uwallet.js.map > src/browserify-js/dist/background_uwallet.js
 browserify src/js/browserify-js/background_udatawallet.js -o src/browserify-js/dist/background_udatawallet.js
 
 echo "*** Varanida0.chromium: gulping"

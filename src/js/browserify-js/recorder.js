@@ -58,7 +58,7 @@ class Recorder extends EventEmitter {
   start() {
     console.log("starting recorder");
     this._started = true;
-    vAPI.setTimeout(this._checkTimeEmit, START_TIMEOUT);
+    vAPI.setTimeout(this._checkTimeEmit.bind(this), START_TIMEOUT);
   }
   writeOne() {
     if (!this._started) {
@@ -123,12 +123,12 @@ class Recorder extends EventEmitter {
     }
   }
 
-  _checkTimeEmit = () => {
+  _checkTimeEmit() {
     if (!this._hasEmitted && this._buffer.length > MIN_ENTRIES_BETWEEN_READ) {
       this._hasEmitted = true;
       this.emit('needsReading', {length: this._buffer.length});
     }
-    vAPI.setTimeout(this._checkTimeEmit, MIN_TIME_BETWEEN_CHECK);
+    vAPI.setTimeout(this._checkTimeEmit.bind(this), MIN_TIME_BETWEEN_CHECK);
   }
 }
 

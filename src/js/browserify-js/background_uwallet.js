@@ -23,12 +23,7 @@
 'use strict';
 
 /******************************************************************************/
-//(to avoid bugs with included libs)
-const log = require('loglevel');
-log.setDefaultLevel(5);
-global.log = log;
 //npm dependencies
-const AWS = require('aws-sdk');
 const KeyringController = require('eth-keyring-controller');
 const blake = require('blakejs');
 const moment = require('moment');
