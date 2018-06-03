@@ -54,6 +54,8 @@ rm -rf $DES/js/browserify-js
 rm -rf $DES/js/bundled
 rm -rf $DES/css/bundled
 rm -rf $DES/css/fonts/*/
+rm $DES/img/.DS_Store
+rm $DES/img/browsericons/.DS_Store
 
 echo "*** Varanida0.webext: concatenating content scripts"
 cat $DES/js/vapi-usercss.js > /tmp/contentscript.js
@@ -71,6 +73,7 @@ python tools/make-webext-meta.py $DES/
 
 if [ "$1" = all ]; then
     echo "*** Varanida0.webext: Creating package..."
+    rm $DES.xpi
     pushd $DES > /dev/null
     zip ../$(basename $DES).xpi -qr *
     popd > /dev/null
