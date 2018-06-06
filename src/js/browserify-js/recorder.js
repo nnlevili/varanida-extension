@@ -85,13 +85,14 @@ class Recorder extends EventEmitter {
         continue;
       }
       outbuffer.push({
-        category:     this._buffer[i].cat,
-        timestamp:    this._buffer[i].tstamp,
-        requestUrl:   this._buffer[i].d2,
-        rootHostname: this._buffer[i].d3,
-        pageHostname: this._buffer[i].d4,
-        filter:       this._buffer[i].d0.raw,
-        level:        this._buffer[i].shareLevel
+        category:       this._buffer[i].cat,
+        timestamp:      this._buffer[i].tstamp,
+        requestUrl:     this._buffer[i].d2,
+        rootHostname:   this._buffer[i].d3,
+        pageHostname:   this._buffer[i].d4,
+        rawFilter:         this._buffer[i].d0.raw,
+        compiledFilter: this._buffer[i].d0.compiled,
+        level:          this._buffer[i].shareLevel
       });
     }
     this._clean();

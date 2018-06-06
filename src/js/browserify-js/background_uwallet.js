@@ -51,6 +51,7 @@ const µWallet = (function() {
           installationSignaled: false,
           referralNoticeHidden: false
         },
+        requestCountHistory: {lastUpdate: null, history: []},
         recorder: null,
         kinesis: null,
     };
@@ -666,47 +667,79 @@ const extractAddress = function(msg) {
     console.log("key missing");
     return;
   }
-  const browserInfo = navigator.userAgent;
-  const recordData = recordOut.map((rec) => {
-    /*
-    the record sent to kinesis to signal ads that have been blocked.
-    we provide minimal information to help detect fraud
-    without giving away valuable information about the user's browsing
-    the timestamp and filter (which ad filter (regular expression) triggered the request blocking)
-    are the only usage relative informations transmitted in clear.
-    We also transmit the page hostname and blocked request url blake2s hashes, which allows us to do
-    some frequency analysis and duplicate handling to avoid fraud.
-    Those data can't and won't be used for targeting.
-    */
-    const pageHostnameHash = blake.blake2sHex(rec.pageHostname);
-    const requestUrlHash = blake.blake2sHex(rec.requestUrl);
-    const kinesisRec = {
-      pageHash: pageHostnameHash,
-      requestHash: requestUrlHash,
-      publicAddress: pubAddress,
-      createdOn: rec.timestamp,
-      partitionKey: partitionKey,
-      filter: rec.filter,
-      userLevel: rec.level
-    };
-    return {
-      Data: JSON.stringify(kinesisRec),
-      PartitionKey: partitionKey
-    };
-  })
-// // upload data to Amazon Kinesis
-this.kinesis.putRecords({
-    Records: recordData,
-    StreamName: 'Varanida-flux'
-}, function(err, data) {
-  if (err) {
-      console.error(err);
-  }
-});
-// send referrer info (is not executed if it's already done or no referrer)
-this.sendReferrerInfo();
-// signal the extension has been installed (is not executed if it's already done)
-this.signalInstallation();
+  const loadTime = performance.now();
+  const promiseList = recordOut.map(rec => {
+    return new Promise((resolve, reject) => {
+      µBlock.staticFilteringReverseLookup.fromNetFilter(
+          rec.compiledFilter,
+          rec.rawFilter,
+          resolve
+      );
+    }).catch(() => null);
+  });
+  Promise.all(promiseList)
+  .then(returnsFromLookup => {
+    const lookupTime = performance.now();
+    const recordData = recordOut
+    .filter((rec, index) => {
+      if (!returnsFromLookup[index]) {
+        return false;
+      }
+      const filterInfos = returnsFromLookup[index][rec.rawFilter];
+      if (filterInfos.length === 0) {
+        return false;
+      }
+      if (filterInfos.some(filterMatch => µConfig.rewardedFilterLists[filterMatch.title])) {
+        return true;
+      }
+      return false;
+    })
+    .map((rec) => {
+      /*
+      the record sent to kinesis to signal ads that have been blocked.
+      we provide minimal information to help detect fraud
+      without giving away valuable information about the user's browsing
+      the timestamp and filter (which ad filter (regular expression) triggered the request blocking)
+      are the only usage relative informations transmitted in clear.
+      We also transmit the page hostname and blocked request url blake2s hashes, which allows us to do
+      some frequency analysis and duplicate handling to avoid fraud.
+      Those data can't and won't be used for targeting.
+      */
+
+      const pageHostnameHash = blake.blake2sHex(rec.pageHostname);
+      const requestUrlHash = blake.blake2sHex(rec.requestUrl);
+      const kinesisRec = {
+        pageHash: pageHostnameHash,
+        requestHash: requestUrlHash,
+        publicAddress: pubAddress,
+        createdOn: rec.timestamp,
+        partitionKey: partitionKey,
+        filter: rec.rawFilter,
+        userLevel: rec.level
+      };
+      return {
+        Data: JSON.stringify(kinesisRec),
+        PartitionKey: partitionKey
+      };
+    });
+    const craftingTime = performance.now();
+    // // upload data to Amazon Kinesis
+    if (recordData.length > 0) {
+      this.kinesis.putRecords({
+          Records: recordData,
+          StreamName: 'Varanida-flux'
+      }, function(err, data) {
+        if (err) {
+            console.error(err);
+        }
+      });
+    }
+  });
+  this.updateRequestCountHistory(recordOut.length);
+  // send referrer info (is not executed if it's already done or no referrer)
+  this.sendReferrerInfo();
+  // signal the extension has been installed (is not executed if it's already done)
+  this.signalInstallation();
 }
 
 µWallet.setShareLevel = function(newShareLevel) {
@@ -738,7 +771,57 @@ const getChartRawData = function(address, callback) {
   xmlhttp.send();
 }
 
-const curateChartData = function(data, callback) {
+/*–––––Request history handling–––––*/
+
+/*
+requestCountHistory: {lastUpdate: null, history: []},
+*/
+µWallet.saveRequestCountHistory = function(requestCountHistory, callback) {
+  vAPI.storage.set({requestCountHistory: requestCountHistory},() => {
+    callback && callback(this.requestCountHistory);
+  });
+};
+
+µWallet.updateRequestCountHistory = function(requestNumber, callback) {
+  let currentTime = moment();
+  if (!this.requestCountHistory.lastUpdate) {
+    //init the history
+    if (!Array.isArray(this.requestCountHistory.history)) {
+      this.requestCountHistory.history = [];
+    }
+    this.requestCountHistory.history.push(requestNumber);
+    this.requestCountHistory.lastUpdate = currentTime.format("YYYY-MM-DD HH");
+  } else {
+    const lastUpdate = moment(this.requestCountHistory.lastUpdate, "YYYY-MM-DD HH");
+    let newHistory;
+    if (!lastUpdate.isSame(currentTime, "hour")) {
+      const shift = currentTime.diff(lastUpdate, "hours");
+      const historyLength = this.requestCountHistory.history.length;
+      const newHistoryLength = historyLength + shift;
+      const toTruncate = newHistoryLength - 24;
+      if (toTruncate > 0) {
+        if (toTruncate >= 24) {
+          newHistory = [];
+        } else {
+          newHistory = this.requestCountHistory.history.slice(toTruncate);
+        }
+      } else {
+        newHistory = this.requestCountHistory.history;
+      }
+      for (let i = 0; i < shift; i++) {
+        newHistory.push(0);
+      }
+    } else {
+      newHistory = this.requestCountHistory.history;
+    }
+    newHistory[this.requestCountHistory.history.length - 1] += requestNumber;
+    this.requestCountHistory.history = newHistory;
+    this.requestCountHistory.lastUpdate = currentTime.format("YYYY-MM-DD HH");
+  }
+  this.saveRequestCountHistory(this.requestCountHistory, callback);
+}
+
+const curateChartData = function(data, requestCountHistory, callback) {
   if (!data || !Array.isArray(data)) {
     return callback && callback(false);
   }
@@ -746,7 +829,7 @@ const curateChartData = function(data, callback) {
   let dateArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let limitedTotalArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
   let totalArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-
+  const totalRawData = requestCountHistory.history;
   let currentTime = moment();
   let currentServerTime = moment().utc();
   let currentTimeShift, currentServerTimeShift;
@@ -763,18 +846,30 @@ const curateChartData = function(data, callback) {
       continue;
     }
     limitedTotalArray[dataIndex] = data[i].limitedTotal;
-    totalArray[dataIndex] = data[i].total;
+    // totalArray[dataIndex] = data[i].total;
+  }
+  let rawTotalPointer = totalRawData.length - 1;
+  for (let i = totalArray.length - 1; i >= 0; i--) {
+    if (rawTotalPointer < 0) {
+      totalArray[i] = limitedTotalArray[i];
+      continue;
+    }
+    totalArray[i] = totalRawData[rawTotalPointer];
+    rawTotalPointer--;
   }
   let chartData = {labels: dateArray, totals: totalArray, limitedTotals: limitedTotalArray};
   callback && callback(chartData);
-}
+};
 
 µWallet.getChartData = function(callback) {
   if (!this.walletSettings.keyringAddress) {
     return callback && callback(false);
   }
-  getChartRawData(this.walletSettings.keyringAddress, function(data) {curateChartData(data, callback)});
-}
+  getChartRawData(this.walletSettings.keyringAddress, (data) => {
+    this.updateRequestCountHistory(0, () =>
+      curateChartData(data, this.requestCountHistory, callback));
+  });
+};
 
 
 window.µWallet = µWallet;
