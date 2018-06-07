@@ -251,6 +251,10 @@
     "message":"Copier",
     "description":"appears in popup"
   },
+  "popupSaveAsText":{
+    "message":"Sauvegarder comme fichier texte",
+    "description":"appears in popup"
+  },
   "popupReferralNotice":{
     "message":"Partagez-la et gagnez {{referral}} VAD par parrainage",
     "description":"ntoice under address"

@@ -372,9 +372,10 @@
               <div class="form-group m-form__group">
                 <label data-i18n="popupOverlaySaveSeed"></label>
                 <div class="input-group">
-                  <input id="seed-field" onClick="this.select();" readonly="" class="form-control m-input" placeholder="">
+                  <textarea id="seed-field" readonly="" class="form-control m-input" placeholder=""></textarea>
     							<div class="input-group-append">
-    								<button id="seed-clipboard-button" class="btn btn-success" type="button" data-i18n="popupWalletAdressCopy"></button>
+                    <button id="seed-clipboard-button" class="btn btn-success btn-double" type="button" data-i18n-tip="popupWalletAdressCopy" data-tip-position="over"><i class="la la-files-o"></i></button>
+                    <button id="seed-save-button" class="btn btn-success btn-double btn-separate-left" type="button" data-i18n-tip="popupSaveAsText" data-tip-position="over"><i class="la la-floppy-o"></i></button>
     							</div>
     						</div>
                 <span class="m-form__help" data-i18n="popupOverlaySaveSeedSubtitle"></span>

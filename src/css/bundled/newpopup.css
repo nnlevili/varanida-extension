@@ -357,6 +357,21 @@ html, body {
   height: 0;
   margin-top: 0;
 }
+.overlay-form.m-form .input-group>.form-control#seed-field {
+  margin: 0px;
+  padding: .15rem 1rem;
+  height: 70px;
+  resize: none;
+  overflow: hidden;
+}
+.overlay-form.m-form .input-group-append>.btn-double {
+  font-size: 1.5rem;
+  padding: 0.1rem 0.5rem;
+}
+.overlay-form.m-form .input-group-append>.btn-separate-left {
+  border-left-color: #27b95d;
+}
+
 .overlayWindow .m-stack__item .btn,
 .overlayWindow .m-form__actions .btn {
   min-width: 90px;

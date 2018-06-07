@@ -608,6 +608,19 @@ var copyAdressToClipboard = function(fieldToCopy) {
 
 /******************************************************************************/
 
+var saveSeed = function() {
+  var seedField = uDom.nodeFromId("seed-field");
+  var seedText = seedField.innerHTML;
+
+  vAPI.download({
+      'url': 'data:text/plain;charset=utf-8,' +
+             encodeURIComponent(seedText),
+      'filename': "varanida_wallet_passphrase.txt"
+  });
+};
+
+/******************************************************************************/
+
 // var gotoZap = function() {
 //     messaging.send(
 //         'popupPanel',
@@ -1093,6 +1106,8 @@ var onHideTooltip = function() {
     // uDom('#revertRules').on('click', revertFirewallRules);
     uDom('#address-clipboard-button').on('click', function() {copyAdressToClipboard("address-field")});
     uDom('#seed-clipboard-button').on('click', function() {copyAdressToClipboard("seed-field")});
+    uDom('#seed-save-button').on('click', saveSeed);
+
     // uDom('[data-i18n="popupAnyRulePrompt"]').on('click', toggleMinimize);
 
     uDom('body').on('mouseenter', '[data-tip]', onShowTooltip)
