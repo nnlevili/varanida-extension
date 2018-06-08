@@ -467,6 +467,10 @@
     "message":"Password mismatch",
     "description": "password mismatch error message"
   },
+  "passwordTooShortError":{
+    "message":"Password is too short ({{minLength}} characters minimum)",
+    "description": "password too short error message"
+  },
   "noSeedError":{
     "message":"no passphrase provided",
     "description": "no seed error message"

@@ -41,7 +41,7 @@
       if (!userDataStore || !userDataStore[lvlStr]) {
         return false;
       }
-      var levelStructure = µConfig.userDataStructure[lvlStr];
+      var levelStructure = µProfileConfig.userDataStructure[lvlStr];
       var levelStore = userDataStore[lvlStr];
       for (var i = 0; i < levelStructure.length; i++) {
         if (
@@ -142,7 +142,11 @@
       for (var i = 0; i < configList.length; i++) {
         var opt = configList[i];
         var el = document.createElement("option");
-        el.textContent = opt.name;
+        if (opt.name) {
+          el.textContent = opt.name;
+        } else if (opt.i18n) {
+          el.textContent = vAPI.i18n(opt.i18n);
+        }
         el.value = opt.id;
         element.appendChild(el);
       }
@@ -357,8 +361,9 @@
             onUnlockWallet();
           }
         });
-        initDropDown(uDom.nodeFromId("user-city"), µConfig.countryList);
-        initLanguageDropDown(uDom.nodeFromId("user-mother-tongue"), µConfig.languageList);
+        initDropDown(uDom.nodeFromId("user-city"), µProfileConfig.countryList);
+        initDropDown(uDom.nodeFromId("user-industry"), µProfileConfig.industryList);
+        initLanguageDropDown(uDom.nodeFromId("user-mother-tongue"), µProfileConfig.languageList);
         uDom('#lockWalletButton').on('click', onLockWallet);
         uDom('#profileSaveButton').on('click', onProfileSave);
         uDom('[data-setting-type="input"]').forEach(function(uNode) {

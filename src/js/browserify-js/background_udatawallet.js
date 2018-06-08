@@ -279,7 +279,7 @@ const cleanData = function(dirtyData) {
     if (dirtyData[lvlStr] && typeof dirtyData[lvlStr] === "object") {
       cleanData[lvlStr] = {};
       cleanLevelData = cleanData[lvlStr];
-      levelStructure = µConfig.userDataStructure[lvlStr];
+      levelStructure = µProfileConfig.userDataStructure[lvlStr];
       levelData = dirtyData[lvlStr];
       for (let i = 0; i < levelStructure.length; i++) {
         if (

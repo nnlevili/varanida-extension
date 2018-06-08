@@ -465,6 +465,9 @@ var createWalletFromOverlay = function(ev) {
     errorField.textContent = vAPI.i18n('passwordMismatchError');
     errorField.parentElement.classList.add("has-danger");
     return;
+  } else if (pass1.length < µConfig.minimalPasswordLength) {
+    errorField.textContent = vAPI.i18n('passwordTooShortError').replace("{{minLength}}", µConfig.minimalPasswordLength);
+    errorField.parentElement.classList.add("has-danger");
   } else {
     errorField.textContent = "";
     errorField.parentElement.classList.remove("has-danger");
@@ -485,6 +488,9 @@ var importWalletFromOverlay = function(ev) {
     errorField.textContent = vAPI.i18n('passwordMismatchError');
     errorField.parentElement.classList.add("has-danger");
     return;
+  } else if (pass1.length < µConfig.minimalPasswordLength) {
+    errorField.textContent = vAPI.i18n('passwordTooShortError').replace("{{minLength}}", µConfig.minimalPasswordLength);
+    errorField.parentElement.classList.add("has-danger");
   } else if (seed === "") {
     errorField.textContent = vAPI.i18n('noSeedError');
     errorField.parentElement.classList.add("has-danger");

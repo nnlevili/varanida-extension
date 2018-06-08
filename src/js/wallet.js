@@ -174,8 +174,11 @@ function onChangePassword() {
     oldErrorField.textContent = vAPI.i18n('passwordError');
     return;
   }
-  if (pass1 !== pass2 || pass1 === "") {
+  if (pass1 !== pass2) {
     errorField.textContent = vAPI.i18n('passwordMismatchError');
+    return;
+  }  else if (pass1.length < µConfig.minimalPasswordLength) {
+    errorField.textContent = vAPI.i18n('passwordTooShortError').replace("{{minLength}}", µConfig.minimalPasswordLength);
     return;
   }
   messaging.send('dashboard', { what: 'changePassword', currentPassword: oldPass, newPassword: pass1}, onChangeHandler);
