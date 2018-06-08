@@ -328,21 +328,55 @@ var renderWallet = function(address) {
 
 /******************************************************************************/
 
+var overlayState = {
+  set: function(overlayId, params) {
+    var memObject = JSON.stringify({
+      overlayId: overlayId,
+      params: params
+    });
+    vAPI.localStorage.setItem("popupOverlayState", memObject);
+  },
+  get: function() {
+    var state = vAPI.localStorage.getItem("popupOverlayState");
+    if (state) {
+      return JSON.parse(state);
+    } else {
+      return null;
+    }
+  },
+  remove: function() {
+    vAPI.localStorage.removeItem("popupOverlayState");
+  }
+};
+
+/******************************************************************************/
+
 var showOverlay = function(overlayId, params) {
   var overlaysContainer = uDom.nodeFromId("overlays");
   var overlay = uDom.nodeFromId(overlayId);
   if (overlayId === "showSeedOverlay" && params) {
     var seedContainer = uDom.nodeFromId("seed-field");
     seedContainer.value = params.seed;
+    seedContainer.setAttribute("data-seed", params.seed);
   } else if (overlayId === "infoOverlay" && params) {
     uDom.nodeFromId("info-overlay-title").textContent = params.title || vAPI.i18n('popupInfoOverlayDefaultTitle');
     uDom.nodeFromId("info-overlay-text").textContent = params.text || "";
     uDom.nodeFromId("info-validate-button-overlay").textContent = params.button || vAPI.i18n('popupInfoOverlayDefaultButton');
   } else if (overlayId === "importWalletOverlay") {
-    var startOverlayPanel = uDom.nodeFromId("importMethodOverlayPanel");
-    startOverlayPanel.style.setProperty("display", "block");
+    if (params && params.currentPanel) {
+      var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
+      var currentImportPanel = uDom.nodeFromId(params.currentPanel);
+      importMethodPanel.style.setProperty("display", "none");
+      currentImportPanel.style.setProperty("display", "block");
+    } else {
+      var startOverlayPanel = uDom.nodeFromId("importMethodOverlayPanel");
+      startOverlayPanel.style.setProperty("display", "block");
+    }
   }
   if (overlay) {
+    if (overlayId !== "referralInputOverlay") {
+      overlayState.set(overlayId, params);
+    }
     overlaysContainer.style.setProperty("display", "block");
     overlay.style.setProperty("display", "block");
     return true;
@@ -352,6 +386,7 @@ var showOverlay = function(overlayId, params) {
   }
 }
 var hideOverlay = function(overlayId) {
+  overlayState.remove();
   var overlaysContainer = uDom.nodeFromId("overlays");
   var overlaysList = uDom.nodesFromClass("overlayWindow");
   if (overlayId === "createWalletOverlay" || overlayId === "all") {
@@ -363,6 +398,7 @@ var hideOverlay = function(overlayId) {
   if (overlayId === "showSeedOverlay" || overlayId === "all") {
     var seedContainer = uDom.nodeFromId("seed-field");
     seedContainer.value = "";
+    seedContainer.removeAttribute("data-seed");
   }
   if (overlayId === "importWalletOverlay" || overlayId === "all") {
     var passwordFieldImport = uDom.nodeFromId("import-wallet-password");
@@ -388,18 +424,35 @@ var hideOverlay = function(overlayId) {
 }
 
 var showWalletImport = function() {
+  overlayState.set("importWalletOverlay", {currentPanel:"walletOverlayPanel"});
   var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
   var walletImportPanel = uDom.nodeFromId("walletOverlayPanel");
   importMethodPanel.style.setProperty("display", "none");
   walletImportPanel.style.setProperty("display", "block");
-}
+};
 
 var showAddressImport = function() {
+  overlayState.set("importWalletOverlay", {currentPanel:"addressOverlayPanel"});
   var importMethodPanel = uDom.nodeFromId("importMethodOverlayPanel");
   var addressImportPanel = uDom.nodeFromId("addressOverlayPanel");
   importMethodPanel.style.setProperty("display", "none");
   addressImportPanel.style.setProperty("display", "block");
-}
+};
+
+var restoreOverlays = function() {
+  var currentOverlayState = overlayState.get();
+  if (!currentOverlayState) {
+    return;
+  }
+  if (
+    !currentOverlayState.overlayId ||
+    currentOverlayState.overlayId === "referralInputOverlay"
+  ) {
+    overlayState.remove();
+    return;
+  }
+  showOverlay(currentOverlayState.overlayId, currentOverlayState.params);
+};
 
 var createWalletFromOverlay = function(ev) {
   ev.preventDefault();
@@ -610,7 +663,7 @@ var copyAdressToClipboard = function(fieldToCopy) {
 
 var saveSeed = function() {
   var seedField = uDom.nodeFromId("seed-field");
-  var seedText = seedField.innerHTML;
+  var seedText = seedField.getAttribute("data-seed");
 
   vAPI.download({
       'url': 'data:text/plain;charset=utf-8,' +
@@ -770,6 +823,7 @@ var getPopupData = function(tabId) {
         hashFromPopupData(true);
         pollForContentChange();
         showReferralWindow(); // will only be executed if it hasn't already
+        restoreOverlays();
     };
     messaging.send(
         'popupPanel',
