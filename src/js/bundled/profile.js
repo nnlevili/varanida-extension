@@ -212,7 +212,18 @@
 
     /******************************************************************************/
 
+    var renderProfileLoading = function(loading) {
+      if (loading) {
+        uDom(".profileLoading").addClass("loading");
+      } else {
+        uDom(".profileLoading").removeClass("loading");
+      }
+    };
+
+    /******************************************************************************/
+
     var onUserDataReceived = function(data) {
+        renderProfileLoading(false);
         var errorMessage = uDom.nodeFromId("errorUnlockWalletMessage");
         if (typeof data !== 'string') {
             userDataStore = data;
@@ -320,6 +331,7 @@
     /******************************************************************************/
 
     var onUnlockWallet = function() {
+        renderProfileLoading(true);
         password = uDom.nodeFromId("unlock-password").value;
         privkey = uDom.nodeFromId("unlock-privkey").value;
         messaging.send('dashboard', { what: 'getUserData', password: password , privKey: privkey}, onUserDataReceived);

@@ -178,6 +178,14 @@ var gotoURL = function(ev) {
     vAPI.closePopup();
 };
 
+var renderBalanceLoading = function(loading) {
+  if (loading) {
+    uDom.nodeFromId("balanceLoader").style.setProperty("display", "inline-block");
+  } else {
+    uDom.nodeFromId("balanceLoader").style.setProperty("display", "none");
+  }
+};
+
 /******************************************************************************/
 
 var gotoEtherscan = function(ev) {
@@ -805,9 +813,11 @@ var pollForContentChange = (function() {
 /******************************************************************************/
 
 var getUpdatedRewardData = function() {
+    renderBalanceLoading(true);
     var onDataReceived = function(response) {
         updatePopupData({totalRewardCount: response});
         renderWallet();
+        renderBalanceLoading(false);
     };
     messaging.send(
         'popupPanel',

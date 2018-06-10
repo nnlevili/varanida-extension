@@ -115,3 +115,15 @@
 #profileSaveButton {
   min-width: 175px;
 }
+.profileLoading {
+  display: none;
+}
+
+.profileLoading.loading {
+  display: block;
+}
+.profileLoading.m-loader.m-loader--lg:before {
+  left: auto;
+  right: 10px;
+  top: 21px;
+}

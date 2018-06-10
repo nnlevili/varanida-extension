@@ -257,6 +257,27 @@ html, body {
   margin-right: 0.3rem;
 }
 
+#balanceRefresh {
+  width: 13px;
+  height: 13px;
+  display: none;
+  margin-right: 0.1rem;
+  font-size: 1.3rem;
+  color: #2cd168;
+  cursor: pointer;
+}
+#balanceLoader {
+  width: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 0.1rem;
+}
+#balanceLoader:before {
+  margin-top: -0.7rem;
+  border-top-width: 1.5px;
+  border-right-width: 1.5px;
+}
+
 .overlay-container {
   display: none;
   position: absolute;
