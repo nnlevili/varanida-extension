@@ -235,13 +235,23 @@ var renderPopup = function() {
 
     blocked = popupData.globalBlockedRequestCount;
     total = popupData.globalAllowedRequestCount + blocked;
+    var blockedStr = total === 0? "" : blocked.toString();
+    var percentageBlockedStr = formatNumber(Math.floor(blocked * 100 / total));
+    var numberLength = blockedStr.length + percentageBlockedStr.length;
     if ( total === 0 ) {
         text = formatNumber(0);
     } else {
         text = statsStr.replace('{{count}}', formatNumber(blocked))
-                       .replace('{{percent}}', formatNumber(Math.floor(blocked * 100 / total)));
+                       .replace('{{percent}}', percentageBlockedStr);
     }
-    uDom.nodeFromId('total-blocked').textContent = text;
+    if (numberLength > 6) {
+      var totalFontSize = Math.round(21 - numberLength)/10;
+      var totalNode = uDom.nodeFromId('total-blocked');
+      totalNode.style.setProperty("font-size", totalFontSize+"rem");
+      totalNode.textContent = text;
+    } else {
+      uDom.nodeFromId('total-blocked').textContent = text;
+    }
 
     // https://github.com/gorhill/uBlock/issues/507
     // Convenience: open the logger with current tab automatically selected
