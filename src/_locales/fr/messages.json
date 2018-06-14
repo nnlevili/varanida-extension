@@ -447,6 +447,46 @@
     "message":"Pas de parrain",
     "description":"no referral overlay button"
   },
+  "popupOverlayCaptchaTitle":{
+    "message":"Vérification de sécurité",
+    "description":"captcha overlay title"
+  },
+  "popupOverlayCaptchaSubTitle":{
+    "message":"Vous devez subir ceci pour recevoir des tokens. De cette façon, nous donnons plus aux humains et moins aux robots.",
+    "description":"captcha overlay subtitle"
+  },
+  "popupOverlayCaptchaField":{
+    "message":"Recopier le texte suivant",
+    "description":"captcha overlay field title"
+  },
+  "popupOverlayCaptchaChangeSubtitle":{
+    "message":"Changer de texte",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaHelpSubtitle":{
+    "message":"L'image contient 5 caractères",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaButton":{
+    "message":"Valider",
+    "description":"captcha overlay valid button"
+  },
+  "popupOverlayNoCaptchaButton":{
+    "message":"Annuler",
+    "description":"captcha overlay cancel button"
+  },
+  "getCaptchaError":{
+    "message":"Erreur lors du téléchargement du captcha",
+    "description":"captcha overlay error"
+  },
+  "captchaLengthError":{
+    "message":"Réponse de taille inadéquate (5 caractères attendus)",
+    "description":"captcha overlay error"
+  },
+  "wrongCaptchaError":{
+    "message":"Mauvaise réponse",
+    "description":"captcha overlay error"
+  },
   "popupInfoOverlayDefaultTitle":{
     "message":"Information",
     "description":"default title for the info overlay"

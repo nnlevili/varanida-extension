@@ -390,6 +390,8 @@ var showOverlay = function(overlayId, params) {
       var startOverlayPanel = uDom.nodeFromId("importMethodOverlayPanel");
       startOverlayPanel.style.setProperty("display", "block");
     }
+  } else if (overlayId === "captchaOverlay" && params) {
+    uDom.nodeFromId("captchaField").innerHTML = params.svgCaptcha;
   }
   if (overlay) {
     if (overlayId !== "referralInputOverlay") {
@@ -431,6 +433,9 @@ var hideOverlay = function(overlayId) {
     importMethodPanel.style.setProperty("display", "block");
     walletImportPanel.style.setProperty("display", "none");
     addressImportPanel.style.setProperty("display", "none");
+  }
+  if (overlayId === "captchaOverlay") {
+    uDom.nodeFromId("captchaField").innerHTML = "";
   }
   if (overlayId === "referralInputOverlay") {
     messaging.send('popupPanel', { what: 'setReferralWindowShown', shown: true });
@@ -541,6 +546,23 @@ var showReferralWindow = function() {
     return; // the referral window has already been shown
   }
   showOverlay("referralInputOverlay");
+}
+
+var sendCaptchaAnswerFromOverlay = function(ev) {
+  ev.preventDefault();
+  var solutionField = uDom.nodeFromId("input-captcha");
+  var errorField = uDom.nodeFromId("input-captcha-overlay-error");
+  var solution = solutionField.value;
+  if (solution.length !== 5) {
+    errorField.textContent = vAPI.i18n('captchaLengthError');
+    errorField.parentElement.classList.add("has-danger");
+    showCaptcha();
+    return;
+  } else {
+    errorField.textContent = "";
+    errorField.parentElement.classList.remove("has-danger");
+  }
+  sendCaptchaAnswerAndContinue(solution);
 }
 
 var importReferralFromOverlay = function(ev) {
@@ -912,7 +934,6 @@ var importWallet = function(password, seed) {
       renderWallet();
       hideOverlay("importWalletOverlay");
       showOverlay("showSeedOverlay", {seed: response.seed})
-      getUpdatedRewardData();
     };
     messaging.send(
         'popupPanel',
@@ -937,7 +958,7 @@ var importWallet = function(password, seed) {
       });
       renderWallet();
       hideOverlay("importWalletOverlay");
-      getUpdatedRewardData();
+      showCaptcha();
     };
     messaging.send(
         'popupPanel',
@@ -970,6 +991,60 @@ var importWallet = function(password, seed) {
     );
 };
 
+/******************************************************************************/
+
+  var showCaptcha = function() {
+    var onCaptchaReceived = function(response) {
+      if (!response) {
+        var errorField = uDom.nodeFromId("input-captcha-overlay-error");
+        errorField.textContent = vAPI.i18n('getCaptchaError');
+        errorField.parentElement.classList.add("has-danger");
+        return console.log("error getting captcha");
+      }
+      showOverlay("captchaOverlay", {
+        svgCaptcha: response,
+      });
+
+    };
+    messaging.send(
+        'popupPanel',
+        { what: 'getCaptcha'},
+        onCaptchaReceived
+    );
+};
+
+/******************************************************************************/
+
+var renderCaptchaLoading = function(loading) {
+  if (loading) {
+    uDom(".captchaLoading").addClass("loading");
+  } else {
+    uDom(".captchaLoading").removeClass("loading");
+  }
+};
+
+/******************************************************************************/
+
+  var sendCaptchaAnswerAndContinue = function(solution) {
+    var onResponseReceived = function(response) {
+      renderCaptchaLoading(false);
+      if (!response) {
+        var errorField = uDom.nodeFromId("input-captcha-overlay-error");
+        errorField.textContent = vAPI.i18n('wrongCaptchaError');
+        errorField.parentElement.classList.add("has-danger");
+        showCaptcha();
+        return console.log("error getting captcha");
+      }
+      getUpdatedRewardData();
+      hideOverlay("captchaOverlay");
+    };
+    renderCaptchaLoading(true);
+    messaging.send(
+        'popupPanel',
+        { what: 'sendCaptchaAnswerAndContinue', 'solution': solution},
+        onResponseReceived
+    );
+};
 /******************************************************************************/
 
   var getChartData = function(callback) {
@@ -1217,7 +1292,15 @@ var onHideTooltip = function() {
     uDom('#import-address-button-overlay').on('click', importAddressFromOverlay);
     uDom('#cancel-import-address-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("importWalletOverlay");});
 
-    uDom('#show-seed-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("showSeedOverlay");});
+    uDom('#show-seed-button-overlay').on('click', function(ev){
+      ev.preventDefault();
+      hideOverlay("showSeedOverlay");
+      showCaptcha();
+    });
+
+    uDom('#change-captcha').on('click', showCaptcha);
+    uDom('#input-captcha-button-overlay').on('click', sendCaptchaAnswerFromOverlay);
+    uDom('#no-captcha-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("captchaOverlay");});
 
     uDom('#import-referral-button-overlay').on('click', importReferralFromOverlay);
     uDom('#no-referral-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("referralInputOverlay");});

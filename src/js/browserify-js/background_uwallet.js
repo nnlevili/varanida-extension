@@ -196,7 +196,6 @@ const checkEthereumAddress = function(address) {
     if (!keyring) {
       return null;
     }
-    this.signalInstallation();
     return {
       address: address,
       seed: keyring.mnemonic,
@@ -217,7 +216,6 @@ const checkEthereumAddress = function(address) {
           keyringAddress: address,
           hasKeyring: true
         });
-        this.signalInstallation();
       }
       return {
         seed: seed,
@@ -239,7 +237,6 @@ const checkEthereumAddress = function(address) {
     hasKeyring: true,
     onlyAddress: true
   });
-  this.signalInstallation();
   callback && callback({
     address: address
   });
@@ -622,6 +619,71 @@ const extractAddress = function(msg) {
     this.saveRewardCount(0);
     callback(0);
   }
+};
+
+µWallet.getCaptcha = function(callback) {
+  if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {
+    const xmlhttp = new XMLHttpRequest();
+    const url = `http://localhost:8125/captcha?publicAddress=${this.walletSettings.keyringAddress}`;
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          const svgCaptcha = this.responseText;
+          callback && callback(svgCaptcha);
+        } else {
+          callback && callback(null);
+        }
+      }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  } else {
+    callback(null);
+  }
+};
+
+µWallet.sendCaptchaAnswer = function(solution, callback) {
+  if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {
+    const xmlhttp = new XMLHttpRequest();
+    const url = `http://localhost:8125/imhuman?solution=${solution}&publicAddress=${this.walletSettings.keyringAddress}`;
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          callback && callback(true);
+        } else {
+          callback && callback(false);
+        }
+      }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+  } else {
+    callback(false);
+  }
+};
+
+µWallet.sendCaptchaAnswerAndContinue = function(solution, callback) {
+  return new Promise((resolve) => {
+    this.sendCaptchaAnswer(solution, resolve);
+  })
+  .then(success => {
+    if (success) {
+      return new Promise((resolve) => {
+        setTimeout(resolve,3000);
+        this.signalInstallation(resolve);
+      })
+      .then(() => {
+        return new Promise((resolve) => {
+          setTimeout(resolve,3000);
+          this.sendReferrerInfo(resolve);
+        });
+      })
+      .then(() => {
+        callback && callback(success);
+      });
+    }
+    callback && callback(success);
+  });
 };
 
 /*–––––Recording handling–––––*/

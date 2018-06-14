@@ -447,6 +447,46 @@
     "message":"No Referral",
     "description":"no referral overlay button"
   },
+  "popupOverlayCaptchaTitle":{
+    "message":"Security Check",
+    "description":"captcha overlay title"
+  },
+  "popupOverlayCaptchaSubTitle":{
+    "message":"You have to go through this to participate to receive tokens. This way we give more to real humans, and less to bots.",
+    "description":"captcha overlay subtitle"
+  },
+  "popupOverlayCaptchaField":{
+    "message":"Please enter the text below",
+    "description":"captcha overlay field title"
+  },
+  "popupOverlayCaptchaChangeSubtitle":{
+    "message":"Try another text",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaHelpSubtitle":{
+    "message":"The picture contains 5 characters",
+    "description":"captcha overlay response help"
+  },
+  "popupOverlayCaptchaButton":{
+    "message":"Validate",
+    "description":"captcha overlay valid button"
+  },
+  "popupOverlayNoCaptchaButton":{
+    "message":"Cancel",
+    "description":"captcha overlay cancel button"
+  },
+  "getCaptchaError":{
+    "message":"Error retrieving the captcha",
+    "description":"captcha overlay error"
+  },
+  "captchaLengthError":{
+    "message":"Answer is not the right length (expected 5 characters)",
+    "description":"captcha overlay error"
+  },
+  "wrongCaptchaError":{
+    "message":"Wrong answer",
+    "description":"captcha overlay error"
+  },
   "popupInfoOverlayDefaultTitle":{
     "message":"Information",
     "description":"default title for the info overlay"

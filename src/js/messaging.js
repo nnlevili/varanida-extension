@@ -468,6 +468,12 @@ var onMessage = function(request, sender, callback) {
     case 'getChartData':
         µw.getChartData(callback);
         return;
+    case 'getCaptcha':
+        µw.getCaptcha(callback);
+        return;
+    case 'sendCaptchaAnswerAndContinue':
+        µw.sendCaptchaAnswerAndContinue(request.solution, callback);
+        return;
     default:
         break;
     }

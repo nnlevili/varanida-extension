@@ -496,6 +496,43 @@
         </form>
       </div>
     </div>
+    <!-- captcha overlay -->
+    <div class="overlayWindow" id="captchaOverlay">
+      <div class="m-stack m-stack--hor m-stack--general">
+        <div class="stack-overlay-title m-stack__item m-stack__item--center m-stack__item--middle">
+          <div class="overlayTitle">
+            <h3 data-i18n="popupOverlayCaptchaTitle"></h3>
+          </div>
+        </div>
+        <div class="m-stack__item m-stack__item--center m-stack__item--middle">
+          <div class="overlayText"><p data-i18n="popupOverlayCaptchaSubTitle"></p></div>
+        </div>
+        <form class="overlay-form m-form m-form--state">
+          <div class="m-portlet__body">
+            <div class="m-form__section m-form__section--first">
+              <div class="form-group m-form__group">
+                <label data-i18n="popupOverlayCaptchaField"></label>
+                <div id="captchaField">
+                </div>
+                <span id="change-captcha" class="m-form__help" data-i18n="popupOverlayCaptchaChangeSubtitle"></span>
+                <div>
+                  <div class="captchaLoading m-loader m-loader--lg m-loader--success"></div>
+                  <input id="input-captcha" type="text" class="centered-form form-control m-input" autocomplete="off" placeholder="">
+                  <span class="m-form__help" data-i18n="popupOverlayCaptchaHelpSubtitle"></span>
+                  <div id="input-captcha-overlay-error" class="form-control-feedback"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="m-portlet__foot m-portlet__foot--fit">
+            <div class="m-form__actions m-form__actions">
+              <button id="input-captcha-button-overlay" class="btn btn-primary btn-success" data-i18n="popupOverlayCaptchaButton"></button>
+              <button id="no-captcha-button-overlay" class="btn btn-secondary" data-i18n="popupOverlayNoCaptchaButton"></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
     <!-- generic info overlay -->
     <div class="overlayWindow" id="infoOverlay">
       <div class="m-stack m-stack--hor m-stack--general">
