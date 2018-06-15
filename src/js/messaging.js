@@ -474,6 +474,9 @@ var onMessage = function(request, sender, callback) {
     case 'sendCaptchaAnswerAndContinue':
         µw.sendCaptchaAnswerAndContinue(request.solution, callback);
         return;
+    case 'getCaptchaStatus':
+        µw.getCaptchaStatus(callback);
+        return;
     default:
         break;
     }

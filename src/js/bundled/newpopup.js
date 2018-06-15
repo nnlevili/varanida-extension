@@ -958,7 +958,7 @@ var importWallet = function(password, seed) {
       });
       renderWallet();
       hideOverlay("importWalletOverlay");
-      showCaptcha();
+      showCaptchaIfNotValidated();
     };
     messaging.send(
         'popupPanel',
@@ -989,6 +989,32 @@ var importWallet = function(password, seed) {
         { what: 'importReferrer', address: address },
         onReferralInfoReceived
     );
+};
+
+/******************************************************************************/
+
+var closeSeedOverlay = function() {
+  hideOverlay("showSeedOverlay");
+  showCaptchaIfNotValidated();
+};
+
+/******************************************************************************/
+
+var showCaptchaIfNotValidated = function() {
+  showOverlay("waitingOverlay");
+  var onStatusReceived = function(alreadyVerified) {
+    hideOverlay("waitingOverlay");
+    if (!alreadyVerified) {
+      showCaptcha();
+    } else {
+      getUpdatedRewardData();
+    }
+  };
+  messaging.send(
+      'popupPanel',
+      { what: 'getCaptchaStatus'},
+      onStatusReceived
+  );
 };
 
 /******************************************************************************/
@@ -1292,11 +1318,7 @@ var onHideTooltip = function() {
     uDom('#import-address-button-overlay').on('click', importAddressFromOverlay);
     uDom('#cancel-import-address-button-overlay').on('click', function(ev){ev.preventDefault();hideOverlay("importWalletOverlay");});
 
-    uDom('#show-seed-button-overlay').on('click', function(ev){
-      ev.preventDefault();
-      hideOverlay("showSeedOverlay");
-      showCaptcha();
-    });
+    uDom('#show-seed-button-overlay').on('click', function(ev){ev.preventDefault();closeSeedOverlay();});
 
     uDom('#change-captcha').on('click', showCaptcha);
     uDom('#input-captcha-button-overlay').on('click', sendCaptchaAnswerFromOverlay);

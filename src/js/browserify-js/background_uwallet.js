@@ -49,7 +49,8 @@ const µWallet = (function() {
           referrerAddress: null,
           referrerSignaled: false,
           installationSignaled: false,
-          referralNoticeHidden: false
+          referralNoticeHidden: false,
+          captchaValidated: false,
         },
         requestCountHistory: {lastUpdate: null, history: []},
         recorder: null,
@@ -155,7 +156,8 @@ const checkEthereumAddress = function(address) {
         referrerAddress: null,
         referrerSignaled: false,
         installationSignaled: false,
-        referralNoticeHidden: false
+        referralNoticeHidden: false,
+        captchaValidated: false
       };
       if (paramsToKeep) {
         for (let key in paramsToKeep) {
@@ -624,7 +626,7 @@ const extractAddress = function(msg) {
 µWallet.getCaptcha = function(callback) {
   if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {
     const xmlhttp = new XMLHttpRequest();
-    const url = `http://localhost:8125/captcha?publicAddress=${this.walletSettings.keyringAddress}`;
+    const url = `${µConfig.urls.api}captcha?publicAddress=${this.walletSettings.keyringAddress}`;
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4) {
         if (this.status === 200) {
@@ -644,12 +646,52 @@ const extractAddress = function(msg) {
 
 µWallet.sendCaptchaAnswer = function(solution, callback) {
   if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {
+    const self = this;
     const xmlhttp = new XMLHttpRequest();
-    const url = `http://localhost:8125/imhuman?solution=${solution}&publicAddress=${this.walletSettings.keyringAddress}`;
+    const url = `${µConfig.urls.api}api/PublicAddresses/imhuman`;
+    const params = `captcha=${solution}&publicAddress=${this.walletSettings.keyringAddress}`;
     xmlhttp.onreadystatechange = function() {
       if (this.readyState === 4) {
         if (this.status === 200) {
+          self.updateWalletSettings({
+            captchaValidated: true
+          });
           callback && callback(true);
+        } else {
+          callback && callback(false);
+        }
+      }
+    };
+    xmlhttp.open("POST", url, true);
+    xmlhttp.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xmlhttp.send(params);
+  } else {
+    callback(false);
+  }
+};
+
+µWallet.getCaptchaStatus = function(callback) {
+  if (this.walletSettings.hasKeyring && this.walletSettings.keyringAddress) {
+    const self = this;
+    const xmlhttp = new XMLHttpRequest();
+    const url = `${µConfig.urls.api}api/PublicAddresses/${this.walletSettings.keyringAddress}`;
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          let data;
+          try {
+            data = JSON.parse(this.responseText);
+          } catch (e) {
+            data = null;
+          }
+          if (data) {
+            self.updateWalletSettings({
+              captchaValidated: data.status
+            });
+            callback && callback(data.status);
+          } else {
+            callback && callback(false);
+          }
         } else {
           callback && callback(false);
         }

@@ -433,6 +433,24 @@ html, body {
   right: 5px;
   top: 18px;
 }
+
+.waitingOverlayLoading.m-loader {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.waitingOverlayLoading.m-loader:before {
+  width: 4rem;
+  height: 4rem;
+  margin-top: -2rem;
+  margin-left: -2rem;
+  border-top-width: 5px;
+  border-right-width: 5px;
+}
+
 .modal.slideDown {
   z-index: 1;
   height: 0;
